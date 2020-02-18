@@ -457,8 +457,9 @@ public class QueryBuilder<T> {
             builder.append(joinType);
             builder.append('"').append(join.daoDestination.getTablename()).append('"').append(' ');
             builder.append(join.tablePrefix).append(" ON ");
-            SqlUtils.appendProperty(builder, join.sourceTablePrefix, join.joinPropertySource).append('=');
-            SqlUtils.appendProperty(builder, join.tablePrefix, join.joinPropertyDestination);
+            builder.append("(");
+            join.onCollector.appendWhereClause(builder, join.tablePrefix, values);
+            builder.append(") ");
         }
     }
 

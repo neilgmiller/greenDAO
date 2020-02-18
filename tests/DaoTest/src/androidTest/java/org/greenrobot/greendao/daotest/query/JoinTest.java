@@ -19,10 +19,6 @@
 package org.greenrobot.greendao.daotest.query;
 
 import org.greenrobot.greendao.DaoException;
-import org.greenrobot.greendao.query.Join;
-import org.greenrobot.greendao.query.Query;
-import org.greenrobot.greendao.query.QueryBuilder;
-import org.greenrobot.greendao.test.AbstractDaoSessionTest;
 import org.greenrobot.greendao.daotest.DaoMaster;
 import org.greenrobot.greendao.daotest.DaoSession;
 import org.greenrobot.greendao.daotest.RelationEntity;
@@ -30,6 +26,10 @@ import org.greenrobot.greendao.daotest.RelationEntityDao;
 import org.greenrobot.greendao.daotest.TestEntity;
 import org.greenrobot.greendao.daotest.TestEntityDao;
 import org.greenrobot.greendao.daotest.TestEntityDao.Properties;
+import org.greenrobot.greendao.query.Join;
+import org.greenrobot.greendao.query.Query;
+import org.greenrobot.greendao.query.QueryBuilder;
+import org.greenrobot.greendao.test.AbstractDaoSessionTest;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -110,6 +110,23 @@ public class JoinTest extends AbstractDaoSessionTest<DaoMaster, DaoSession> {
 
         query.setParameter(0, 99);
         assertEquals(3, query.list().size());
+    }
+
+    public void testJoinWithExtraON() {
+        prepareData();
+        List<RelationEntity> relationEntities = relationEntityDao.loadAll();
+        relationEntities.get(2).setParent(relationEntities.get(4));
+        relationEntities.get(3).setParent(relationEntities.get(4));
+        relationEntities.get(7).setParent(relationEntities.get(5));
+        relationEntityDao.updateInTx(relationEntities);
+
+        QueryBuilder<RelationEntity> queryBuilder = relationEntityDao.queryBuilder();
+        queryBuilder.join(RelationEntityDao.Properties.ParentId, RelationEntity.class)
+                .on(RelationEntityDao.Properties.SimpleString.eq(relationEntities.get(5).getSimpleString()));
+
+        Query<RelationEntity> query = queryBuilder.build();
+        RelationEntity entity = query.uniqueOrThrow();
+        assertEquals(relationEntities.get(7).getSimpleString(), entity.getSimpleString());
     }
 
     public void testJoinDelete() {

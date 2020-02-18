@@ -17,6 +17,7 @@ package org.greenrobot.greendao.query;
 
 import org.greenrobot.greendao.AbstractDao;
 import org.greenrobot.greendao.Property;
+import org.greenrobot.greendao.internal.SqlUtils;
 
 /**
  * A Join lets you relate to other entity types for queries, and allows using WHERE statements on the joined entity
@@ -31,6 +32,7 @@ public class Join<SRC, DST> {
     final Property joinPropertyDestination;
     final String tablePrefix;
     final WhereCollector<DST> whereCollector;
+    final WhereCollector<DST> onCollector;
 
     public Join(String sourceTablePrefix, Property sourceJoinProperty,
                 AbstractDao<DST, ?> daoDestination, Property destinationJoinProperty,
@@ -41,8 +43,31 @@ public class Join<SRC, DST> {
         this.joinPropertyDestination = destinationJoinProperty;
         tablePrefix = joinTablePrefix;
         whereCollector = new WhereCollector<DST>(daoDestination, joinTablePrefix);
+        onCollector = new WhereCollector<DST>(daoDestination, joinTablePrefix);
+
+        StringBuilder builder = new StringBuilder();
+        SqlUtils.appendProperty(builder, sourceTablePrefix, joinPropertySource).append('=');
+        SqlUtils.appendProperty(builder, tablePrefix, joinPropertyDestination);
+        onCollector.add(new WhereCondition.StringCondition(builder.toString()));
     }
 
+    /**
+     * Adds the given conditions to the on clause using an logical AND. To create new conditions, use the properties
+     * given in the generated dao classes.
+     */
+    public Join<SRC, DST> on(WhereCondition cond, WhereCondition... condMore) {
+        onCollector.add(cond, condMore);
+        return this;
+    }
+
+    /**
+     * Adds the given conditions to the on clause using an logical OR. To create new conditions, use the properties
+     * given in the generated dao classes.
+     */
+    public Join<SRC, DST> onOr(WhereCondition cond1, WhereCondition cond2, WhereCondition... condMore) {
+        onCollector.add(or(cond1, cond2, condMore));
+        return this;
+    }
 
     /**
      * Adds the given conditions to the where clause using an logical AND. To create new conditions, use the properties
