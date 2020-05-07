@@ -22,8 +22,8 @@ public class AnActiveEntityDao extends AbstractDao<AnActiveEntity, Long> {
      * Can be used for QueryBuilder and for referencing column names.
      */
     public static class Properties {
-        public final static Property Id = new Property(0, Long.class, "id", true, "_id");
-        public final static Property Text = new Property(1, String.class, "text", false, "TEXT");
+        public final static Property<Long, Long> Id = new Property<>(0, Long.class, Long.class, "id", true, "_id", null);
+        public final static Property<String, String> Text = new Property<>(1, String.class, String.class, "text", false, "TEXT", null);
     }
 
     private DaoSession daoSession;

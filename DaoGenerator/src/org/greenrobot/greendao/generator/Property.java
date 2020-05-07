@@ -302,11 +302,42 @@ public class Property {
         return javaType;
     }
 
+    public String getJavaTypeForGeneric() {
+        switch (javaType) {
+            case "boolean":
+                return "Boolean";
+            case "byte":
+                return "Byte";
+            case "char":
+                return "Char";
+            case "short":
+                return "Short";
+            case "int":
+                return "Integer";
+            case "long":
+                return "Long";
+            case "float":
+                return "Float";
+            case "double":
+                return "Double";
+            default:
+                return javaType;
+        }
+    }
+
     public String getJavaTypeInEntity() {
         if (customTypeClassName != null) {
             return customTypeClassName;
         } else {
             return javaType;
+        }
+    }
+
+    public String getJavaTypeInEntityForGeneric() {
+        if (customTypeClassName != null) {
+            return customTypeClassName;
+        } else {
+            return getJavaTypeForGeneric();
         }
     }
 
@@ -373,7 +404,7 @@ public class Property {
     public String getDatabaseValueExpression(String entityValue) {
         StringBuilder builder = new StringBuilder();
         if (customType != null) {
-            builder.append(propertyName).append("Converter.convertToDatabaseValue(");
+            builder.append("Properties.").append(DaoUtil.capFirst(propertyName)).append(".convertToDatabaseValue(");
         }
         builder.append(entityValue);
         if (customType != null) {
@@ -396,7 +427,7 @@ public class Property {
     public String getEntityValueExpression(String databaseValue) {
         StringBuilder builder = new StringBuilder();
         if (customType != null) {
-            builder.append(propertyName).append("Converter.convertToEntityProperty(");
+            builder.append("Properties.").append(DaoUtil.capFirst(propertyName)).append(".convertToEntityProperty(");
         }
         if (propertyType == PropertyType.Byte) {
             builder.append("(byte) ");

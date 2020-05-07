@@ -22,16 +22,16 @@ public class TestEntityDao extends AbstractDao<TestEntity, Long> {
      * Can be used for QueryBuilder and for referencing column names.
      */
     public static class Properties {
-        public final static Property Id = new Property(0, Long.class, "id", true, "_id");
-        public final static Property SimpleInt = new Property(1, int.class, "simpleInt", false, "SIMPLE_INT");
-        public final static Property SimpleInteger = new Property(2, Integer.class, "simpleInteger", false, "SIMPLE_INTEGER");
-        public final static Property SimpleStringNotNull = new Property(3, String.class, "simpleStringNotNull", false, "SIMPLE_STRING_NOT_NULL");
-        public final static Property SimpleString = new Property(4, String.class, "simpleString", false, "SIMPLE_STRING");
-        public final static Property IndexedString = new Property(5, String.class, "indexedString", false, "INDEXED_STRING");
-        public final static Property IndexedStringAscUnique = new Property(6, String.class, "indexedStringAscUnique", false, "INDEXED_STRING_ASC_UNIQUE");
-        public final static Property SimpleDate = new Property(7, java.util.Date.class, "simpleDate", false, "SIMPLE_DATE");
-        public final static Property SimpleBoolean = new Property(8, Boolean.class, "simpleBoolean", false, "SIMPLE_BOOLEAN");
-        public final static Property SimpleByteArray = new Property(9, byte[].class, "simpleByteArray", false, "SIMPLE_BYTE_ARRAY");
+        public final static Property<Long, Long> Id = new Property<>(0, Long.class, Long.class, "id", true, "_id", null);
+        public final static Property<Integer, Integer> SimpleInt = new Property<>(1, int.class, int.class, "simpleInt", false, "SIMPLE_INT", null);
+        public final static Property<Integer, Integer> SimpleInteger = new Property<>(2, Integer.class, Integer.class, "simpleInteger", false, "SIMPLE_INTEGER", null);
+        public final static Property<String, String> SimpleStringNotNull = new Property<>(3, String.class, String.class, "simpleStringNotNull", false, "SIMPLE_STRING_NOT_NULL", null);
+        public final static Property<String, String> SimpleString = new Property<>(4, String.class, String.class, "simpleString", false, "SIMPLE_STRING", null);
+        public final static Property<String, String> IndexedString = new Property<>(5, String.class, String.class, "indexedString", false, "INDEXED_STRING", null);
+        public final static Property<String, String> IndexedStringAscUnique = new Property<>(6, String.class, String.class, "indexedStringAscUnique", false, "INDEXED_STRING_ASC_UNIQUE", null);
+        public final static Property<java.util.Date, java.util.Date> SimpleDate = new Property<>(7, java.util.Date.class, java.util.Date.class, "simpleDate", false, "SIMPLE_DATE", null);
+        public final static Property<Boolean, Boolean> SimpleBoolean = new Property<>(8, Boolean.class, Boolean.class, "simpleBoolean", false, "SIMPLE_BOOLEAN", null);
+        public final static Property<byte[], byte[]> SimpleByteArray = new Property<>(9, byte[].class, byte[].class, "simpleByteArray", false, "SIMPLE_BYTE_ARRAY", null);
     }
 
 
@@ -58,9 +58,9 @@ public class TestEntityDao extends AbstractDao<TestEntity, Long> {
                 "\"SIMPLE_BOOLEAN\" INTEGER," + // 8: simpleBoolean
                 "\"SIMPLE_BYTE_ARRAY\" BLOB);"); // 9: simpleByteArray
         // Add Indexes
-        db.execSQL("CREATE INDEX " + constraint + "IDX_TEST_ENTITY_INDEXED_STRING ON TEST_ENTITY" +
+        db.execSQL("CREATE INDEX " + constraint + "IDX_TEST_ENTITY_INDEXED_STRING ON \"TEST_ENTITY\"" +
                 " (\"INDEXED_STRING\");");
-        db.execSQL("CREATE UNIQUE INDEX " + constraint + "IDX_TEST_ENTITY_INDEXED_STRING_ASC_UNIQUE ON TEST_ENTITY" +
+        db.execSQL("CREATE UNIQUE INDEX " + constraint + "IDX_TEST_ENTITY_INDEXED_STRING_ASC_UNIQUE ON \"TEST_ENTITY\"" +
                 " (\"INDEXED_STRING_ASC_UNIQUE\" ASC);");
     }
 

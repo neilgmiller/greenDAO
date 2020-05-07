@@ -22,11 +22,11 @@ public class SqliteMasterDao extends AbstractDao<SqliteMaster, Void> {
      * Can be used for QueryBuilder and for referencing column names.
      */
     public static class Properties {
-        public final static Property Type = new Property(0, String.class, "type", false, "TYPE");
-        public final static Property Name = new Property(1, String.class, "name", false, "NAME");
-        public final static Property TableName = new Property(2, String.class, "tableName", false, "tbl_name");
-        public final static Property Rootpage = new Property(3, Long.class, "rootpage", false, "ROOTPAGE");
-        public final static Property Sql = new Property(4, String.class, "sql", false, "SQL");
+        public final static Property<String, String> Type = new Property<>(0, String.class, String.class, "type", false, "TYPE", null);
+        public final static Property<String, String> Name = new Property<>(1, String.class, String.class, "name", false, "NAME", null);
+        public final static Property<String, String> TableName = new Property<>(2, String.class, String.class, "tableName", false, "tbl_name", null);
+        public final static Property<Long, Long> Rootpage = new Property<>(3, Long.class, Long.class, "rootpage", false, "ROOTPAGE", null);
+        public final static Property<String, String> Sql = new Property<>(4, String.class, String.class, "sql", false, "SQL", null);
     }
 
 

@@ -27,8 +27,8 @@ public class ToManyTarget2Dao extends AbstractDao<ToManyTarget2, Long> {
      * Can be used for QueryBuilder and for referencing column names.
      */
     public static class Properties {
-        public final static Property Id = new Property(0, Long.class, "id", true, "_id");
-        public final static Property FkId = new Property(1, Long.class, "fkId", false, "FK_ID");
+        public final static Property<Long, Long> Id = new Property<>(0, Long.class, Long.class, "id", true, "_id", null);
+        public final static Property<Long, Long> FkId = new Property<>(1, Long.class, Long.class, "fkId", false, "FK_ID", null);
     }
 
     private Query<ToManyTarget2> relationSource2_ToManyTarget2ListQuery;

@@ -19,6 +19,9 @@ dependencies {
     compileOnly 'com.google.android:annotations:4.1.1.4'
     compileOnly 'com.google.android:support-v4:r7'
 
+    // https://mvnrepository.com/artifact/com.google.code.findbugs/jsr305
+    compile group: 'com.google.code.findbugs', name: 'jsr305', version: '3.0.2'
+
     compileOnly 'io.reactivex:rxjava:1.1.8'
 
     compileOnly files('libs/sqlcipher.jar')

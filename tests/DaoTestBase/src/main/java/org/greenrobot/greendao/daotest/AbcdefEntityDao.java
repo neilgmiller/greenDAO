@@ -22,18 +22,18 @@ public class AbcdefEntityDao extends AbstractDao<AbcdefEntity, Long> {
      * Can be used for QueryBuilder and for referencing column names.
      */
     public static class Properties {
-        public final static Property Id = new Property(0, Long.class, "id", true, "_id");
-        public final static Property A = new Property(1, Integer.class, "a", false, "A");
-        public final static Property B = new Property(2, Integer.class, "b", false, "B");
-        public final static Property C = new Property(3, Integer.class, "c", false, "C");
-        public final static Property D = new Property(4, Integer.class, "d", false, "D");
-        public final static Property E = new Property(5, Integer.class, "e", false, "E");
-        public final static Property F = new Property(6, Integer.class, "f", false, "F");
-        public final static Property G = new Property(7, Integer.class, "g", false, "G");
-        public final static Property H = new Property(8, Integer.class, "h", false, "H");
-        public final static Property J = new Property(9, Integer.class, "j", false, "J");
-        public final static Property I = new Property(10, Integer.class, "i", false, "I");
-        public final static Property K = new Property(11, Integer.class, "k", false, "K");
+        public final static Property<Long, Long> Id = new Property<>(0, Long.class, Long.class, "id", true, "_id", null);
+        public final static Property<Integer, Integer> A = new Property<>(1, Integer.class, Integer.class, "a", false, "A", null);
+        public final static Property<Integer, Integer> B = new Property<>(2, Integer.class, Integer.class, "b", false, "B", null);
+        public final static Property<Integer, Integer> C = new Property<>(3, Integer.class, Integer.class, "c", false, "C", null);
+        public final static Property<Integer, Integer> D = new Property<>(4, Integer.class, Integer.class, "d", false, "D", null);
+        public final static Property<Integer, Integer> E = new Property<>(5, Integer.class, Integer.class, "e", false, "E", null);
+        public final static Property<Integer, Integer> F = new Property<>(6, Integer.class, Integer.class, "f", false, "F", null);
+        public final static Property<Integer, Integer> G = new Property<>(7, Integer.class, Integer.class, "g", false, "G", null);
+        public final static Property<Integer, Integer> H = new Property<>(8, Integer.class, Integer.class, "h", false, "H", null);
+        public final static Property<Integer, Integer> J = new Property<>(9, Integer.class, Integer.class, "j", false, "J", null);
+        public final static Property<Integer, Integer> I = new Property<>(10, Integer.class, Integer.class, "i", false, "I", null);
+        public final static Property<Integer, Integer> K = new Property<>(11, Integer.class, Integer.class, "k", false, "K", null);
     }
 
 

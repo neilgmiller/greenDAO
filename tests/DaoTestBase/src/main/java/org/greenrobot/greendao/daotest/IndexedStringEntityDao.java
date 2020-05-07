@@ -22,8 +22,8 @@ public class IndexedStringEntityDao extends AbstractDao<IndexedStringEntity, Lon
      * Can be used for QueryBuilder and for referencing column names.
      */
     public static class Properties {
-        public final static Property Id = new Property(0, Long.class, "id", true, "_id");
-        public final static Property IndexedString = new Property(1, String.class, "indexedString", false, "INDEXED_STRING");
+        public final static Property<Long, Long> Id = new Property<>(0, Long.class, Long.class, "id", true, "_id", null);
+        public final static Property<String, String> IndexedString = new Property<>(1, String.class, String.class, "indexedString", false, "INDEXED_STRING", null);
     }
 
 
@@ -42,7 +42,7 @@ public class IndexedStringEntityDao extends AbstractDao<IndexedStringEntity, Lon
                 "\"_id\" INTEGER PRIMARY KEY ," + // 0: id
                 "\"INDEXED_STRING\" TEXT);"); // 1: indexedString
         // Add Indexes
-        db.execSQL("CREATE INDEX " + constraint + "IDX_INDEXED_STRING_ENTITY_INDEXED_STRING ON INDEXED_STRING_ENTITY" +
+        db.execSQL("CREATE INDEX " + constraint + "IDX_INDEXED_STRING_ENTITY_INDEXED_STRING ON \"INDEXED_STRING_ENTITY\"" +
                 " (\"INDEXED_STRING\");");
     }
 

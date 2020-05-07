@@ -25,8 +25,8 @@ public class CustomTypeEntityDao extends AbstractDao<CustomTypeEntity, Long> {
      * Can be used for QueryBuilder and for referencing column names.
      */
     public static class Properties {
-        public final static Property Id = new Property(0, Long.class, "id", true, "_id");
-        public final static Property MyCustomTimestamp = new Property(1, Long.class, "myCustomTimestamp", false, "MY_CUSTOM_TIMESTAMP");
+        public final static Property<Long, Long> Id = new Property<>(0, Long.class, Long.class, "id", true, "_id", null);
+        public final static Property<MyTimestamp, Long> MyCustomTimestamp = new Property<>(1, MyTimestamp.class, Long.class, "myCustomTimestamp", false, "MY_CUSTOM_TIMESTAMP", new MyTimestampConverter());
     }
 
     private final MyTimestampConverter myCustomTimestampConverter = new MyTimestampConverter();
@@ -64,7 +64,7 @@ public class CustomTypeEntityDao extends AbstractDao<CustomTypeEntity, Long> {
  
         MyTimestamp myCustomTimestamp = entity.getMyCustomTimestamp();
         if (myCustomTimestamp != null) {
-            stmt.bindLong(2, myCustomTimestampConverter.convertToDatabaseValue(myCustomTimestamp));
+            stmt.bindLong(2, Properties.MyCustomTimestamp.convertToDatabaseValue(myCustomTimestamp));
         }
     }
 
@@ -79,7 +79,7 @@ public class CustomTypeEntityDao extends AbstractDao<CustomTypeEntity, Long> {
  
         MyTimestamp myCustomTimestamp = entity.getMyCustomTimestamp();
         if (myCustomTimestamp != null) {
-            stmt.bindLong(2, myCustomTimestampConverter.convertToDatabaseValue(myCustomTimestamp));
+            stmt.bindLong(2, Properties.MyCustomTimestamp.convertToDatabaseValue(myCustomTimestamp));
         }
     }
 
@@ -92,7 +92,7 @@ public class CustomTypeEntityDao extends AbstractDao<CustomTypeEntity, Long> {
     public CustomTypeEntity readEntity(Cursor cursor, int offset) {
         CustomTypeEntity entity = new CustomTypeEntity( //
             cursor.isNull(offset + 0) ? null : cursor.getLong(offset + 0), // id
-            cursor.isNull(offset + 1) ? null : myCustomTimestampConverter.convertToEntityProperty(cursor.getLong(offset + 1)) // myCustomTimestamp
+            cursor.isNull(offset + 1) ? null : Properties.MyCustomTimestamp.convertToEntityProperty(cursor.getLong(offset + 1)) // myCustomTimestamp
         );
         return entity;
     }
@@ -100,7 +100,7 @@ public class CustomTypeEntityDao extends AbstractDao<CustomTypeEntity, Long> {
     @Override
     public void readEntity(Cursor cursor, CustomTypeEntity entity, int offset) {
         entity.setId(cursor.isNull(offset + 0) ? null : cursor.getLong(offset + 0));
-        entity.setMyCustomTimestamp(cursor.isNull(offset + 1) ? null : myCustomTimestampConverter.convertToEntityProperty(cursor.getLong(offset + 1)));
+        entity.setMyCustomTimestamp(cursor.isNull(offset + 1) ? null : Properties.MyCustomTimestamp.convertToEntityProperty(cursor.getLong(offset + 1)));
      }
     
     @Override

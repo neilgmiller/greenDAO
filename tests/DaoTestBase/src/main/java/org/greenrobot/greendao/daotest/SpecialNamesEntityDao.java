@@ -22,16 +22,16 @@ public class SpecialNamesEntityDao extends AbstractDao<SpecialNamesEntity, Long>
      * Can be used for QueryBuilder and for referencing column names.
      */
     public static class Properties {
-        public final static Property Id = new Property(0, Long.class, "id", true, "_id");
-        public final static Property Count = new Property(1, String.class, "count", false, "COUNT");
-        public final static Property Select = new Property(2, String.class, "select", false, "SELECT");
-        public final static Property Sum = new Property(3, String.class, "sum", false, "SUM");
-        public final static Property Avg = new Property(4, String.class, "avg", false, "AVG");
-        public final static Property Join = new Property(5, String.class, "join", false, "JOIN");
-        public final static Property Distinct = new Property(6, String.class, "distinct", false, "DISTINCT");
-        public final static Property On = new Property(7, String.class, "on", false, "ON");
-        public final static Property Index = new Property(8, String.class, "index", false, "INDEX");
-        public final static Property Order = new Property(9, Integer.class, "order", false, "ORDER");
+        public final static Property<Long, Long> Id = new Property<>(0, Long.class, Long.class, "id", true, "_id", null);
+        public final static Property<String, String> Count = new Property<>(1, String.class, String.class, "count", false, "COUNT", null);
+        public final static Property<String, String> Select = new Property<>(2, String.class, String.class, "select", false, "SELECT", null);
+        public final static Property<String, String> Sum = new Property<>(3, String.class, String.class, "sum", false, "SUM", null);
+        public final static Property<String, String> Avg = new Property<>(4, String.class, String.class, "avg", false, "AVG", null);
+        public final static Property<String, String> Join = new Property<>(5, String.class, String.class, "join", false, "JOIN", null);
+        public final static Property<String, String> Distinct = new Property<>(6, String.class, String.class, "distinct", false, "DISTINCT", null);
+        public final static Property<String, String> On = new Property<>(7, String.class, String.class, "on", false, "ON", null);
+        public final static Property<String, String> Index = new Property<>(8, String.class, String.class, "index", false, "INDEX", null);
+        public final static Property<Integer, Integer> Order = new Property<>(9, Integer.class, Integer.class, "order", false, "ORDER", null);
     }
 
 

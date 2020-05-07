@@ -31,8 +31,8 @@ public class RelationSource2Dao extends AbstractDao<RelationSource2, Long> {
      * Can be used for QueryBuilder and for referencing column names.
      */
     public static class Properties {
-        public final static Property Id = new Property(0, Long.class, "id", true, "_id");
-        public final static Property ToOneId = new Property(1, Long.class, "toOneId", false, "TO_ONE_ID");
+        public final static Property<Long, Long> Id = new Property<>(0, Long.class, Long.class, "id", true, "_id", null);
+        public final static Property<Long, Long> ToOneId = new Property<>(1, Long.class, Long.class, "toOneId", false, "TO_ONE_ID", null);
     }
 
     private DaoSession daoSession;

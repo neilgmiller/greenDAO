@@ -22,16 +22,16 @@ public class SimpleEntityDao extends AbstractDao<SimpleEntity, Long> {
      * Can be used for QueryBuilder and for referencing column names.
      */
     public static class Properties {
-        public final static Property Id = new Property(0, Long.class, "id", true, "_id");
-        public final static Property SimpleBoolean = new Property(1, Boolean.class, "simpleBoolean", false, "SIMPLE_BOOLEAN");
-        public final static Property SimpleByte = new Property(2, Byte.class, "simpleByte", false, "SIMPLE_BYTE");
-        public final static Property SimpleShort = new Property(3, Short.class, "simpleShort", false, "SIMPLE_SHORT");
-        public final static Property SimpleInt = new Property(4, Integer.class, "simpleInt", false, "SIMPLE_INT");
-        public final static Property SimpleLong = new Property(5, Long.class, "simpleLong", false, "SIMPLE_LONG");
-        public final static Property SimpleFloat = new Property(6, Float.class, "simpleFloat", false, "SIMPLE_FLOAT");
-        public final static Property SimpleDouble = new Property(7, Double.class, "simpleDouble", false, "SIMPLE_DOUBLE");
-        public final static Property SimpleString = new Property(8, String.class, "simpleString", false, "SIMPLE_STRING");
-        public final static Property SimpleByteArray = new Property(9, byte[].class, "simpleByteArray", false, "SIMPLE_BYTE_ARRAY");
+        public final static Property<Long, Long> Id = new Property<>(0, Long.class, Long.class, "id", true, "_id", null);
+        public final static Property<Boolean, Boolean> SimpleBoolean = new Property<>(1, Boolean.class, Boolean.class, "simpleBoolean", false, "SIMPLE_BOOLEAN", null);
+        public final static Property<Byte, Byte> SimpleByte = new Property<>(2, Byte.class, Byte.class, "simpleByte", false, "SIMPLE_BYTE", null);
+        public final static Property<Short, Short> SimpleShort = new Property<>(3, Short.class, Short.class, "simpleShort", false, "SIMPLE_SHORT", null);
+        public final static Property<Integer, Integer> SimpleInt = new Property<>(4, Integer.class, Integer.class, "simpleInt", false, "SIMPLE_INT", null);
+        public final static Property<Long, Long> SimpleLong = new Property<>(5, Long.class, Long.class, "simpleLong", false, "SIMPLE_LONG", null);
+        public final static Property<Float, Float> SimpleFloat = new Property<>(6, Float.class, Float.class, "simpleFloat", false, "SIMPLE_FLOAT", null);
+        public final static Property<Double, Double> SimpleDouble = new Property<>(7, Double.class, Double.class, "simpleDouble", false, "SIMPLE_DOUBLE", null);
+        public final static Property<String, String> SimpleString = new Property<>(8, String.class, String.class, "simpleString", false, "SIMPLE_STRING", null);
+        public final static Property<byte[], byte[]> SimpleByteArray = new Property<>(9, byte[].class, byte[].class, "simpleByteArray", false, "SIMPLE_BYTE_ARRAY", null);
     }
 
 
