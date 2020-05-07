@@ -5,6 +5,7 @@ import org.greenrobot.greendao.annotation.Entity;
 import org.greenrobot.greendao.annotation.Generated;
 import org.greenrobot.greendao.annotation.Id;
 import org.greenrobot.greendao.annotation.Index;
+import org.greenrobot.greendao.annotation.Keep;
 import org.greenrobot.greendao.annotation.NotNull;
 
 /**
@@ -26,7 +27,7 @@ public class Note {
     @Convert(converter = NoteTypeConverter.class, columnType = String.class)
     private NoteType type;
 
-    @Generated(hash = 1272611929)
+    @Keep
     public Note() {
     }
 
