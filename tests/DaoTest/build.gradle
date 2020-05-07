@@ -16,7 +16,7 @@ android {
     compileSdkVersion rootProject.ext.compileSdkVersion
 
     defaultConfig {
-        minSdkVersion 7
+        minSdkVersion 24
 
         testApplicationId "org.greenrobot.greendao.daotest"
         testInstrumentationRunner "android.test.InstrumentationTestRunner"
