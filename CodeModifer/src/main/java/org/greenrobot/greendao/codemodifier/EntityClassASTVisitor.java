@@ -1715,7 +1715,7 @@ public final class EntityClassASTVisitor extends LazyVisitor {
                   if (it.getCustomType() != null) {
                      String variableClassName = it.getVariable().getType().getName();
                      this.checkIfInnerTypeThenStatic(variableClassName, entityClassName);
-                     String converterClassName = it.getCustomType().getConverterClassName();
+                     String converterClassName = it.getCustomType().converterClassName;
                      this.checkIfInnerTypeThenStatic(converterClassName, entityClassName);
                   }
                }

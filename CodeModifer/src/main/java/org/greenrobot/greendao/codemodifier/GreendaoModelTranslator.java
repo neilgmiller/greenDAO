@@ -265,7 +265,7 @@ public final class GreendaoModelTranslator {
       label56: {
          CustomType var10001 = property.getCustomType();
          if (var10001 != null) {
-            var5 = var10001.getColumnJavaType();
+            var5 = var10001.columnJavaType;
             if (var5 != null) {
                break label56;
             }
@@ -311,7 +311,7 @@ public final class GreendaoModelTranslator {
          }
 
          if (property.getCustomType() != null) {
-            propertyBuilder.customType(property.getVariable().getType().getName(), property.getCustomType().getConverterClassName());
+            propertyBuilder.customType(property.getVariable().getType().getName(), property.getCustomType().converterClassName);
          }
 
       }

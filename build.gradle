@@ -1,3 +1,6 @@
+def versionTag = "SNAPSHOT"
+def workspace = "tmp"
+
 // Sub projects may reference rootProject.version
 version = "3.2.3-${versionTag}"
 
