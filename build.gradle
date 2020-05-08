@@ -79,6 +79,7 @@ subprojects {
                         }
                     } else {
                         println "Settings sonatypeUsername/sonatypePassword missing/incomplete for ${project.name}"
+                        println "userName: ${allegoArtifactoryUser}, password: ${allegoArtifactoryPassword}"
                         repository(url: "https://dev-build.allego.com/artifactory")  {
                             authentication(userName: allegoArtifactoryUser, password: allegoArtifactoryPassword)
                         }
