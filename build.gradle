@@ -79,10 +79,12 @@ subprojects {
                         }
                     } else {
                         println "Settings sonatypeUsername/sonatypePassword missing/incomplete for ${project.name}"
-                        println "userName: ${allegoArtifactoryUser}, password: ${allegoArtifactoryPassword}"
-                        repository(url: "https://dev-build.allego.com/artifactory")  {
-                            authentication(userName: allegoArtifactoryUser, password: allegoArtifactoryPassword)
-                        }
+                        println "Using local rep for ${project.name}"
+                        repository(url: "file://localhost/${workspace}/repo/")
+//                        println "userName: ${allegoArtifactoryUser}, password: ${allegoArtifactoryPassword}"
+//                        repository(url: "https://dev-build.allego.com/artifactory")  {
+//                            authentication(userName: allegoArtifactoryUser, password: allegoArtifactoryPassword)
+//                        }
                     }
 
                     pom.project {
