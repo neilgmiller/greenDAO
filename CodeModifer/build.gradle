@@ -1,0 +1,21 @@
+apply plugin: 'java-library'
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    implementation fileTree(dir: 'libs', include: ['*.jar'])
+
+    implementation project(':DaoGenerator')
+    implementation project(':DaoCore')
+
+    implementation "org.greenrobot:greenrobot-jdt:3.12.2"
+
+    implementation "org.greenrobot:essentials:3.0.0-RC1"
+    implementation "org.jetbrains.kotlin:kotlin-stdlib:1.1.1"
+    implementation "org.jetbrains.kotlin:kotlin-reflect:1.1.1"
+}
+
+sourceCompatibility = "8"
+targetCompatibility = "8"
