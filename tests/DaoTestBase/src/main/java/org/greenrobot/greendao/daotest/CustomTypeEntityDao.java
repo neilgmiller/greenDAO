@@ -25,11 +25,10 @@ public class CustomTypeEntityDao extends AbstractDao<CustomTypeEntity, Long> {
      * Can be used for QueryBuilder and for referencing column names.
      */
     public static class Properties {
-        public final static Property<Long, Long> Id = new Property<>(0, Long.class, Long.class, "id", true, "_id", null);
-        public final static Property<MyTimestamp, Long> MyCustomTimestamp = new Property<>(1, MyTimestamp.class, Long.class, "myCustomTimestamp", false, "MY_CUSTOM_TIMESTAMP", new MyTimestampConverter());
+        public final static Property<Long, Long> Id = new Property<>(0, Long.class, "id", true, "_id", null);
+        public final static Property<MyTimestamp, Long> MyCustomTimestamp = new Property<>(1, Long.class, "myCustomTimestamp", false, "MY_CUSTOM_TIMESTAMP", new MyTimestampConverter());
     }
 
-    private final MyTimestampConverter myCustomTimestampConverter = new MyTimestampConverter();
 
     public CustomTypeEntityDao(DaoConfig config) {
         super(config);

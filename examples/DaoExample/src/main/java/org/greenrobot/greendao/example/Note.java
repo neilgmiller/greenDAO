@@ -8,6 +8,8 @@ import org.greenrobot.greendao.annotation.Index;
 import org.greenrobot.greendao.annotation.Keep;
 import org.greenrobot.greendao.annotation.NotNull;
 
+import java.util.List;
+
 /**
  * Entity mapped to table "NOTE".
  */
@@ -27,6 +29,9 @@ public class Note {
     @Convert(converter = NoteTypeConverter.class, columnType = String.class)
     private NoteType type;
 
+    @Convert(converter = IntegerStringListConverter.class, columnType = String.class)
+    private List<Integer> integerList;
+
     @Keep
     public Note() {
     }
@@ -42,6 +47,17 @@ public class Note {
         this.comment = comment;
         this.date = date;
         this.type = type;
+    }
+
+    @Generated(hash = 1889841626)
+    public Note(Long id, @NotNull String text, String comment, java.util.Date date, NoteType type,
+            List<Integer> integerList) {
+        this.id = id;
+        this.text = text;
+        this.comment = comment;
+        this.date = date;
+        this.type = type;
+        this.integerList = integerList;
     }
 
     public Long getId() {
@@ -84,6 +100,14 @@ public class Note {
 
     public void setType(NoteType type) {
         this.type = type;
+    }
+
+    public List<Integer> getIntegerList() {
+        return this.integerList;
+    }
+
+    public void setIntegerList(List<Integer> integerList) {
+        this.integerList = integerList;
     }
 
 }

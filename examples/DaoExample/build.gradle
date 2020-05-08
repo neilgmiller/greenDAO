@@ -8,6 +8,7 @@ buildscript {
     dependencies {
         classpath 'com.android.tools.build:gradle:3.5.3'
         classpath 'org.greenrobot:greendao-gradle-plugin:3.2.2'
+        classpath fileTree(dir: '../../DaoGenerator/build/libs', include: ['*.jar'])
     }
 }
 
@@ -19,12 +20,18 @@ android {
 
     defaultConfig {
         applicationId "org.greenrobot.greendao.example"
-        minSdkVersion 15
+        minSdkVersion 26
         targetSdkVersion 27
         versionCode 1
         versionName "3"
 
         testInstrumentationRunner "android.test.InstrumentationTestRunner"
+    }
+
+    compileOptions {
+        encoding = "UTF-8"
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
     }
 }
 
@@ -33,7 +40,8 @@ greendao {
 }
 
 dependencies {
-    implementation 'org.greenrobot:greendao:3.2.2'
+    implementation project(':DaoCore')
+    //implementation 'org.greenrobot:greendao:3.2.2'
 
     // optional: add if you want to use encrypted databases, see the App class for details
     // implementation 'net.zetetic:android-database-sqlcipher:3.5.6'

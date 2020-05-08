@@ -78,7 +78,7 @@ public class ${entity.classNameDao} extends AbstractDao<${entity.className}, ${e
      */
     public static class Properties {
 <#list entity.propertiesColumns as property>
-        public final static Property<${property.javaTypeInEntityForGeneric}, ${property.javaTypeForGeneric}> ${property.propertyName?cap_first} = new Property<>(${property_index}, ${property.javaTypeInEntity}.class, ${property.javaType}.class, "${property.propertyName}", ${property.primaryKey?string}, "${property.dbName}", <#if property.customType?has_content>new ${property.converterClassName}()<#else>null</#if>);
+        public final static Property<${property.javaTypeInEntityForGeneric}, ${property.javaTypeForGeneric}> ${property.propertyName?cap_first} = new Property<>(${property_index}, ${property.javaType}.class, "${property.propertyName}", ${property.primaryKey?string}, "${property.dbName}", <#if property.customType?has_content>new ${property.converterClassName}()<#else>null</#if>);
 </#list>
     }
 
@@ -86,9 +86,6 @@ public class ${entity.classNameDao} extends AbstractDao<${entity.className}, ${e
     private ${schema.prefix}DaoSession daoSession;
 
 </#if>
-<#list entity.properties as property><#if property.customType?has_content><#--
--->    private final ${property.converterClassName} ${property.propertyName}Converter = new ${property.converterClassName}();
-</#if></#list>
 <#list entity.incomingToManyRelations as toMany>
     private Query<${toMany.targetEntity.className}> ${toMany.sourceEntity.className?uncap_first}_${toMany.name?cap_first}Query;
 </#list>

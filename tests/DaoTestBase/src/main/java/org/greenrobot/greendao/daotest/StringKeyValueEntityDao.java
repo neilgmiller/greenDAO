@@ -22,8 +22,8 @@ public class StringKeyValueEntityDao extends AbstractDao<StringKeyValueEntity, S
      * Can be used for QueryBuilder and for referencing column names.
      */
     public static class Properties {
-        public final static Property<String, String> Key = new Property<>(0, String.class, String.class, "key", true, "KEY", null);
-        public final static Property<String, String> Value = new Property<>(1, String.class, String.class, "value", false, "VALUE", null);
+        public final static Property<String, String> Key = new Property<>(0, String.class, "key", true, "KEY", null);
+        public final static Property<String, String> Value = new Property<>(1, String.class, "value", false, "VALUE", null);
     }
 
 

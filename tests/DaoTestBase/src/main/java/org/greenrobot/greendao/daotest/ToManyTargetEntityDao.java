@@ -25,10 +25,10 @@ public class ToManyTargetEntityDao extends AbstractDao<ToManyTargetEntity, Long>
      * Can be used for QueryBuilder and for referencing column names.
      */
     public static class Properties {
-        public final static Property<Long, Long> ToManyId = new Property<>(0, Long.class, Long.class, "toManyId", false, "TO_MANY_ID", null);
-        public final static Property<Long, Long> ToManyIdDesc = new Property<>(1, Long.class, Long.class, "toManyIdDesc", false, "TO_MANY_ID_DESC", null);
-        public final static Property<Long, Long> Id = new Property<>(2, Long.class, Long.class, "id", true, "_id", null);
-        public final static Property<String, String> TargetJoinProperty = new Property<>(3, String.class, String.class, "targetJoinProperty", false, "TARGET_JOIN_PROPERTY", null);
+        public final static Property<Long, Long> ToManyId = new Property<>(0, Long.class, "toManyId", false, "TO_MANY_ID", null);
+        public final static Property<Long, Long> ToManyIdDesc = new Property<>(1, Long.class, "toManyIdDesc", false, "TO_MANY_ID_DESC", null);
+        public final static Property<Long, Long> Id = new Property<>(2, Long.class, "id", true, "_id", null);
+        public final static Property<String, String> TargetJoinProperty = new Property<>(3, String.class, "targetJoinProperty", false, "TARGET_JOIN_PROPERTY", null);
     }
 
     private Query<ToManyTargetEntity> toManyEntity_ToManyTargetEntityListQuery;

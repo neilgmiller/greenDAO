@@ -25,9 +25,9 @@ public class DateEntityDao extends AbstractDao<DateEntity, Long> {
      * Can be used for QueryBuilder and for referencing column names.
      */
     public static class Properties {
-        public final static Property<Long, Long> Id = new Property<>(0, Long.class, Long.class, "id", true, "_id", null);
-        public final static Property<java.util.Date, java.util.Date> Date = new Property<>(1, java.util.Date.class, java.util.Date.class, "date", false, "DATE", null);
-        public final static Property<java.util.Date, java.util.Date> DateNotNull = new Property<>(2, java.util.Date.class, java.util.Date.class, "dateNotNull", false, "DATE_NOT_NULL", null);
+        public final static Property<Long, Long> Id = new Property<>(0, Long.class, "id", true, "_id", null);
+        public final static Property<java.util.Date, java.util.Date> Date = new Property<>(1, java.util.Date.class, "date", false, "DATE", null);
+        public final static Property<java.util.Date, java.util.Date> DateNotNull = new Property<>(2, java.util.Date.class, "dateNotNull", false, "DATE_NOT_NULL", null);
     }
 
     private Query<DateEntity> toManyEntity_DateEntityListQuery;

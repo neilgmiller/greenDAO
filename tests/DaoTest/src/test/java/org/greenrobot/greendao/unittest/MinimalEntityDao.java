@@ -22,7 +22,7 @@ public class MinimalEntityDao extends AbstractDao<MinimalEntity, Long> {
      * Can be used for QueryBuilder and for referencing column names.
      */
     public static class Properties {
-        public final static Property<Long, Long> Id = new Property<>(0, Long.class, Long.class, "id", true, "_id", null);
+        public final static Property<Long, Long> Id = new Property<>(0, Long.class, "id", true, "_id", null);
     }
 
 

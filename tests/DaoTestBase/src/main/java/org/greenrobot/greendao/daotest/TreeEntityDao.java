@@ -27,8 +27,8 @@ public class TreeEntityDao extends AbstractDao<TreeEntity, Long> {
      * Can be used for QueryBuilder and for referencing column names.
      */
     public static class Properties {
-        public final static Property<Long, Long> Id = new Property<>(0, Long.class, Long.class, "id", true, "_id", null);
-        public final static Property<Long, Long> ParentId = new Property<>(1, Long.class, Long.class, "parentId", false, "PARENT_ID", null);
+        public final static Property<Long, Long> Id = new Property<>(0, Long.class, "id", true, "_id", null);
+        public final static Property<Long, Long> ParentId = new Property<>(1, Long.class, "parentId", false, "PARENT_ID", null);
     }
 
     private DaoSession daoSession;

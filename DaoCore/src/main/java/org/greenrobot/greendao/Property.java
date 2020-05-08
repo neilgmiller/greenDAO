@@ -32,7 +32,6 @@ import javax.annotation.Nullable;
  */
 public class Property<T, D> {
     public final int ordinal;
-    public final Class<T> fieldType;
     public final Class<D> type;
     public final String name;
     public final boolean primaryKey;
@@ -40,9 +39,8 @@ public class Property<T, D> {
     @Nullable
     private final PropertyConverter<T, D> propertyConverter;
 
-    public Property(int ordinal, Class<T> fieldType, Class<D> type, String name, boolean primaryKey, String columnName, @Nullable PropertyConverter<T, D> propertyConverter) {
+    public Property(int ordinal, Class<D> type, String name, boolean primaryKey, String columnName, @Nullable PropertyConverter<T, D> propertyConverter) {
         this.ordinal = ordinal;
-        this.fieldType = fieldType;
         this.type = type;
         this.name = name;
         this.primaryKey = primaryKey;

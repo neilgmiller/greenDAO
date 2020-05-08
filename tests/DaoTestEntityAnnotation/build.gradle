@@ -9,7 +9,6 @@ buildscript {
         classpath dep.androidPlugin
         classpath dep.greendaoPlugin
         classpath fileTree(dir: '../../DaoGenerator/build/libs', include: ['*.jar'])
-//        classpath project(':DaoGenerator')
     }
 }
 

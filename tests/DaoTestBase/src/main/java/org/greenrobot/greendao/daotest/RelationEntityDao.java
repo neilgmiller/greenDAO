@@ -25,12 +25,12 @@ public class RelationEntityDao extends AbstractDao<RelationEntity, Long> {
      * Can be used for QueryBuilder and for referencing column names.
      */
     public static class Properties {
-        public final static Property<Long, Long> Id = new Property<>(0, Long.class, Long.class, "id", true, "_id", null);
-        public final static Property<Long, Long> ParentId = new Property<>(1, Long.class, Long.class, "parentId", false, "PARENT_ID", null);
-        public final static Property<Long, Long> TestId = new Property<>(2, Long.class, Long.class, "testId", false, "TEST_ID", null);
-        public final static Property<Long, Long> TestIdNotNull = new Property<>(3, long.class, long.class, "testIdNotNull", false, "TEST_ID_NOT_NULL", null);
-        public final static Property<String, String> SimpleString = new Property<>(4, String.class, String.class, "simpleString", false, "SIMPLE_STRING", null);
-        public final static Property<Long, Long> TestWithoutProperty = new Property<>(5, Long.class, Long.class, "testWithoutProperty", false, "WITHOUT_PROPERTY_TEST_ID", null);
+        public final static Property<Long, Long> Id = new Property<>(0, Long.class, "id", true, "_id", null);
+        public final static Property<Long, Long> ParentId = new Property<>(1, Long.class, "parentId", false, "PARENT_ID", null);
+        public final static Property<Long, Long> TestId = new Property<>(2, Long.class, "testId", false, "TEST_ID", null);
+        public final static Property<Long, Long> TestIdNotNull = new Property<>(3, long.class, "testIdNotNull", false, "TEST_ID_NOT_NULL", null);
+        public final static Property<String, String> SimpleString = new Property<>(4, String.class, "simpleString", false, "SIMPLE_STRING", null);
+        public final static Property<Long, Long> TestWithoutProperty = new Property<>(5, Long.class, "testWithoutProperty", false, "WITHOUT_PROPERTY_TEST_ID", null);
     }
 
     private DaoSession daoSession;

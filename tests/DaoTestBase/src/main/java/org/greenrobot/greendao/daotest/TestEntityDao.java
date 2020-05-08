@@ -22,16 +22,16 @@ public class TestEntityDao extends AbstractDao<TestEntity, Long> {
      * Can be used for QueryBuilder and for referencing column names.
      */
     public static class Properties {
-        public final static Property<Long, Long> Id = new Property<>(0, Long.class, Long.class, "id", true, "_id", null);
-        public final static Property<Integer, Integer> SimpleInt = new Property<>(1, int.class, int.class, "simpleInt", false, "SIMPLE_INT", null);
-        public final static Property<Integer, Integer> SimpleInteger = new Property<>(2, Integer.class, Integer.class, "simpleInteger", false, "SIMPLE_INTEGER", null);
-        public final static Property<String, String> SimpleStringNotNull = new Property<>(3, String.class, String.class, "simpleStringNotNull", false, "SIMPLE_STRING_NOT_NULL", null);
-        public final static Property<String, String> SimpleString = new Property<>(4, String.class, String.class, "simpleString", false, "SIMPLE_STRING", null);
-        public final static Property<String, String> IndexedString = new Property<>(5, String.class, String.class, "indexedString", false, "INDEXED_STRING", null);
-        public final static Property<String, String> IndexedStringAscUnique = new Property<>(6, String.class, String.class, "indexedStringAscUnique", false, "INDEXED_STRING_ASC_UNIQUE", null);
-        public final static Property<java.util.Date, java.util.Date> SimpleDate = new Property<>(7, java.util.Date.class, java.util.Date.class, "simpleDate", false, "SIMPLE_DATE", null);
-        public final static Property<Boolean, Boolean> SimpleBoolean = new Property<>(8, Boolean.class, Boolean.class, "simpleBoolean", false, "SIMPLE_BOOLEAN", null);
-        public final static Property<byte[], byte[]> SimpleByteArray = new Property<>(9, byte[].class, byte[].class, "simpleByteArray", false, "SIMPLE_BYTE_ARRAY", null);
+        public final static Property<Long, Long> Id = new Property<>(0, Long.class, "id", true, "_id", null);
+        public final static Property<Integer, Integer> SimpleInt = new Property<>(1, int.class, "simpleInt", false, "SIMPLE_INT", null);
+        public final static Property<Integer, Integer> SimpleInteger = new Property<>(2, Integer.class, "simpleInteger", false, "SIMPLE_INTEGER", null);
+        public final static Property<String, String> SimpleStringNotNull = new Property<>(3, String.class, "simpleStringNotNull", false, "SIMPLE_STRING_NOT_NULL", null);
+        public final static Property<String, String> SimpleString = new Property<>(4, String.class, "simpleString", false, "SIMPLE_STRING", null);
+        public final static Property<String, String> IndexedString = new Property<>(5, String.class, "indexedString", false, "INDEXED_STRING", null);
+        public final static Property<String, String> IndexedStringAscUnique = new Property<>(6, String.class, "indexedStringAscUnique", false, "INDEXED_STRING_ASC_UNIQUE", null);
+        public final static Property<java.util.Date, java.util.Date> SimpleDate = new Property<>(7, java.util.Date.class, "simpleDate", false, "SIMPLE_DATE", null);
+        public final static Property<Boolean, Boolean> SimpleBoolean = new Property<>(8, Boolean.class, "simpleBoolean", false, "SIMPLE_BOOLEAN", null);
+        public final static Property<byte[], byte[]> SimpleByteArray = new Property<>(9, byte[].class, "simpleByteArray", false, "SIMPLE_BYTE_ARRAY", null);
     }
 
 
