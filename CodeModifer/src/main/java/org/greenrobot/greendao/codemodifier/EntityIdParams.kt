@@ -12,7 +12,7 @@ class EntityIdParams(val autoincrement: Boolean) {
     }
 
     override fun toString(): String {
-        return "EntityIdParams(autoincrement=" + autoincrement + ")"
+        return "EntityIdParams(autoincrement=$autoincrement)"
     }
 
     override fun hashCode(): Int {

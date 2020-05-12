@@ -17,8 +17,8 @@ class EntityClassASTVisitor(private val source: String,
     private val properties: MutableList<ParsedProperty> = mutableListOf()
     private val transientFields: MutableList<TransientField> = mutableListOf()
     private val legacyTransientFields: MutableList<TransientField> = mutableListOf()
-    private val constructors: MutableList<MethodDeclaration> = mutableListOf()
-    private val methods: MutableList<MethodDeclaration> = mutableListOf()
+    private val constructors: MutableList<Method> = mutableListOf()
+    private val methods: MutableList<Method> = mutableListOf()
     private val imports: MutableList<ImportDeclaration> = mutableListOf()
     private val staticInnerClasses: MutableList<String> = mutableListOf()
     var packageName: String? = null
@@ -26,7 +26,7 @@ class EntityClassASTVisitor(private val source: String,
     var typeDeclaration: TypeDeclaration? = null
     private val oneRelations: MutableList<OneRelation> = mutableListOf()
     private val manyRelations: MutableList<ManyRelation> = mutableListOf()
-    private var tableIndexes: List<*> = emptyList<Any>()
+    private var tableIndexes: List<TableIndex> = emptyList<TableIndex>()
     var active = false
     var keepSource = false
     var createTable = true
@@ -100,19 +100,19 @@ class EntityClassASTVisitor(private val source: String,
         }
     }
 
-    fun visitAnnotation(annotation: org.greenrobot.eclipse.jdt.core.dom.Annotation): Boolean {
+    private fun visitAnnotation(annotation: org.greenrobot.eclipse.jdt.core.dom.Annotation): Boolean {
         val parent = annotation.parent
         if (parent is TypeDeclaration) {
             if (hasType(annotation, Reflection.getOrCreateKotlinClass(Entity::class.java))) {
                 isEntity = true
 
                 val entity = AnnotationProxy.INSTANCE.invoke(annotation, Entity::class.java) as Entity
-                schemaName = entity.schema()
-                active = entity.active()
-                entityTableName = FunsKt.nullIfBlank(entity.nameInDb())
-                createTable = entity.createInDb()
-                generateConstructors = entity.generateConstructors()
-                generateGettersSetters = entity.generateGettersSetters()
+                schemaName = entity.schema
+                active = entity.active
+                entityTableName = FunsKt.nullIfBlank(entity.nameInDb)
+                createTable = entity.createInDb
+                generateConstructors = entity.generateConstructors
+                generateGettersSetters = entity.generateGettersSetters
                 if (annotation is NormalAnnotation) {
                     var expression = JdtUtilsKt.get(annotation, "protobuf")
                     if (expression !is TypeLiteral) {
@@ -132,15 +132,14 @@ class EntityClassASTVisitor(private val source: String,
                     }
                 }
                 try {
-                    val annotationIndexes = entity.indexes() as Array<Index>
+                    val annotationIndexes = entity.indexes
                     val destination = mutableListOf<TableIndex>()
                     for (i in annotationIndexes.indices) {
                         val indexItem = annotationIndexes[i]
-                        val tableIndex = TableIndex(FunsKt.nullIfBlank(indexItem.name()), FunsKt.parseIndexSpec(indexItem.value()), indexItem.unique())
+                        val tableIndex = TableIndex(FunsKt.nullIfBlank(indexItem.name), FunsKt.parseIndexSpec(indexItem.value), indexItem.unique)
                         destination.add(tableIndex)
                     }
-                    val var15 = destination as List<*>
-                    tableIndexes = var15
+                    tableIndexes = destination
                 } catch (exception: IllegalArgumentException) {
                     throw (RuntimeException("Can't parse @Index.value for ${parent.name} because of: ${exception.message}", exception as Throwable) as Throwable)
                 }
@@ -379,7 +378,7 @@ class EntityClassASTVisitor(private val source: String,
                 null
             }
             val generated1: GeneratorHint.Generated? = if (generated != null) {
-                GeneratorHint.Generated(generated.hash())
+                GeneratorHint.Generated(generated.hash)
             } else {
                 null
             }
@@ -482,7 +481,7 @@ class EntityClassASTVisitor(private val source: String,
         }
         val proxy = annotation3 as ToOne?
         val variable = Variable(variableType, fieldName.toString())
-        val foreignKeyField = FunsKt.nullIfBlank(proxy!!.joinProperty())
+        val foreignKeyField = FunsKt.nullIfBlank(proxy!!.joinProperty)
         iterator = annotationList.iterator()
         while (true) {
             if (iterator.hasNext()) {
@@ -606,15 +605,15 @@ class EntityClassASTVisitor(private val source: String,
         val orderByAnnotation = var48 as OrderBy?
         val var10005 = fieldName.toString()
         var variable: Variable? = Variable(variableType, var10005)
-        var mappedBy = FunsKt.nullIfBlank(proxy!!.referencedJoinProperty())
-        val joinPropertyArray = proxy.joinProperties() as Array<org.greenrobot.greendao.annotation.JoinProperty>
+        var mappedBy = FunsKt.nullIfBlank(proxy!!.referencedJoinProperty)
+        val joinPropertyArray = proxy.joinProperties
         var var19 = mappedBy
         var var18 = variable
 
         val mutableList = mutableListOf<JoinOnProperty>()
         for (joinPropertyIndex in joinPropertyArray.indices) {
             val joinProperty = joinPropertyArray[joinPropertyIndex]
-            val var21 = JoinOnProperty(joinProperty.name(), joinProperty.referencedName())
+            val var21 = JoinOnProperty(joinProperty.name, joinProperty.referencedName)
             mutableList.add(var21)
         }
         var var20: List<*>? = mutableList as List<*>
@@ -634,7 +633,7 @@ class EntityClassASTVisitor(private val source: String,
             //         ;
             val var50 = JdtUtilsKt.get(it, "entity")
                     ?: throw TypeCastException("null cannot be cast to non-null type org.greenrobot.eclipse.jdt.core.dom.TypeLiteral")
-            var54 = JoinEntitySpec(getTypeName((var50 as TypeLiteral).type), joinProxy.sourceProperty(), joinProxy.targetProperty())
+            var54 = JoinEntitySpec(getTypeName((var50 as TypeLiteral).type), joinProxy.sourceProperty, joinProxy.targetProperty)
 
             variable = var18
             mappedBy = var19
@@ -650,8 +649,8 @@ class EntityClassASTVisitor(private val source: String,
             var19 = mappedBy
             var18 = variable
 
-            val it: OrderBy = orderByAnnotation
-            val spec: String = it.value()
+            val it = orderByAnnotation
+            val spec: String = it.value
             val var57: List<*>
             if (spec.isBlank()) {
                 var57 = emptyList<Any>()
@@ -778,12 +777,12 @@ class EntityClassASTVisitor(private val source: String,
             val customType = findConvert(fieldName, annotationList)
             val variable: Variable? = Variable(variableType, fieldName.toString())
             val entityIdParams: EntityIdParams? = if (idAnnotation != null) {
-                EntityIdParams(idAnnotation.autoincrement())
+                EntityIdParams(idAnnotation.autoincrement)
             } else {
                 null
             }
             val propertyIndex: PropertyIndex? = if (indexAnnotation != null) {
-                PropertyIndex(FunsKt.nullIfBlank(indexAnnotation.name()), indexAnnotation.unique())
+                PropertyIndex(FunsKt.nullIfBlank(indexAnnotation.name), indexAnnotation.unique)
             } else {
                 null
             }
@@ -905,11 +904,11 @@ class EntityClassASTVisitor(private val source: String,
             `destination$iv$iv`.add(var19)
         }
         parameters = `destination$iv$iv`
-        var var14 = Method(name, parameters, methodDeclaration, generatorHint) // TODO: Looks like this should be added to the lists, but wrong type (Method vs MethodDeclaration)
+        val var14 = Method(name, parameters, methodDeclaration, generatorHint) // TODO: Looks like this should be added to the lists, but wrong type (Method vs MethodDeclaration)
         if (methodDeclaration.isConstructor) {
-            constructors.add(methodDeclaration)
+            constructors.add(var14)
         } else {
-            methods.add(methodDeclaration)
+            methods.add(var14)
         }
         methodAnnotations.clear()
     }
@@ -968,67 +967,67 @@ class EntityClassASTVisitor(private val source: String,
         }
     }
 
-    fun getSchemaName(): String {
-        return schemaName
-    }
-
-    fun setSchemaName(var1: String) {
-        Intrinsics.checkParameterIsNotNull(var1, "<set-?>")
-        schemaName = var1
-    }
-
-    fun getProperties(): List<*> {
-        return properties
-    }
-
-    fun getTransientFields(): List<*> {
-        return transientFields
-    }
-
-    fun getLegacyTransientFields(): List<*> {
-        return legacyTransientFields
-    }
-
-    fun getConstructors(): List<*> {
-        return constructors
-    }
-
-    fun getMethods(): List<*> {
-        return methods
-    }
-
-    fun getImports(): List<*> {
-        return imports
-    }
-
-    fun getStaticInnerClasses(): List<*> {
-        return staticInnerClasses
-    }
-
-    fun getOneRelations(): List<*> {
-        return oneRelations
-    }
-
-    fun getManyRelations(): List<*> {
-        return manyRelations
-    }
-
-    fun getTableIndexes(): List<*> {
-        return tableIndexes
-    }
-
-    fun setTableIndexes(var1: List<*>) {
-        Intrinsics.checkParameterIsNotNull(var1, "<set-?>")
-        tableIndexes = var1
-    }
-
-    fun getUsedNotNullAnnotation(): String? {
-        return usedNotNullAnnotation
-    }
-
-    fun setUsedNotNullAnnotation(var1: String?) {
-        usedNotNullAnnotation = var1
-    }
+//    fun getSchemaName(): String {
+//        return schemaName
+//    }
+//
+//    fun setSchemaName(var1: String) {
+//        Intrinsics.checkParameterIsNotNull(var1, "<set-?>")
+//        schemaName = var1
+//    }
+//
+//    fun getProperties(): List<*> {
+//        return properties
+//    }
+//
+//    fun getTransientFields(): List<*> {
+//        return transientFields
+//    }
+//
+//    fun getLegacyTransientFields(): List<*> {
+//        return legacyTransientFields
+//    }
+//
+//    fun getConstructors(): List<*> {
+//        return constructors
+//    }
+//
+//    fun getMethods(): List<*> {
+//        return methods
+//    }
+//
+//    fun getImports(): List<*> {
+//        return imports
+//    }
+//
+//    fun getStaticInnerClasses(): List<*> {
+//        return staticInnerClasses
+//    }
+//
+//    fun getOneRelations(): List<*> {
+//        return oneRelations
+//    }
+//
+//    fun getManyRelations(): List<*> {
+//        return manyRelations
+//    }
+//
+//    fun getTableIndexes(): List<*> {
+//        return tableIndexes
+//    }
+//
+//    fun setTableIndexes(var1: List<*>) {
+//        Intrinsics.checkParameterIsNotNull(var1, "<set-?>")
+//        tableIndexes = var1
+//    }
+//
+//    fun getUsedNotNullAnnotation(): String? {
+//        return usedNotNullAnnotation
+//    }
+//
+//    fun setUsedNotNullAnnotation(var1: String?) {
+//        usedNotNullAnnotation = var1
+//    }
 
 //    companion object {
 //        // $FF: synthetic method

@@ -275,7 +275,7 @@ class Greendao3Generator(val formattingOptions: FormattingOptions?, private val 
                 }
                 if (var19) {
                     transformer.defConstructor(emptyList<Any>()) {
-                        """ @Generated(hash = ${EntityClassTransformerKt.hASH_STUB})
+                        """ @Generated(hash = ${EntityClassTransformerKt.HASH_STUB})
                                     public ${parsedEntity.name}() {
                                     }"""
                     }
