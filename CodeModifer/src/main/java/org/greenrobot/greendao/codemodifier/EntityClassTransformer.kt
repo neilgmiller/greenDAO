@@ -307,7 +307,7 @@ class EntityClassTransformer(private val parsedEntity: ParsedEntity, private val
             if (!type.isPrimitive && Intrinsics.areEqual(type.name, type.simpleName) xor true) {
                 ensureImport(type.name)
             }
-            insertField(replaceHashStub("${if (comment != null) "/** $comment */\n" else ""}@Generated(hash = ${EntityClassTransformerKt.getHASH_STUB()})\nprivate transient ${type.simpleName} $name;"), field?.node as ASTNode?)
+            insertField(replaceHashStub("${if (comment != null) "/** $comment */\n" else ""}@Generated(hash = ${EntityClassTransformerKt.hASH_STUB})\nprivate transient ${type.simpleName} $name;"), field?.node as ASTNode?)
         }
     }
 
@@ -324,7 +324,7 @@ class EntityClassTransformer(private val parsedEntity: ParsedEntity, private val
 
     private fun replaceHashStub(source: String): String {
         val hash = CodeCompare.INSTANCE.codeHash(source)
-        return source.replace(EntityClassTransformerKt.getHASH_STUB(), hash.toString(), false)
+        return source.replace(EntityClassTransformerKt.hASH_STUB, hash.toString(), false)
     }
 
     fun writeToFile() {
