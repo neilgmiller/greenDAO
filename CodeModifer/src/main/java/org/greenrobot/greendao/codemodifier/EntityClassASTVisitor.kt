@@ -968,67 +968,67 @@ class EntityClassASTVisitor(private val source: String,
         }
     }
 
-//    fun getSchemaName(): String {
-//        return schemaName
-//    }
-//
-//    fun setSchemaName(var1: String) {
-//        Intrinsics.checkParameterIsNotNull(var1, "<set-?>")
-//        schemaName = var1
-//    }
-//
-//    fun getProperties(): List<*> {
-//        return properties
-//    }
-//
-//    fun getTransientFields(): List<*> {
-//        return transientFields
-//    }
-//
-//    fun getLegacyTransientFields(): List<*> {
-//        return legacyTransientFields
-//    }
-//
-//    fun getConstructors(): List<*> {
-//        return constructors
-//    }
-//
-//    fun getMethods(): List<*> {
-//        return methods
-//    }
-//
-//    fun getImports(): List<*> {
-//        return imports
-//    }
-//
-//    fun getStaticInnerClasses(): List<*> {
-//        return staticInnerClasses
-//    }
-//
-//    fun getOneRelations(): List<*> {
-//        return oneRelations
-//    }
-//
-//    fun getManyRelations(): List<*> {
-//        return manyRelations
-//    }
-//
-//    fun getTableIndexes(): List<*> {
-//        return tableIndexes
-//    }
-//
-//    fun setTableIndexes(var1: List<*>) {
-//        Intrinsics.checkParameterIsNotNull(var1, "<set-?>")
-//        tableIndexes = var1
-//    }
-//
-//    fun getUsedNotNullAnnotation(): String? {
-//        return usedNotNullAnnotation
-//    }
-//
-//    fun setUsedNotNullAnnotation(var1: String?) {
-//        usedNotNullAnnotation = var1
-//    }
+    fun getSchemaName(): String {
+        return schemaName
+    }
+
+    fun setSchemaName(var1: String) {
+        Intrinsics.checkParameterIsNotNull(var1, "<set-?>")
+        schemaName = var1
+    }
+
+    fun getProperties(): List<*> {
+        return properties
+    }
+
+    fun getTransientFields(): List<*> {
+        return transientFields
+    }
+
+    fun getLegacyTransientFields(): List<*> {
+        return legacyTransientFields
+    }
+
+    fun getConstructors(): List<*> {
+        return constructors
+    }
+
+    fun getMethods(): List<*> {
+        return methods
+    }
+
+    fun getImports(): List<*> {
+        return imports
+    }
+
+    fun getStaticInnerClasses(): List<*> {
+        return staticInnerClasses
+    }
+
+    fun getOneRelations(): List<*> {
+        return oneRelations
+    }
+
+    fun getManyRelations(): List<*> {
+        return manyRelations
+    }
+
+    fun getTableIndexes(): List<*> {
+        return tableIndexes
+    }
+
+    fun setTableIndexes(var1: List<*>) {
+        Intrinsics.checkParameterIsNotNull(var1, "<set-?>")
+        tableIndexes = var1
+    }
+
+    fun getUsedNotNullAnnotation(): String? {
+        return usedNotNullAnnotation
+    }
+
+    fun setUsedNotNullAnnotation(var1: String?) {
+        usedNotNullAnnotation = var1
+    }
 
 //    companion object {
 //        // $FF: synthetic method

@@ -76,7 +76,7 @@ object FunsKt {
         return foundMapEntry?.key
     }
 
-    fun getJavaClassNames(directory: File): List<*> {
+    fun getJavaClassNames(directory: File): List<ParsedEntity> {
         val isDirectory = directory.isDirectory
         return if (!isDirectory) {
             throw IllegalArgumentException("The file should be a directory")
@@ -123,7 +123,7 @@ object FunsKt {
                 val var17 = it.nameWithoutExtension
                 newPathNameList.add(var17)
             }
-            newPathNameList as List<*>
+            newPathNameList as List<ParsedEntity>
         }
     }
 
