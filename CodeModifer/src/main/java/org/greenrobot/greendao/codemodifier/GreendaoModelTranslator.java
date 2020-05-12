@@ -143,7 +143,7 @@ public final class GreendaoModelTranslator {
          try {
             INSTANCE.convertProperty(entity, it);
          } catch (Exception var11) {
-            throw (Throwable)(new RuntimeException("Can't add property '" + it.getVariable() + "' to entity " + parsedEntity.name + " " + "due to: " + var11.getMessage(), (Throwable)var11));
+            throw (Throwable)(new RuntimeException("Can't add property '" + it.variable + "' to entity " + parsedEntity.name + " " + "due to: " + var11.getMessage(), (Throwable)var11));
          }
       }
 
@@ -200,7 +200,7 @@ public final class GreendaoModelTranslator {
 
                   Object var16 = var15.next();
                   Entity it = (Entity)var16;
-                  if (Intrinsics.areEqual(it.getClassName(), relation.getVariable().getType().getSimpleName())) {
+                  if (Intrinsics.areEqual(it.getClassName(), relation.variable.type.getSimpleName())) {
                      var10000 = var16;
                      break;
                   }
@@ -208,11 +208,11 @@ public final class GreendaoModelTranslator {
 
                Entity var31 = (Entity)var10000;
                if (var31 == null) {
-                  throw (Throwable)(new RuntimeException("Class " + relation.getVariable().getType().getName() + " marked " + "with @ToOne in class " + entity.name + " is not an entity"));
+                  throw (Throwable)(new RuntimeException("Class " + relation.variable.type.name + " marked " + "with @ToOne in class " + entity.name + " is not an entity"));
                }
 
                Entity target = var31;
-               if (relation.getForeignKeyField() != null) {
+               if (relation.foreignKeyField != null) {
                   Iterable var14 = (Iterable)source.getProperties();
                   Iterator var30 = var14.iterator();
 
@@ -224,7 +224,7 @@ public final class GreendaoModelTranslator {
 
                      Object var32 = var30.next();
                      Property it = (Property)var32;
-                     if (Intrinsics.areEqual(it.getPropertyName(), relation.getForeignKeyField())) {
+                     if (Intrinsics.areEqual(it.getPropertyName(), relation.foreignKeyField)) {
                         var10000 = var32;
                         break;
                      }
@@ -232,23 +232,23 @@ public final class GreendaoModelTranslator {
 
                   Property var33 = (Property)var10000;
                   if (var33 == null) {
-                     throw (Throwable)(new RuntimeException("Can't find " + relation.getForeignKeyField() + " in " + entity.name + " " + "for @ToOne relation"));
+                     throw (Throwable)(new RuntimeException("Can't find " + relation.foreignKeyField + " in " + entity.name + " " + "for @ToOne relation"));
                   }
 
                   Property fkProperty = var33;
-                  if (relation.getColumnName() != null || relation.getUnique()) {
-                     throw (Throwable)(new RuntimeException("If @ToOne with foreign property used, @Column and @Unique are ignored. " + "See " + entity.name + "." + relation.getVariable().getName()));
+                  if (relation.columnName != null || relation.unique) {
+                     throw (Throwable)(new RuntimeException("If @ToOne with foreign property used, @Column and @Unique are ignored. " + "See " + entity.name + "." + relation.variable.name));
                   }
 
-                  source.addToOne(target, fkProperty, relation.getVariable().getName());
+                  source.addToOne(target, fkProperty, relation.variable.name);
                } else {
-                  String var10001 = relation.getVariable().getName();
-                  String var10003 = relation.getColumnName();
+                  String var10001 = relation.variable.name;
+                  String var10003 = relation.columnName;
                   if (var10003 == null) {
-                     var10003 = DaoUtil.dbName(relation.getVariable().getName());
+                     var10003 = DaoUtil.dbName(relation.variable.name);
                   }
 
-                  source.addToOneWithoutProperty(var10001, target, var10003, relation.isNotNull(), relation.getUnique());
+                  source.addToOneWithoutProperty(var10001, target, var10003, relation.isNotNull(), relation.unique);
                }
             }
          }
@@ -263,7 +263,7 @@ public final class GreendaoModelTranslator {
    private final void convertProperty(Entity entity, ParsedProperty property) {
       VariableType var5;
       label56: {
-         CustomType var10001 = property.getCustomType();
+         CustomType var10001 = property.customType;
          if (var10001 != null) {
             var5 = var10001.columnJavaType;
             if (var5 != null) {
@@ -271,14 +271,14 @@ public final class GreendaoModelTranslator {
             }
          }
 
-         var5 = property.getVariable().getType();
+         var5 = property.variable.type;
       }
 
-      PropertyType propertyType = this.convertPropertyType(var5.getName());
-      PropertyBuilder propertyBuilder = entity.addProperty(propertyType, property.getVariable().getName());
-      if (property.getVariable().getType().isPrimitive()) {
+      PropertyType propertyType = this.convertPropertyType(var5.name);
+      PropertyBuilder propertyBuilder = entity.addProperty(propertyType, property.variable.name);
+      if (property.variable.type.isPrimitive()) {
          propertyBuilder.notNull();
-      } else if (WRAPPER_TYPES.contains(property.getVariable().getType().getName())) {
+      } else if (WRAPPER_TYPES.contains(property.variable.type.name)) {
          propertyBuilder.nonPrimitiveType();
       }
 
@@ -286,32 +286,32 @@ public final class GreendaoModelTranslator {
          propertyBuilder.notNull();
       }
 
-      if (property.getUnique() && property.getIndex() != null) {
+      if (property.unique && property.index != null) {
          throw (Throwable)(new RuntimeException("greenDAO: having unique constraint and index on the field at the same time is redundant. Either @Unique or @Index should be used"));
       } else {
-         if (property.getUnique()) {
+         if (property.unique) {
             propertyBuilder.unique();
          }
 
-         if (property.getIndex() != null) {
-            propertyBuilder.indexAsc(property.getIndex().getName(), property.getIndex().getUnique());
+         if (property.index != null) {
+            propertyBuilder.indexAsc(property.index.getName(), property.index.getUnique());
          }
 
-         if (property.getId() != null) {
+         if (property.id != null) {
             propertyBuilder.primaryKey();
-            if (property.getId().getAutoincrement()) {
+            if (property.id.getAutoincrement()) {
                propertyBuilder.autoincrement();
             }
          }
 
-         if (property.getDbName() != null) {
-            propertyBuilder.dbName(property.getDbName());
-         } else if (property.getId() != null && Intrinsics.areEqual(propertyType, PropertyType.Long)) {
+         if (property.dbName != null) {
+            propertyBuilder.dbName(property.dbName);
+         } else if (property.id != null && Intrinsics.areEqual(propertyType, PropertyType.Long)) {
             propertyBuilder.dbName("_id");
          }
 
-         if (property.getCustomType() != null) {
-            propertyBuilder.customType(property.getVariable().getType().getName(), property.getCustomType().converterClassName);
+         if (property.customType != null) {
+            propertyBuilder.customType(property.variable.type.name, property.customType.converterClassName);
          }
 
       }

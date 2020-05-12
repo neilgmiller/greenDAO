@@ -18,7 +18,7 @@ final class Greendao3Generator$generateGettersAndSetters$1$2 extends Lambda impl
 
    @NotNull
    public final String invoke() {
-      return Templates.entity.INSTANCE.fieldGet(this.$field.getVariable());
+      return Templates.entity.INSTANCE.fieldGet(this.$field.variable);
    }
 
    Greendao3Generator$generateGettersAndSetters$1$2(ParsedProperty var1) {

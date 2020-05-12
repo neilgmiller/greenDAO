@@ -1,6 +1,7 @@
 package org.greenrobot.greendao.codemodifier
 
 import org.greenrobot.eclipse.jdt.core.dom.FieldDeclaration
+import org.greenrobot.eclipse.jdt.core.dom.ImportDeclaration
 import org.greenrobot.eclipse.jdt.core.dom.MethodDeclaration
 import org.greenrobot.eclipse.jdt.core.dom.TypeDeclaration
 import java.io.File
@@ -12,17 +13,17 @@ class ParsedEntity(val name: String,
                    val schema: String,
                    val active: Boolean,
                    val properties: List<ParsedProperty>,
-                   val transientFields: List<*>,
-                   val legacyTransientFields: List<*>,
+                   val transientFields: List<TransientField>,
+                   val legacyTransientFields: List<TransientField>,
                    val constructors: List<MethodDeclaration>,
                    val methods: List<MethodDeclaration>,
                    val node: TypeDeclaration,
-                   val imports: List<*>,
+                   val imports: List<ImportDeclaration>,
                    val packageName: String,
                    val dbName: String?,
-                   val oneRelations: List<*>,
-                   val manyRelations: List<*>,
-                   val indexes: List<*>,
+                   val oneRelations: List<OneRelation>,
+                   val manyRelations: List<ManyRelation>,
+                   val indexes: List<TableIndex>,
                    val sourceFile: File,
                    val source: String,
                    val keepSource: Boolean,
@@ -47,24 +48,24 @@ class ParsedEntity(val name: String,
             return var10000?.node
         }
 
-    val propertiesInConstructorOrder: List<*>?
+    val propertiesInConstructorOrder: List<ParsedProperty>?
         get() {
-            val destination = mutableListOf<Variable>()
+            val variableList = mutableListOf<Variable>()
             val propertyIterator = properties.iterator()
             while (propertyIterator.hasNext()) {
-                val item = propertyIterator.next()
-                val variable = item.variable
-                destination.add(variable)
+                val variable = propertyIterator.next().variable
+                variableList.add(variable)
             }
 
-            val fieldVarsSet: Set<Variable> = destination.toSet()
+            val fieldVarsSet: Set<Variable> = variableList.toSet()
             val constructorIterator = constructors.iterator()
             val someMethod: Method?
             while (true) {
                 if (constructorIterator.hasNext()) {
-                    val constructorMethodDeclaration = constructorIterator.next()
-                    val it = constructorMethodDeclaration as Method
-                    if (!Intrinsics.areEqual(it.parameters, fieldVarsSet)) {
+                    val constructorMethodDeclaration :MethodDeclaration? = constructorIterator.next()
+
+                    val it = constructorMethodDeclaration as Method?
+                    if (!Intrinsics.areEqual(it!!.parameters, fieldVarsSet)) {
                         continue
                     }
                     someMethod = constructorMethodDeclaration
@@ -74,115 +75,15 @@ class ParsedEntity(val name: String,
                 break
             }
 
-            val returnList: List<*>?
-            returnList = if (someMethod != null) {
-                val sortingConstructor: Method = someMethod
-                val propertiesIterable = properties as Iterable<*>
-                val var20 = `ParsedEntity$$special$$inlined$sortedBy$1`(sortingConstructor) as Comparator<*> // TODO: ??
-                propertiesIterable.sortedWith<Any>(var20)
+            return if (someMethod != null) {
+                val propertiesIterable = properties
+                propertiesIterable.sortedWith(ParsedEntityComparator(someMethod))
             } else {
                 null
             }
-            return returnList
         }
 
-//    operator fun component1(): String {
-//        return name
-//    }
-//
-//    operator fun component2(): String {
-//        return schema
-//    }
-//
-//    operator fun component3(): Boolean {
-//        return active
-//    }
-//
-//    operator fun component4(): List<*> {
-//        return properties
-//    }
-//
-//    operator fun component5(): List<*> {
-//        return transientFields
-//    }
-//
-//    operator fun component6(): List<*> {
-//        return legacyTransientFields
-//    }
-//
-//    operator fun component7(): List<*> {
-//        return constructors
-//    }
-//
-//    operator fun component8(): List<*> {
-//        return methods
-//    }
-//
-//    operator fun component9(): TypeDeclaration {
-//        return node
-//    }
-//
-//    operator fun component10(): List<*> {
-//        return imports
-//    }
-//
-//    operator fun component11(): String {
-//        return packageName
-//    }
-//
-//    operator fun component12(): String? {
-//        return dbName
-//    }
-//
-//    operator fun component13(): List<*> {
-//        return oneRelations
-//    }
-//
-//    operator fun component14(): List<*> {
-//        return manyRelations
-//    }
-//
-//    operator fun component15(): List<*> {
-//        return indexes
-//    }
-//
-//    operator fun component16(): File {
-//        return sourceFile
-//    }
-//
-//    operator fun component17(): String {
-//        return source
-//    }
-//
-//    operator fun component18(): Boolean {
-//        return keepSource
-//    }
-//
-//    operator fun component19(): Boolean {
-//        return createInDb
-//    }
-//
-//    operator fun component20(): Boolean {
-//        return generateConstructors
-//    }
-//
-//    operator fun component21(): Boolean {
-//        return generateGettersSetters
-//    }
-//
-//    operator fun component22(): String? {
-//        return protobufClassName
-//    }
-//
-//    operator fun component23(): String? {
-//        return notNullAnnotation
-//    }
-//
-//    operator fun component24(): FieldDeclaration? {
-//        return lastFieldDeclaration
-//    }
-
-    fun copy(name: String, schema: String, active: Boolean, properties: List<ParsedProperty>, transientFields: List<*>, legacyTransientFields: List<*>, constructors: List<MethodDeclaration>, methods: List<MethodDeclaration>, node: TypeDeclaration, imports: List<*>, packageName: String, dbName: String?, oneRelations: List<*>, manyRelations: List<*>, indexes: List<*>, sourceFile: File, source: String, keepSource: Boolean, createInDb: Boolean, generateConstructors: Boolean, generateGettersSetters: Boolean, protobufClassName: String?, notNullAnnotation: String?, lastFieldDeclaration: FieldDeclaration?): ParsedEntity {
+    fun copy(name: String, schema: String, active: Boolean, properties: List<ParsedProperty>, transientFields: List<TransientField>, legacyTransientFields: List<TransientField>, constructors: List<MethodDeclaration>, methods: List<MethodDeclaration>, node: TypeDeclaration, imports: List<ImportDeclaration>, packageName: String, dbName: String?, oneRelations: List<OneRelation>, manyRelations: List<ManyRelation>, indexes: List<TableIndex>, sourceFile: File, source: String, keepSource: Boolean, createInDb: Boolean, generateConstructors: Boolean, generateGettersSetters: Boolean, protobufClassName: String?, notNullAnnotation: String?, lastFieldDeclaration: FieldDeclaration?): ParsedEntity {
         return ParsedEntity(name, schema, active, properties, transientFields, legacyTransientFields, constructors, methods, node, imports, packageName, dbName, oneRelations, manyRelations, indexes, sourceFile, source, keepSource, createInDb, generateConstructors, generateGettersSetters, protobufClassName, notNullAnnotation, lastFieldDeclaration)
     }
 
@@ -238,6 +139,18 @@ class ParsedEntity(val name: String,
             false
         } else {
             true
+        }
+    }
+
+    //@Metadata(mv = [1, 1, 5], bv = [1, 0, 1], k = 1, d1 = ["\u0000\u0019\n\u0000\n\u0002\u0018\u0002\n\u0002\u0018\u0002\n\u0002\b\u0002\n\u0002\u0010\b\n\u0002\b\u0004*\u0001\u0000\b\n\u0018\u00002\u0012\u0012\u0004\u0012\u00028\u00000\u0001j\b\u0012\u0004\u0012\u00028\u0000`\u0002B\u0005¢\u0006\u0002\u0010\u0003J\u001d\u0010\u0004\u001a\u00020\u00052\u0006\u0010\u0006\u001a\u00028\u00002\u0006\u0010\u0007\u001a\u00028\u0000H\u0016¢\u0006\u0002\u0010\b¨\u0006\t"], d2 = ["kotlin/comparisons/ComparisonsKt__ComparisonsKt\$compareBy$2", "Ljava/util/Comparator;", "Lkotlin/Comparator;", "(Lkotlin/jvm/functions/Function1;)V", "compare", "", "a", "b", "(Ljava/lang/Object;Ljava/lang/Object;)I", "kotlin-stdlib"])
+    class ParsedEntityComparator internal constructor(val `$constructor$inlined`: Method) : Comparator<Any?> {
+
+        override fun compare(a: Any?, b: Any?): Int {
+            var it = a as ParsedProperty?
+            val var10000 = `$constructor$inlined`.parameters.indexOf(it!!.variable) as Comparable<*>
+            it = b as ParsedProperty?
+            val var6 = `$constructor$inlined`.parameters.indexOf(it!!.variable)
+            return compareValues(var10000, var6 as Comparable<*>)
         }
     }
 }

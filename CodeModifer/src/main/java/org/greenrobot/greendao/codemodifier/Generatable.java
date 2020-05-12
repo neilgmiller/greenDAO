@@ -29,7 +29,7 @@ public interface Generatable {
       bv = {1, 0, 1},
       k = 3
    )
-   public static final class DefaultImpls {
+   final class DefaultImpls {
       public static boolean getGenerated(Generatable $this) {
          return $this.getHint() instanceof GeneratorHint.Generated;
       }

@@ -182,19 +182,19 @@ public final class Greendao3Generator {
    public final void generateSchema(@NotNull List entities, @NotNull SchemaOptions options) {
       Intrinsics.checkParameterIsNotNull(entities, "entities");
       Intrinsics.checkParameterIsNotNull(options, "options");
-      File outputDir = options.getOutputDir();
-      File testsOutputDir = options.getTestsOutputDir();
+      File outputDir = options.outputDir;
+      File testsOutputDir = options.testsOutputDir;
       Schema var10000 = new Schema;
-      String var10002 = options.getName();
-      int var10003 = options.getVersion();
-      String var10004 = options.getDaoPackage();
+      String var10002 = options.name;
+      int var10003 = options.version;
+      String var10004 = options.daoPackage;
       if (var10004 == null) {
          var10004 = ((ParsedEntity)CollectionsKt.first(entities)).packageName;
       }
 
       var10000.<init>(var10002, var10003, var10004);
       Schema schema = var10000;
-      Map mapping = GreendaoModelTranslator.INSTANCE.translate((Iterable)entities, schema, options.getDaoPackage());
+      Map mapping = GreendaoModelTranslator.INSTANCE.translate((Iterable)entities, schema, options.daoPackage);
       Collection var7 = (Collection)this.skipTestGeneration;
       Iterator var8;
       Object element$iv;
@@ -320,7 +320,7 @@ public final class Greendao3Generator {
             while(var9.hasNext()) {
                Object item$iv$iv = var9.next();
                ParsedProperty it = (ParsedProperty)item$iv$iv;
-               Variable var13 = it.getVariable();
+               Variable var13 = it.variable;
                destination$iv$iv.add(var13);
             }
 
@@ -422,7 +422,7 @@ public final class Greendao3Generator {
 
                Object element$iv = var5.next();
                Method it = (Method)element$iv;
-               if (it.getParameters().isEmpty() && !it.getGenerated()) {
+               if (it.parameters.isEmpty() && !it.getGenerated()) {
                   var19 = false;
                   break;
                }
@@ -445,7 +445,7 @@ public final class Greendao3Generator {
          while(var18.hasNext()) {
             Object item$iv$iv = var18.next();
             ParsedProperty it = (ParsedProperty)item$iv$iv;
-            String var15 = it.getVariable().getType().getName();
+            String var15 = it.variable.type.name;
             destination$iv$iv.add(var15);
          }
 
@@ -481,8 +481,8 @@ public final class Greendao3Generator {
          while(var4.hasNext()) {
             Object element$iv = var4.next();
             ParsedProperty field = (ParsedProperty)element$iv;
-            transformer.defMethodIfMissing("set" + StringsKt.capitalize(field.getVariable().getName()), new String[]{field.getVariable().getType().getName()}, (Function0)(new Greendao3Generator$generateGettersAndSetters$1$1(field)));
-            String var10001 = "get" + StringsKt.capitalize(field.getVariable().getName());
+            transformer.defMethodIfMissing("set" + StringsKt.capitalize(field.variable.name), new String[]{field.variable.type.name}, (Function0)(new Greendao3Generator$generateGettersAndSetters$1$1(field)));
+            String var10001 = "get" + StringsKt.capitalize(field.variable.name);
             Function0 var10002 = (Function0)(new Greendao3Generator$generateGettersAndSetters$1$2(field));
             String[] var7 = new String[0];
             Function0 var8 = var10002;
