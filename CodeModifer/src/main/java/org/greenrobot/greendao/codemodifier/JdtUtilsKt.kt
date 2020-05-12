@@ -165,9 +165,6 @@ object JdtUtilsKt {
     }
 
     fun typeName(`$receiver`: Type, containingClassIdentifier: String?, imports: Iterable<*>, sourcePkg: String?, classesInPackage: List<*>): String {
-        Intrinsics.checkParameterIsNotNull(`$receiver`, "\$receiver")
-        Intrinsics.checkParameterIsNotNull(imports, "imports")
-        Intrinsics.checkParameterIsNotNull(classesInPackage, "classesInPackage")
         val var10000: String
         if (`$receiver` is SimpleType) {
             var10000 = resolveName(`$receiver`.name, containingClassIdentifier, imports, sourcePkg, classesInPackage)
