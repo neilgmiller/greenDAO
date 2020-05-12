@@ -11,9 +11,7 @@ class CodeCompare private constructor() {
     private fun unformatCode(code: String): String {
         var codeCharSequence = code as CharSequence
         codeCharSequence = regexJavaCommentSl.replace(codeCharSequence, "/*$1*/")
-
-        val var6 : Function1<*, *> = null.INSTANCE as Function1<*, *>
-        codeCharSequence = regexJavaCommentMl.replace(codeCharSequence, var6) as CharSequence
+        codeCharSequence = regexJavaCommentMl.replace(codeCharSequence, "")
         codeCharSequence = regexTooManySpaces.replace(codeCharSequence, " ")
         return regexUselessSpaces.replace(codeCharSequence, "$1").trim()
     }

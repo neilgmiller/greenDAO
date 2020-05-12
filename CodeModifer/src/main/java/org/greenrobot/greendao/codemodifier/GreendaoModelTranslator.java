@@ -65,35 +65,35 @@ public final class GreendaoModelTranslator {
       while(var7.hasNext()) {
          Object item$iv$iv = var7.next();
          ParsedEntity it = (ParsedEntity)item$iv$iv;
-         Entity entity = schema.addEntity(it.getName());
+         Entity entity = schema.addEntity(it.name);
          GreendaoModelTranslator var10000 = INSTANCE;
          Intrinsics.checkExpressionValueIsNotNull(entity, "entity");
          var10000.addBasicProperties(daoPackage, it, entity);
-         if (it.getDbName() != null) {
-            entity.setDbName(it.getDbName());
+         if (it.dbName != null) {
+            entity.setDbName(it.dbName);
          }
 
-         if (it.getActive()) {
+         if (it.active) {
             entity.setActive(true);
          }
 
-         entity.setSkipCreationInDb(!it.getCreateInDb());
-         entity.setJavaPackage(it.getPackageName());
+         entity.setSkipCreationInDb(!it.createInDb);
+         entity.setJavaPackage(it.packageName);
          var10000 = INSTANCE;
          Intrinsics.checkExpressionValueIsNotNull(entity, "entity");
          var10000.convertProperties(it, entity);
          var10000 = INSTANCE;
          Intrinsics.checkExpressionValueIsNotNull(entity, "entity");
          var10000.addIndexes(it, entity);
-         if (it.getProtobufClassName() != null) {
-            Entity protobufEntity = schema.addProtobufEntity(StringsKt.substringAfterLast$default(it.getProtobufClassName(), ".", (String)null, 2, (Object)null));
+         if (it.protobufClassName != null) {
+            Entity protobufEntity = schema.addProtobufEntity(StringsKt.substringAfterLast$default(it.protobufClassName, ".", (String)null, 2, (Object)null));
             var10000 = INSTANCE;
             Intrinsics.checkExpressionValueIsNotNull(protobufEntity, "protobufEntity");
             var10000.addBasicProperties(daoPackage, it, protobufEntity);
             protobufEntity.setDbName(entity.getDbName());
             protobufEntity.setActive(false);
             protobufEntity.setSkipCreationInDb(true);
-            protobufEntity.setJavaPackage(StringsKt.substringBeforeLast$default(it.getProtobufClassName(), ".", (String)null, 2, (Object)null));
+            protobufEntity.setJavaPackage(StringsKt.substringBeforeLast$default(it.protobufClassName, ".", (String)null, 2, (Object)null));
             var10000 = INSTANCE;
             Intrinsics.checkExpressionValueIsNotNull(protobufEntity, "protobufEntity");
             var10000.convertProperties(it, protobufEntity);
@@ -110,16 +110,16 @@ public final class GreendaoModelTranslator {
    }
 
    private final void addBasicProperties(String daoPackage, ParsedEntity it, Entity entity) {
-      entity.setConstructors(it.getGenerateConstructors());
+      entity.setConstructors(it.generateConstructors);
       String var10001 = daoPackage;
       if (daoPackage == null) {
-         var10001 = it.getPackageName();
+         var10001 = it.packageName;
       }
 
       entity.setJavaPackageDao(var10001);
       var10001 = daoPackage;
       if (daoPackage == null) {
-         var10001 = it.getPackageName();
+         var10001 = it.packageName;
       }
 
       entity.setJavaPackageTest(var10001);
@@ -129,7 +129,7 @@ public final class GreendaoModelTranslator {
    private final void convertProperties(ParsedEntity parsedEntity, Entity entity) {
       List var10000 = parsedEntity.getPropertiesInConstructorOrder();
       if (var10000 == null) {
-         var10000 = parsedEntity.getProperties();
+         var10000 = parsedEntity.properties;
       }
 
       List properties = var10000;
@@ -143,7 +143,7 @@ public final class GreendaoModelTranslator {
          try {
             INSTANCE.convertProperty(entity, it);
          } catch (Exception var11) {
-            throw (Throwable)(new RuntimeException("Can't add property '" + it.getVariable() + "' to entity " + parsedEntity.getName() + " " + "due to: " + var11.getMessage(), (Throwable)var11));
+            throw (Throwable)(new RuntimeException("Can't add property '" + it.getVariable() + "' to entity " + parsedEntity.name + " " + "due to: " + var11.getMessage(), (Throwable)var11));
          }
       }
 
@@ -160,7 +160,7 @@ public final class GreendaoModelTranslator {
       while(var7.hasNext()) {
          Object element$iv$iv = var7.next();
          ParsedEntity it = (ParsedEntity)element$iv$iv;
-         if (!it.getOneRelations().isEmpty()) {
+         if (!it.oneRelations.isEmpty()) {
             destination$iv$iv.add(element$iv$iv);
          }
       }
@@ -178,7 +178,7 @@ public final class GreendaoModelTranslator {
          }
 
          Entity source = (Entity)var10000;
-         Iterable $receiver$iv = (Iterable)entity.getOneRelations();
+         Iterable $receiver$iv = (Iterable) entity.oneRelations;
          Iterator var10 = $receiver$iv.iterator();
 
          while(true) {
@@ -208,7 +208,7 @@ public final class GreendaoModelTranslator {
 
                Entity var31 = (Entity)var10000;
                if (var31 == null) {
-                  throw (Throwable)(new RuntimeException("Class " + relation.getVariable().getType().getName() + " marked " + "with @ToOne in class " + entity.getName() + " is not an entity"));
+                  throw (Throwable)(new RuntimeException("Class " + relation.getVariable().getType().getName() + " marked " + "with @ToOne in class " + entity.name + " is not an entity"));
                }
 
                Entity target = var31;
@@ -232,12 +232,12 @@ public final class GreendaoModelTranslator {
 
                   Property var33 = (Property)var10000;
                   if (var33 == null) {
-                     throw (Throwable)(new RuntimeException("Can't find " + relation.getForeignKeyField() + " in " + entity.getName() + " " + "for @ToOne relation"));
+                     throw (Throwable)(new RuntimeException("Can't find " + relation.getForeignKeyField() + " in " + entity.name + " " + "for @ToOne relation"));
                   }
 
                   Property fkProperty = var33;
                   if (relation.getColumnName() != null || relation.getUnique()) {
-                     throw (Throwable)(new RuntimeException("If @ToOne with foreign property used, @Column and @Unique are ignored. " + "See " + entity.getName() + "." + relation.getVariable().getName()));
+                     throw (Throwable)(new RuntimeException("If @ToOne with foreign property used, @Column and @Unique are ignored. " + "See " + entity.name + "." + relation.getVariable().getName()));
                   }
 
                   source.addToOne(target, fkProperty, relation.getVariable().getName());

@@ -33,14 +33,14 @@ final class Greendao3Generator$generateToOneRelations$$inlined$forEach$lambda$1 
    }
 
    public final String invoke() {
-      if (this.$parsedEntity$inlined.getNotNullAnnotation() == null && this.$toOne.getFkProperties()[0].isNotNull()) {
+      if (this.$parsedEntity$inlined.notNullAnnotation == null && this.$toOne.getFkProperties()[0].isNotNull()) {
          this.$transformer$inlined.ensureImport("org.greenrobot.greendao.annotation.NotNull");
       }
 
       Templates.entity var10000 = Templates.entity.INSTANCE;
       ToOne var10001 = this.$toOne;
       Intrinsics.checkExpressionValueIsNotNull(var10001, "toOne");
-      String var10002 = this.$parsedEntity$inlined.getNotNullAnnotation();
+      String var10002 = this.$parsedEntity$inlined.notNullAnnotation;
       if (var10002 == null) {
          var10002 = "@NotNull";
       }

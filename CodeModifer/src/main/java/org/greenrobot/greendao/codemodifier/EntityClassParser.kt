@@ -58,7 +58,7 @@ class EntityClassParser(private val jdtOptions: Hashtable<String, String>, priva
                         throw RuntimeException("Found ${reportableProblems.size} problem(s) parsing \"$javaFile\". First problem:\n$first (${first.id} at line ${first.sourceLineNumber}).\nRun gradle with --info for more details.")
                     }
                 }
-                val sourceSplit = `split$default`(source as CharSequence, arrayOf("\n"), false, 0, 6, null as Any?)
+                val sourceSplit = source.split("\n", ignoreCase = false, limit = 6)
                 val commentVisitor = KeepCommentVisitor(astRoot, sourceSplit)
                 for (element in astRoot.commentList) {
                     if (element is Comment) {

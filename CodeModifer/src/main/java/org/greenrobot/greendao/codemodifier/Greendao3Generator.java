@@ -90,8 +90,8 @@ public final class Greendao3Generator {
 
                ParsedEntity entity = var10000.parse(it, (List)var10002);
                ParsedEntity var3;
-               if (entity != null && entity.getProperties().size() == 0) {
-                  System.err.println("Skipping entity " + entity.getName() + " as it has no properties.");
+               if (entity != null && entity.properties.size() == 0) {
+                  System.err.println("Skipping entity " + entity.name + " as it has no properties.");
                   var3 = null;
                } else {
                   var3 = entity;
@@ -114,7 +114,7 @@ public final class Greendao3Generator {
             while(var12.hasNext()) {
                Object element$iv$iv = var12.next();
                it = (ParsedEntity)element$iv$iv;
-               schemaName = it.getSchema();
+               schemaName = it.schema;
                Object value$iv$iv$iv = destination$iv$iv.get(schemaName);
                Object var10000;
                if (value$iv$iv$iv == null) {
@@ -149,7 +149,7 @@ public final class Greendao3Generator {
                   while(var22.hasNext()) {
                      item$iv$iv = var22.next();
                      it = (ParsedEntity)item$iv$iv;
-                     if (Intrinsics.areEqual(it.getSchema(), schemaName)) {
+                     if (Intrinsics.areEqual(it.schema, schemaName)) {
                         destination$iv$iv.add(item$iv$iv);
                      }
                   }
@@ -161,7 +161,7 @@ public final class Greendao3Generator {
                   while(var22.hasNext()) {
                      item$iv$iv = var22.next();
                      it = (ParsedEntity)item$iv$iv;
-                     String var26 = it.getName();
+                     String var26 = it.name;
                      destination$iv$iv.add(var26);
                   }
 
@@ -189,7 +189,7 @@ public final class Greendao3Generator {
       int var10003 = options.getVersion();
       String var10004 = options.getDaoPackage();
       if (var10004 == null) {
-         var10004 = ((ParsedEntity)CollectionsKt.first(entities)).getPackageName();
+         var10004 = ((ParsedEntity)CollectionsKt.first(entities)).packageName;
       }
 
       var10000.<init>(var10002, var10003, var10004);
@@ -243,9 +243,9 @@ public final class Greendao3Generator {
       while(var8.hasNext()) {
          element$iv = var8.next();
          ParsedEntity entityClass = (ParsedEntity)element$iv;
-         if (entityClass.getKeepSource()) {
+         if (entityClass.keepSource) {
             this.checkClass(entityClass);
-            qualifiedName = "Keep source for " + entityClass.getName();
+            qualifiedName = "Keep source for " + entityClass.name;
             System.out.println(qualifiedName);
          } else {
             this.transformClass(entityClass, mapping);
@@ -259,7 +259,7 @@ public final class Greendao3Generator {
       while(var33.hasNext()) {
          Object element$iv = var33.next();
          ParsedEntity it = (ParsedEntity)element$iv;
-         if (it.getKeepSource()) {
+         if (it.keepSource) {
             ++count$iv;
          }
       }
@@ -271,7 +271,7 @@ public final class Greendao3Generator {
       for(Iterator var36 = $receiver$iv.iterator(); var36.hasNext(); sum$iv += var26) {
          Object element$iv = var36.next();
          ParsedEntity it = (ParsedEntity)element$iv;
-         Iterable $receiver$iv = (Iterable)it.getConstructors();
+         Iterable $receiver$iv = (Iterable) it.constructors;
          int count$iv = 0;
          Iterator var42 = $receiver$iv.iterator();
 
@@ -313,7 +313,7 @@ public final class Greendao3Generator {
          List propertiesInConstructorOrder = parsedEntity.getPropertiesInConstructorOrder();
          if (propertiesInConstructorOrder == null) {
             Greendao3Generator $receiver = (Greendao3Generator)this;
-            Iterable $receiver$iv = (Iterable)parsedEntity.getProperties();
+            Iterable $receiver$iv = (Iterable) parsedEntity.properties;
             Collection destination$iv$iv = (Collection)(new ArrayList(CollectionsKt.collectionSizeOrDefault($receiver$iv, 10)));
             Iterator var9 = $receiver$iv.iterator();
 
@@ -325,7 +325,7 @@ public final class Greendao3Generator {
             }
 
             List fieldVars = (List)destination$iv$iv;
-            $receiver$iv = (Iterable)parsedEntity.getConstructors();
+            $receiver$iv = (Iterable) parsedEntity.constructors;
             Iterator var7 = $receiver$iv.iterator();
 
             while(true) {
@@ -336,7 +336,7 @@ public final class Greendao3Generator {
 
                Object element$iv = var7.next();
                Method it = (Method)element$iv;
-               if (it.hasFullSignature(parsedEntity.getName(), fieldVars)) {
+               if (it.hasFullSignature(parsedEntity.name, fieldVars)) {
                   var10000 = false;
                   break;
                }
@@ -353,7 +353,7 @@ public final class Greendao3Generator {
 
       boolean noConstructor = var10000;
       if (noConstructor) {
-         throw (Throwable)(new RuntimeException("Can't find constructor for entity " + parsedEntity.getName() + " with all persistent fields. " + "Note parameter names of such constructor should be equal to field names"));
+         throw (Throwable)(new RuntimeException("Can't find constructor for entity " + parsedEntity.name + " with all persistent fields. " + "Note parameter names of such constructor should be equal to field names"));
       }
    }
 
@@ -400,17 +400,17 @@ public final class Greendao3Generator {
    }
 
    private final void generateConstructors(final ParsedEntity parsedEntity, EntityClassTransformer transformer) {
-      if (parsedEntity.getGenerateConstructors()) {
+      if (parsedEntity.generateConstructors) {
          List var10000 = parsedEntity.getPropertiesInConstructorOrder();
          if (var10000 == null) {
-            var10000 = parsedEntity.getProperties();
+            var10000 = parsedEntity.properties;
          }
 
          List properties = var10000;
          Collection var4 = (Collection)properties;
          Iterable $receiver$iv;
          if (!var4.isEmpty()) {
-            $receiver$iv = (Iterable)parsedEntity.getConstructors();
+            $receiver$iv = (Iterable) parsedEntity.constructors;
             Iterator var5 = $receiver$iv.iterator();
 
             boolean var19;
@@ -432,7 +432,7 @@ public final class Greendao3Generator {
                transformer.defConstructor(CollectionsKt.emptyList(), (Function0)(new Function0() {
                   @NotNull
                   public final String invoke() {
-                     return " @Generated(hash = " + EntityClassTransformerKt.getHASH_STUB() + ")" + "\n" + "                        public " + parsedEntity.getName() + "() {" + "\n" + "                        }";
+                     return " @Generated(hash = " + EntityClassTransformerKt.getHASH_STUB() + ")" + "\n" + "                        public " + parsedEntity.name + "() {" + "\n" + "                        }";
                   }
                }));
             }
@@ -454,9 +454,9 @@ public final class Greendao3Generator {
             @NotNull
             public final String invoke() {
                Templates.entity var10000 = Templates.entity.INSTANCE;
-               String var10001 = parsedEntity.getName();
-               List var10002 = parsedEntity.getProperties();
-               String var10003 = parsedEntity.getNotNullAnnotation();
+               String var10001 = parsedEntity.name;
+               List var10002 = parsedEntity.properties;
+               String var10003 = parsedEntity.notNullAnnotation;
                if (var10003 == null) {
                   var10003 = "@NotNull";
                }
@@ -471,11 +471,11 @@ public final class Greendao3Generator {
    }
 
    private final void generateGettersAndSetters(ParsedEntity parsedEntity, EntityClassTransformer transformer) {
-      if (!parsedEntity.getGenerateGettersSetters()) {
-         String var11 = "Not generating getters or setters for " + parsedEntity.getName() + ".";
+      if (!parsedEntity.generateGettersSetters) {
+         String var11 = "Not generating getters or setters for " + parsedEntity.name + ".";
          System.out.println(var11);
       } else {
-         Iterable $receiver$iv = (Iterable)CollectionsKt.reversed((Iterable)parsedEntity.getProperties());
+         Iterable $receiver$iv = (Iterable)CollectionsKt.reversed((Iterable) parsedEntity.properties);
          Iterator var4 = $receiver$iv.iterator();
 
          while(var4.hasNext()) {

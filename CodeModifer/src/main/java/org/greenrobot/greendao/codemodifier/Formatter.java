@@ -51,9 +51,9 @@ public final class Formatter {
       super();
       this.formatting = formatting;
       DefaultCodeFormatterOptions options = new DefaultCodeFormatterOptions(DefaultCodeFormatterOptions.getJavaConventionsSettings().getMap());
-      options.tab_size = this.formatting.getTabulation().getSize();
-      options.tab_char = this.formatting.getTabulation().getTabChar() == ' ' ? 2 : 1;
-      options.page_width = this.formatting.getLineWidth();
+      options.tab_size = this.formatting.tabulation.getSize();
+      options.tab_char = this.formatting.tabulation.getTabChar() == ' ' ? 2 : 1;
+      options.page_width = this.formatting.lineWidth;
       this.formatter = new DefaultCodeFormatter(options);
    }
 }
