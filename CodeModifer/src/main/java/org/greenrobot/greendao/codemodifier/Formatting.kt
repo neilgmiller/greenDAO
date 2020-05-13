@@ -41,53 +41,48 @@ class Formatting(val tabulation: Tabulation, val lineWidth: Int) {
             val maxLineLength: Int = options?.lineWidth
                     ?: Math.max(80, Math.round(max(lines).length.toFloat() / 10.0f) * 10)
 
-//            val lineWidth: Int = maxLineLength
+            var destination0 = mutableListOf<>()
+            var someInt: Int
+            var someString: String
 
-            val receiver0 = lines as Iterable<*>
-            var destination0 = ArrayList<Any?>(receiver0.collectionSizeOrDefault<Any>(10)) as MutableCollection<*>
-            var var11 = receiver0.iterator()
-            var element1: Any
-            var receiver1: String
-            var `index$iv`: Int
-            var var20: Int
-            var var39: String
-            while (var11.hasNext()) {
+            val lineIterator = lines.iterator()
+            while (lineIterator.hasNext()) {
                 label196@ run {
-                    element1 = var11.next()!!
-                    val line = element1 as String
-                    receiver1 = line
-                    var `index$iv` = 0
-                    `index$iv` = line.length - 1
-                    if (`index$iv` <= `index$iv`) {
+                    val line = lineIterator.next() as String
+                    var localEndIndex = 0
+                    localEndIndex = line.length - 1
+                    if (localEndIndex <= localEndIndex) {
                         while (true) {
-                            val it = receiver1[`index$iv`]
+                            val it = line[localEndIndex]
                             if (it != ' ') {
                                 val var19: Byte = 0
-                                if (receiver1 == null) {
+                                if (line == null) {
                                     throw TypeCastException("null cannot be cast to non-null type java.lang.String")
                                 }
-                                var39 = receiver1.substring(var19.toInt(), `index$iv`)
-                                Intrinsics.checkExpressionValueIsNotNull(var39, "(this as java.lang.Strin…ing(startIndex, endIndex)")
+                                someString = line.substring(var19.toInt(), localEndIndex)
+                                Intrinsics.checkExpressionValueIsNotNull(someString, "(this as java.lang.Strin…ing(startIndex, endIndex)")
                                 break@label196
                             }
-                            if (`index$iv` == `index$iv`) {
+                            if (localEndIndex == localEndIndex) {
                                 break
                             }
-                            ++`index$iv`
+                            ++localEndIndex
                         }
                     }
-                    var39 = receiver1
+                    someString = line
                 }
-                var20 = var39.length
-                destination0.add(var20)
+                someInt = someString.length
+                destination0.add(someInt)
             }
-            receiver1 = destination0 as List<*>
+
+
+
+            val receiver1 = destination0 as List<*>
             destination0 = ArrayList<Any?>()
-            var11 = receiver1.iterator()
-            var it: Int
-            while (var11.hasNext()) {
-                element1 = var11.next()
-                it = (element1 as Number).intValue()
+            val iterator1 = receiver1.iterator()
+            while (lineIterator.hasNext()) {
+                val element1 = iterator1.next()
+                val it = (element1 as Number).intValue()
                 if (it > 1) {
                     destination0.add(element1)
                 }
@@ -97,35 +92,36 @@ class Formatting(val tabulation: Tabulation, val lineWidth: Int) {
             var destination2 = ArrayList<Any?>(receiver2.collectionSizeOrDefault<Any>(10)) as MutableCollection<*>
             var var32 = receiver2.iterator()
             var element0: Any
+            var globalEndIndex: Int
             while (var32.hasNext()) {
                 label197@ run {
                     element0 = var32.next()!!
                     receiver2 = element0 as String
                     val `$receiver$iv`: String? = receiver2
-                    `index$iv` = 0
+                    globalEndIndex = 0
                     val var40 = `$receiver$iv`!!.length - 1
-                    if (`index$iv` <= var40) {
+                    if (globalEndIndex <= var40) {
                         while (true) {
-                            val it = `$receiver$iv`[`index$iv`]
+                            val it = `$receiver$iv`[globalEndIndex]
                             if (it != '\t') {
                                 val var22: Byte = 0
                                 if (`$receiver$iv` == null) {
                                     throw TypeCastException("null cannot be cast to non-null type java.lang.String")
                                 }
-                                var39 = `$receiver$iv`.substring(var22.toInt(), `index$iv`)
-                                Intrinsics.checkExpressionValueIsNotNull(var39, "(this as java.lang.Strin…ing(startIndex, endIndex)")
+                                someString = `$receiver$iv`.substring(var22.toInt(), globalEndIndex)
+                                Intrinsics.checkExpressionValueIsNotNull(someString, "(this as java.lang.Strin…ing(startIndex, endIndex)")
                                 break@label197
                             }
-                            if (`index$iv` == var40) {
+                            if (globalEndIndex == var40) {
                                 break
                             }
-                            ++`index$iv`
+                            ++globalEndIndex
                         }
                     }
-                    var39 = `$receiver$iv`
+                    someString = `$receiver$iv`
                 }
-                var20 = var39.length
-                destination2.add(var20)
+                someInt = someString.length
+                destination2.add(someInt)
             }
             receiver2 = destination2 as List<*>
             destination2 = ArrayList<Any?>()
@@ -140,10 +136,10 @@ class Formatting(val tabulation: Tabulation, val lineWidth: Int) {
             val tabs = destination2 as List<*>
             receiver2 = spaces
             var counter0 = 0
-            var11 = receiver2.iterator()
-            while (var11.hasNext()) {
-                element1 = var11.next()!!
-                it = (element1 as Number).intValue()
+            val iterator2 = receiver2.iterator()
+            while (iterator2.hasNext()) {
+                val element1 = iterator2.next()!!
+                val it = (element1 as Number).intValue()
                 if (it > 0) {
                     ++counter0
                 }
@@ -151,10 +147,10 @@ class Formatting(val tabulation: Tabulation, val lineWidth: Int) {
             receiver2 = tabs
             val var14 = counter0
             counter0 = 0
-            var11 = receiver2.iterator()
-            while (var11.hasNext()) {
-                element1 = var11.next()!!
-                it = (element1 as Number).intValue()
+            val iterator3 = receiver2.iterator()
+            while (iterator3.hasNext()) {
+                val element1 = iterator3.next()!!
+                val it = (element1 as Number).intValue()
                 if (it > 0) {
                     ++counter0
                 }
