@@ -40,105 +40,62 @@ class Formatting(val tabulation: Tabulation, val lineWidth: Int) {
             val maxLineLength: Int = options?.lineWidth
                     ?: Math.max(80, Math.round(max(lines).length.toFloat() / 10.0f) * 10)
 
-            val somethingAboutSpaces = mutableListOf<Int>()
+            val lengthsOfLinesUntilSpace = mutableListOf<Int>()
             val lineIterator = lines.iterator()
             while (lineIterator.hasNext()) {
-                var someString: String
-
-                label196@ run {
-                    val line = lineIterator.next()
-                    var index = 0
-                    val endIndex = line.length - 1
-                    if (index <= endIndex) {
-                        while (true) {
-                            val lastChar = line[index]
-                            if (lastChar != ' ') {
-                                someString = line.substring(0, index) // TODO: what are the start and end variables actually supposed to be
-                                Intrinsics.checkExpressionValueIsNotNull(someString, "(this as java.lang.Strin…ing(startIndex, endIndex)")
-                                break@label196
-                            }
-                            if (index == endIndex) {
-                                break
-                            }
-                            ++index
-                        }
-                    }
-                    someString = line
-                }
-                somethingAboutSpaces.add(someString.length)
+                val lineBeforeSpace = lineIterator.next().substringBefore(' ')
+                lengthsOfLinesUntilSpace.add(lineBeforeSpace.length)
             }
 
-
-            val spacesMoreThanOne = mutableListOf<Int>() // Maybe duplicated spaces in a row?
-            val somethingAboutSpacesIterator = somethingAboutSpaces.iterator()
+            val lengthsOfLinesBeforeTabAtLeastTwo = mutableListOf<Int>()  // TODO: This value is never used
+            val lengthBeforeSpaceIterator = lengthsOfLinesUntilSpace.iterator()
             while (lineIterator.hasNext()) {
-                val spacesElement = somethingAboutSpacesIterator.next()
+                val spacesElement = lengthBeforeSpaceIterator.next()
                 if (spacesElement > 1) {
-                    spacesMoreThanOne.add(spacesElement)
+                    lengthsOfLinesBeforeTabAtLeastTwo.add(spacesElement)
                 }
             }
 
-            val somethingAboutTabs = mutableListOf<Int>()
-            val linesIterable2 = lines.iterator()
-            while (linesIterable2.hasNext()) {
-                var someString: String
-
-                label197@ run {
-                    val line = linesIterable2.next()
-                    var index = 0
-                    val lineEndIndex = line.length - 1
-                    if (index <= lineEndIndex) {
-                        while (true) {
-                            val it = line[index]
-                            if (it != '\t') {
-                                someString = line.substring(0, index)
-                                Intrinsics.checkExpressionValueIsNotNull(someString, "(this as java.lang.Strin…ing(startIndex, endIndex)")
-                                break@label197
-                            }
-                            if (index == lineEndIndex) {
-                                break
-                            }
-                            ++index
-                        }
-                    }
-                    someString = line
-                }
-                somethingAboutTabs.add(someString.length)
+            val lengthOfLinesUntilTab = mutableListOf<Int>()
+            val lineIterator2 = lines.iterator()
+            while (lineIterator2.hasNext()) {
+                val lineBeforeTab = lineIterator.next().substringBefore('\t')
+                lengthOfLinesUntilTab.add(lineBeforeTab.length)
             }
 
-            val tabsMoreThanZero = mutableListOf<Int>()
-            val somethingAboutTabsIterator = somethingAboutTabs.iterator()
-            while (somethingAboutTabsIterator.hasNext()) {
-                val integer: Int = somethingAboutTabsIterator.next()
+            val lengthsOfLinesBeforeTabAtLeastOne = mutableListOf<Int>() // TODO This value is never used
+            val lengthBeforeTabIterator = lengthOfLinesUntilTab.iterator()
+            while (lengthBeforeTabIterator.hasNext()) {
+                val integer: Int = lengthBeforeTabIterator.next()
                 if (integer > 0) {
-                    tabsMoreThanZero.add(integer)
+                    lengthsOfLinesBeforeTabAtLeastOne.add(integer)
                 }
             }
 
-            var spaceCount = 0
-            val spacesIterator = somethingAboutSpaces.iterator()
-            while (spacesIterator.hasNext()) {
-                if (spacesIterator.next() > 0) {
-                    ++spaceCount
+            var linesWithAtLeastOneCharBeforeSpace = 0
+            val lengthsOfLinesUntilSpaceIterator = lengthsOfLinesUntilSpace.iterator()
+            while (lengthsOfLinesUntilSpaceIterator.hasNext()) {
+                if (lengthsOfLinesUntilSpaceIterator.next() > 0) {
+                    ++linesWithAtLeastOneCharBeforeSpace
                 }
             }
 
-            var tabCount = 0
-            val tabIterator = somethingAboutTabs.iterator()
-            while (tabIterator.hasNext()) {
-                if (tabIterator.next() > 0) {
-                    ++tabCount
+            var linesWithAtLeastOneCharBeforeTab = 0
+            val lengthOfLinesUntilTabIterator = lengthOfLinesUntilTab.iterator()
+            while (lengthOfLinesUntilTabIterator.hasNext()) {
+                if (lengthOfLinesUntilTabIterator.next() > 0) {
+                    ++linesWithAtLeastOneCharBeforeTab
                 }
             }
 
             var tabulation: Tabulation? = options?.tabulation
             if (tabulation == null) {
                 val tabSize: Int
-                if (tabCount > spaceCount) {
-                    tabSize = detectTabLength(somethingAboutSpaces, 4, 2)
+                if (linesWithAtLeastOneCharBeforeTab > linesWithAtLeastOneCharBeforeSpace) {
+                    tabSize = detectTabLength(lengthsOfLinesUntilSpace, 4, 2)
                     tabulation = Tabulation(' ', tabSize)
                 } else {
-                    tabSize = detectTabLength(somethingAboutTabs, 1, 1)
+                    tabSize = detectTabLength(lengthOfLinesUntilTab, 1, 1)
                     tabulation = Tabulation('\t', tabSize)
                 }
             }
