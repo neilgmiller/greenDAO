@@ -10,6 +10,14 @@ interface Generatable {
     val generated: Boolean
     val keep: Boolean
 
+//    fun getGenerated(generatable: Generatable): Boolean {
+//        return generatable.hint is GeneratorHint.Generated
+//    }
+//
+//    fun getKeep(generatable: Generatable): Boolean {
+//        return Intrinsics.areEqual(generatable.hint, GeneratorHint.Keep.INSTANCE)
+//    }
+
 //    object DefaultImpls {
 //        fun getGenerated(`$this`: Generatable): Boolean {
 //            return `$this`.hint is GeneratorHint.Generated

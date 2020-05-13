@@ -17,11 +17,11 @@ class JoinEntitySpec(val entityName: String, val sourceIdProperty: String, val t
 
     override fun hashCode(): Int {
         val var10000 = entityName
-        var var1 = (var10000?.hashCode() ?: 0) * 31
+        var var1 = var10000.hashCode() * 31
         var var10001 = sourceIdProperty
-        var1 = (var1 + (var10001?.hashCode() ?: 0)) * 31
+        var1 = (var1 + var10001.hashCode()) * 31
         var10001 = targetIdProperty
-        return var1 + (var10001?.hashCode() ?: 0)
+        return var1 + var10001.hashCode()
     }
 
     override fun equals(other: Any?): Boolean {

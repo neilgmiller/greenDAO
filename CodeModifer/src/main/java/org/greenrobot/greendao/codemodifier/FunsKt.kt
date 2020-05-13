@@ -2,7 +2,6 @@ package org.greenrobot.greendao.codemodifier
 
 import java.io.File
 import java.util.*
-import kotlin.jvm.internal.Intrinsics
 
 object FunsKt {
     @Throws(IllegalArgumentException::class)
@@ -76,54 +75,42 @@ object FunsKt {
         return foundMapEntry?.key
     }
 
-    fun getJavaClassNames(directory: File): List<ParsedEntity> {
-        val isDirectory = directory.isDirectory
-        return if (!isDirectory) {
+    fun getJavaClassNames(directory: File): List<String> {
+        return if (!directory.isDirectory) {
             throw IllegalArgumentException("The file should be a directory")
         } else {
             val pathNameList = directory.list()
-//            var newPathNameList = mutableListOf<String>()
-            var pathName: String
-            var pathName2: String
-            for (index in pathNameList.indices) {
-                pathName = pathNameList[index]
+            val newPathNameList = mutableListOf<String>()
+            for (index in pathNameList!!.indices) {
+                val pathName = pathNameList[index]
                 if (pathName.endsWith(".java", true)) {
                     newPathNameList.add(pathName)
                 }
             }
 
-            var newPathNameIterable = newPathNameList
-            newPathNameList = ArrayList<Any?>(newPathNameIterable.collectionSizeOrDefault<Any>(10))
-            var newPathNameIterator = newPathNameIterable.iterator()
+            val newFileList = mutableListOf<File>()
+            val newPathNameIterator = newPathNameList.iterator()
             while (newPathNameIterator.hasNext()) {
-                pathName = newPathNameIterator.next()
-                pathName2 = pathName
-                val file = File(directory, pathName2)
-                newPathNameList.add(file)
+                val file = File(directory, newPathNameIterator.next())
+                newFileList.add(file)
             }
 
-            newPathNameIterable = newPathNameList
-            newPathNameList = ArrayList<Any?>()
-            newPathNameIterator = newPathNameIterable.iterator()
-            var it: File
-            while (newPathNameIterator.hasNext()) {
-                pathName = newPathNameIterator.next()
-                it = pathName as File
-                if (it.isFile) {
-                    newPathNameList.add(pathName)
+            val newFileList2 = mutableListOf<File>()
+            val fileIterator1 = newFileList.iterator()
+            while (fileIterator1.hasNext()) {
+                val file = fileIterator1.next()
+                if (file.isFile) {
+                    newFileList2.add(file)
                 }
             }
 
-            newPathNameIterable = newPathNameList
-            newPathNameList = ArrayList<Any?>(newPathNameIterable.collectionSizeOrDefault<Any>(10))
-            newPathNameIterator = newPathNameIterable.iterator()
-            while (newPathNameIterator.hasNext()) {
-                pathName = newPathNameIterator.next()
-                it = pathName as File
-                val var17 = it.nameWithoutExtension
-                newPathNameList.add(var17)
+            val fileNameList = mutableListOf<String>()
+            val fileIterator2 = newFileList2.iterator()
+            while (fileIterator2.hasNext()) {
+                val it2 : File = fileIterator2.next()
+                fileNameList.add(it2.nameWithoutExtension)
             }
-            newPathNameList as List<ParsedEntity>
+            fileNameList
         }
     }
 

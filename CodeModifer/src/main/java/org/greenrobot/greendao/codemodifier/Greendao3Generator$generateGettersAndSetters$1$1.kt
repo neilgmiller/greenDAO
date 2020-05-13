@@ -7,7 +7,7 @@ internal class `Greendao3Generator$generateGettersAndSetters$1$1`(// $FF: synthe
         val `$field`: ParsedProperty) : Lambda(0), Function0<Any?> {
 
     override fun invoke(): String {
-        return Templates.entity.INSTANCE.fieldSet(`$field`.variable)
+        return Templates.Entity.INSTANCE.fieldSet(`$field`.variable)
     }
 
 }

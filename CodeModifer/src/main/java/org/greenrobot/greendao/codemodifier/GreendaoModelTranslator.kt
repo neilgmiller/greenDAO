@@ -6,49 +6,47 @@ import kotlin.jvm.internal.Intrinsics
 //@Metadata(mv = [1, 1, 5], bv = [1, 0, 1], k = 1, d1 = ["\u0000X\n\u0002\u0018\u0002\n\u0002\u0010\u0000\n\u0002\b\u0002\n\u0002\u0010 \n\u0002\u0010\u000e\n\u0002\b\u0005\n\u0002\u0010\u0002\n\u0002\b\u0002\n\u0002\u0018\u0002\n\u0000\n\u0002\u0018\u0002\n\u0002\b\u0005\n\u0002\u0018\u0002\n\u0000\n\u0002\u0018\u0002\n\u0002\b\u0002\n\u0002\u0010$\n\u0000\n\u0002\u0010\u001c\n\u0000\n\u0002\u0018\u0002\n\u0002\b\u0005\n\u0002\u0018\u0002\n\u0002\b\u0002\bÆ\u0002\u0018\u00002\u00020\u0001B\u0007\b\u0002¢\u0006\u0002\u0010\u0002J\"\u0010\n\u001a\u00020\u000b2\b\u0010\f\u001a\u0004\u0018\u00010\u00052\u0006\u0010\r\u001a\u00020\u000e2\u0006\u0010\u000f\u001a\u00020\u0010H\u0002J\u0018\u0010\u0011\u001a\u00020\u000b2\u0006\u0010\r\u001a\u00020\u000e2\u0006\u0010\u000f\u001a\u00020\u0010H\u0002J\u0018\u0010\u0012\u001a\u00020\u000b2\u0006\u0010\u0013\u001a\u00020\u000e2\u0006\u0010\u000f\u001a\u00020\u0010H\u0002J\u0018\u0010\u0014\u001a\u00020\u000b2\u0006\u0010\u000f\u001a\u00020\u00102\u0006\u0010\u0015\u001a\u00020\u0016H\u0002J\u0010\u0010\u0017\u001a\u00020\u00182\u0006\u0010\u0019\u001a\u00020\u0005H\u0002J4\u0010\u001a\u001a\u000e\u0012\u0004\u0012\u00020\u000e\u0012\u0004\u0012\u00020\u00100\u001b2\f\u0010\u001c\u001a\b\u0012\u0004\u0012\u00020\u000e0\u001d2\u0006\u0010\u001e\u001a\u00020\u001f2\b\u0010\f\u001a\u0004\u0018\u00010\u0005H\u0002J2\u0010 \u001a\u00020\u000b2\u0012\u0010!\u001a\u000e\u0012\u0004\u0012\u00020\u000e\u0012\u0004\u0012\u00020\u00100\u001b2\f\u0010\u001c\u001a\b\u0012\u0004\u0012\u00020\u000e0\u001d2\u0006\u0010\u001e\u001a\u00020\u001fH\u0002J2\u0010\"\u001a\u00020\u000b2\u0012\u0010!\u001a\u000e\u0012\u0004\u0012\u00020\u000e\u0012\u0004\u0012\u00020\u00100\u001b2\f\u0010\u001c\u001a\b\u0012\u0004\u0012\u00020\u000e0\u001d2\u0006\u0010\u001e\u001a\u00020\u001fH\u0002J2\u0010#\u001a\u000e\u0012\u0004\u0012\u00020\u000e\u0012\u0004\u0012\u00020\u00100\u001b2\f\u0010\u001c\u001a\b\u0012\u0004\u0012\u00020\u000e0\u001d2\u0006\u0010\u001e\u001a\u00020\u001f2\b\u0010\f\u001a\u0004\u0018\u00010\u0005J\u0014\u0010$\u001a\u00020%*\u00020\u00102\u0006\u0010&\u001a\u00020\u0005H\u0002R \u0010\u0003\u001a\b\u0012\u0004\u0012\u00020\u00050\u0004X\u0086\u000e¢\u0006\u000e\n\u0000\u001a\u0004\b\u0006\u0010\u0007\"\u0004\b\b\u0010\t¨\u0006'"], d2 = ["Lorg/greenrobot/greendao/codemodifier/GreendaoModelTranslator;", "", "()V", "WRAPPER_TYPES", "", "", "getWRAPPER_TYPES", "()Ljava/util/List;", "setWRAPPER_TYPES", "(Ljava/util/List;)V", "addBasicProperties", "", "daoPackage", "it", "Lorg/greenrobot/greendao/codemodifier/ParsedEntity;", "entity", "Lorg/greenrobot/greendao/generator/Entity;", "addIndexes", "convertProperties", "parsedEntity", "convertProperty", "property", "Lorg/greenrobot/greendao/codemodifier/ParsedProperty;", "convertPropertyType", "Lorg/greenrobot/greendao/generator/PropertyType;", "javaTypeName", "mapEntityClassesToEntities", "", "entities", "", "schema", "Lorg/greenrobot/greendao/generator/Schema;", "resolveToManyRelations", "mapping", "resolveToOneRelations", "translate", "findProperty", "Lorg/greenrobot/greendao/generator/Property;", "name", "greendao-code-modifier_main"])
 class GreendaoModelTranslator private constructor() {
 
-    fun translate(entities: Iterable<ParsedEntity>, schema: Schema, daoPackage: String?): Map<*, *> {
+    fun translate(entities: Iterable<ParsedEntity>, schema: Schema, daoPackage: String?): Map<ParsedEntity, Entity> {
         val mapping = mapEntityClassesToEntities(entities, schema, daoPackage)
         resolveToOneRelations(mapping, entities, schema)
         resolveToManyRelations(mapping, entities, schema)
         return mapping
     }
 
-    private fun mapEntityClassesToEntities(entities: Iterable<*>, schema: Schema, daoPackage: String?): Map<*, *> {
-        val newList = mutableListOf<Pair<*, *>>()
-        val var7 = entities.iterator()
-        while (var7.hasNext()) {
-            val `item$iv$iv` = var7.next()!!
-            val it = `item$iv$iv` as ParsedEntity
-            val entity = schema.addEntity(it.name)
+    private fun mapEntityClassesToEntities(entities: Iterable<ParsedEntity>, schema: Schema, daoPackage: String?): Map<ParsedEntity, Entity> {
+        val newList = mutableListOf<Pair<ParsedEntity, Entity>>()
+        val iterator = entities.iterator()
+        while (iterator.hasNext()) {
+            val parsedEntity = iterator.next()
+            val entity = schema.addEntity(parsedEntity.name)
             Intrinsics.checkExpressionValueIsNotNull(entity, "entity")
-            INSTANCE.addBasicProperties(daoPackage, it, entity)
-            if (it.dbName != null) {
-                entity.dbName = it.dbName
+            INSTANCE.addBasicProperties(daoPackage, parsedEntity, entity)
+            if (parsedEntity.dbName != null) {
+                entity.dbName = parsedEntity.dbName
             }
-            if (it.active) {
+            if (parsedEntity.active) {
                 entity.active = true
             }
-            entity.isSkipCreationInDb = !it.createInDb
-            entity.javaPackage = it.packageName
+            entity.isSkipCreationInDb = !parsedEntity.createInDb
+            entity.javaPackage = parsedEntity.packageName
             Intrinsics.checkExpressionValueIsNotNull(entity, "entity")
-            INSTANCE.convertProperties(it, entity)
+            INSTANCE.convertProperties(parsedEntity, entity)
             Intrinsics.checkExpressionValueIsNotNull(entity, "entity")
-            INSTANCE.addIndexes(it, entity)
-            if (it.protobufClassName != null) {
-                val protobufEntity = schema.addProtobufEntity(it.protobufClassName.substringAfterLast("."))
+            INSTANCE.addIndexes(parsedEntity, entity)
+            if (parsedEntity.protobufClassName != null) {
+                val protobufEntity = schema.addProtobufEntity(parsedEntity.protobufClassName.substringAfterLast("."))
                 Intrinsics.checkExpressionValueIsNotNull(protobufEntity, "protobufEntity")
-                INSTANCE.addBasicProperties(daoPackage, it, protobufEntity)
+                INSTANCE.addBasicProperties(daoPackage, parsedEntity, protobufEntity)
                 protobufEntity.dbName = entity.dbName
                 protobufEntity.active = false
                 protobufEntity.isSkipCreationInDb = true
-                protobufEntity.javaPackage = it.protobufClassName.substringAfterLast(".")
+                protobufEntity.javaPackage = parsedEntity.protobufClassName.substringAfterLast(".")
                 Intrinsics.checkExpressionValueIsNotNull(protobufEntity, "protobufEntity")
-                INSTANCE.convertProperties(it, protobufEntity)
+                INSTANCE.convertProperties(parsedEntity, protobufEntity)
                 Intrinsics.checkExpressionValueIsNotNull(protobufEntity, "protobufEntity")
-                INSTANCE.addIndexes(it, protobufEntity)
+                INSTANCE.addIndexes(parsedEntity, protobufEntity)
             }
-            val var16: Pair<*, *> = it to entity
-            newList.add(var16)
+            newList.add(parsedEntity to entity)
         }
         return newList.toMap()
     }
@@ -91,7 +89,7 @@ class GreendaoModelTranslator private constructor() {
 //    private fun addIndexes(it: ParsedEntity, entity: Entity) { // $FF: Couldn't be decompiled
 //    }
 
-    private fun resolveToOneRelations(mapping: Map<*, *>, entities: Iterable<ParsedEntity>, schema: Schema) {
+    private fun resolveToOneRelations(mapping: Map<ParsedEntity, Entity>, entities: Iterable<ParsedEntity>, schema: Schema) {
         val parsedEntityList = mutableListOf<ParsedEntity>()
         val iterator = entities.iterator()
         while (iterator.hasNext()) {
@@ -107,7 +105,7 @@ class GreendaoModelTranslator private constructor() {
             if (var10000 == null) {
                 Intrinsics.throwNpe()
             }
-            val source = var10000 as Entity?
+            val source = var10000
             val oneRelationIterator = entity.oneRelations.iterator()
             while (true) {
                 while (true) {
@@ -128,22 +126,23 @@ class GreendaoModelTranslator private constructor() {
                             break
                         }
                     }
-                    val targetEntity = var10000 as Entity?
+                    val targetEntity = var10000
                             ?: throw RuntimeException("Class ${relation.variable.type.name} marked with @ToOne in class ${entity.name} is not an entity")
+                    val newProperty :Property?
                     if (relation.foreignKeyField != null) {
                         val propertyIterator = source!!.properties.iterator()
                         while (true) {
                             if (!propertyIterator.hasNext()) {
-                                var10000 = null
+                                newProperty = null
                                 break
                             }
                             val property = propertyIterator.next()
                             if (Intrinsics.areEqual(property.propertyName, relation.foreignKeyField)) {
-                                var10000 = property
+                                newProperty = property
                                 break
                             }
                         }
-                        val property = var10000 as Property?
+                        val property = newProperty
                                 ?: throw RuntimeException("Can't find ${relation.foreignKeyField} in ${entity.name} for @ToOne relation")
                         if (relation.columnName != null || relation.unique) {
                             throw (RuntimeException("If @ToOne with foreign property used, @Column and @Unique are ignored. See ${entity.name}.${relation.variable.name}") as Throwable)

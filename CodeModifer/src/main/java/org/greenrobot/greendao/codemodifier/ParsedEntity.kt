@@ -62,13 +62,11 @@ class ParsedEntity(val name: String,
             val someMethod: Method?
             while (true) {
                 if (constructorIterator.hasNext()) {
-                    val constructorMethodDeclaration :MethodDeclaration? = constructorIterator.next()
-
-                    val it = constructorMethodDeclaration as Method?
-                    if (!Intrinsics.areEqual(it!!.parameters, fieldVarsSet)) {
+                    val method = constructorIterator.next()
+                    if (!Intrinsics.areEqual(method.parameters, fieldVarsSet)) {
                         continue
                     }
-                    someMethod = constructorMethodDeclaration
+                    someMethod = method
                     break
                 }
                 someMethod = null
@@ -83,7 +81,7 @@ class ParsedEntity(val name: String,
             }
         }
 
-    fun copy(name: String, schema: String, active: Boolean, properties: List<ParsedProperty>, transientFields: List<TransientField>, legacyTransientFields: List<TransientField>, constructors: List<MethodDeclaration>, methods: List<MethodDeclaration>, node: TypeDeclaration, imports: List<ImportDeclaration>, packageName: String, dbName: String?, oneRelations: List<OneRelation>, manyRelations: List<ManyRelation>, indexes: List<TableIndex>, sourceFile: File, source: String, keepSource: Boolean, createInDb: Boolean, generateConstructors: Boolean, generateGettersSetters: Boolean, protobufClassName: String?, notNullAnnotation: String?, lastFieldDeclaration: FieldDeclaration?): ParsedEntity {
+    fun copy(name: String, schema: String, active: Boolean, properties: List<ParsedProperty>, transientFields: List<TransientField>, legacyTransientFields: List<TransientField>, constructors: List<Method>, methods: List<Method>, node: TypeDeclaration, imports: List<ImportDeclaration>, packageName: String, dbName: String?, oneRelations: List<OneRelation>, manyRelations: List<ManyRelation>, indexes: List<TableIndex>, sourceFile: File, source: String, keepSource: Boolean, createInDb: Boolean, generateConstructors: Boolean, generateGettersSetters: Boolean, protobufClassName: String?, notNullAnnotation: String?, lastFieldDeclaration: FieldDeclaration?): ParsedEntity {
         return ParsedEntity(name, schema, active, properties, transientFields, legacyTransientFields, constructors, methods, node, imports, packageName, dbName, oneRelations, manyRelations, indexes, sourceFile, source, keepSource, createInDb, generateConstructors, generateGettersSetters, protobufClassName, notNullAnnotation, lastFieldDeclaration)
     }
 

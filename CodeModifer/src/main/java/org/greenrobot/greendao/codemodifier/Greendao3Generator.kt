@@ -1,7 +1,7 @@
 package org.greenrobot.greendao.codemodifier
 
 import org.greenrobot.greendao.codemodifier.FunsKt.getJavaClassNames
-import org.greenrobot.greendao.codemodifier.Templates.entity
+import org.greenrobot.greendao.codemodifier.Templates.Entity
 import org.greenrobot.greendao.generator.*
 import java.io.File
 import kotlin.jvm.internal.Intrinsics
@@ -116,8 +116,6 @@ class Greendao3Generator(val formattingOptions: FormattingOptions?, private val 
         schema = Schema(name, version, defaultJavaPackage)
         val mapping = GreendaoModelTranslator.INSTANCE.translate(entities, schema, options.daoPackage)
         val var7 = skipTestGeneration as Collection<*>
-//        var var8: Iterator<*>
-        var `element$iv`: Any
         var qualifiedName: String
         if (!var7.isEmpty()) {
             val iterator = schema.entities.iterator()
@@ -169,7 +167,7 @@ class Greendao3Generator(val formattingOptions: FormattingOptions?, private val 
             var constructorIterator = parsedEntity.constructors.iterator()
             while (constructorIterator.hasNext()) {
                 val method = constructorIterator.next()
-                if (method.getKeep()) {
+                if (method.keep) {
                     ++count2
                 }
             }
@@ -178,7 +176,7 @@ class Greendao3Generator(val formattingOptions: FormattingOptions?, private val 
             var count3 = 0
             constructorIterator = methods.iterator()
             while (constructorIterator.hasNext()) {
-                if (constructorIterator.next().getKeep()) {
+                if (constructorIterator.next().keep) {
                     ++count3
                 }
             }
@@ -222,7 +220,7 @@ class Greendao3Generator(val formattingOptions: FormattingOptions?, private val 
         }
     }
 
-    private fun transformClass(parsedEntity: ParsedEntity, mapping: Map<*, Entity>) {
+    private fun transformClass(parsedEntity: ParsedEntity, mapping: Map<ParsedEntity, org.greenrobot.greendao.generator.Entity>) {
         val entity = mapping[parsedEntity]
         if (entity == null) {
             Intrinsics.throwNpe()
@@ -235,7 +233,7 @@ class Greendao3Generator(val formattingOptions: FormattingOptions?, private val 
 
         if (entity.active) {
             transformer.ensureImport("org.greenrobot.greendao.DaoException")
-            transformer.defMethod("__setDaoSession", arrayOf("$daoPackage.$daoSessionVarName")) { Templates.entity.INSTANCE.daoSessionSetter(entity) }
+            transformer.defMethod("__setDaoSession", arrayOf("$daoPackage.$daoSessionVarName")) { Entity.INSTANCE.daoSessionSetter(entity) }
             generateActiveMethodsAndFields(transformer)
             generateToManyRelations(entity, transformer)
             generateToOneRelations(entity, parsedEntity, transformer)
@@ -268,7 +266,7 @@ class Greendao3Generator(val formattingOptions: FormattingOptions?, private val 
                         break
                     }
                     val it = iterator.next()
-                    if (it.parameters.isEmpty() && !it.getGenerated()) {
+                    if (it.parameters.isEmpty() && !it.generated) {
                         var19 = false
                         break
                     }
@@ -295,7 +293,7 @@ class Greendao3Generator(val formattingOptions: FormattingOptions?, private val 
                 if (notNullAnnotation == null) {
                     notNullAnnotation = "@NotNull"
                 }
-                entity.INSTANCE.constructor(className, properties2, notNullAnnotation)
+                Entity.INSTANCE.constructor(className, properties2, notNullAnnotation)
             }
         } else {
             transformer.ensureDefaultConstructor()
@@ -319,7 +317,7 @@ class Greendao3Generator(val formattingOptions: FormattingOptions?, private val 
         }
     }
 
-    private fun generateToOneRelations(entity: Entity?, parsedEntity: ParsedEntity, transformer: EntityClassTransformer) {
+    private fun generateToOneRelations(entity: org.greenrobot.greendao.generator.Entity?, parsedEntity: ParsedEntity, transformer: EntityClassTransformer) {
         val iterator = entity!!.toOneRelations.reversed().iterator()
         while (iterator.hasNext()) {
             val toOne = iterator.next()
@@ -354,7 +352,7 @@ class Greendao3Generator(val formattingOptions: FormattingOptions?, private val 
         }
     }
 
-    private fun generateToManyRelations(entity: Entity?, transformer: EntityClassTransformer) {
+    private fun generateToManyRelations(entity: org.greenrobot.greendao.generator.Entity?, transformer: EntityClassTransformer) {
         val iterator = entity!!.toManyRelations.reversed().iterator()
         while (iterator.hasNext()) {
             val toMany = iterator.next()
@@ -373,7 +371,7 @@ class Greendao3Generator(val formattingOptions: FormattingOptions?, private val 
 
     // TODO:
     private fun generateActiveMethodsAndFields(transformer: EntityClassTransformer) {
-        var paramTypes = emptyArray<String>()
+        val paramTypes = emptyArray<String>()
         var code = function
         transformer.defMethod("update", paramTypes, code)
 
