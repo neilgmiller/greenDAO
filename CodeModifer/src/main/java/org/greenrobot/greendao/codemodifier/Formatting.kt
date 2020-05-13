@@ -46,20 +46,21 @@ class Formatting(val tabulation: Tabulation, val lineWidth: Int) {
                 var someString: String
 
                 label196@ run {
-                    val line = lineIterator.next() as String
-                    var localEndIndex = line.length - 1
-                    if (localEndIndex <= localEndIndex) {
+                    val line = lineIterator.next()
+                    var index = 0
+                    val endIndex = line.length - 1
+                    if (index <= endIndex) {
                         while (true) {
-                            val lastChar = line[localEndIndex]
+                            val lastChar = line[index]
                             if (lastChar != ' ') {
-                                someString = line.substring(0, localEndIndex)
+                                someString = line.substring(0, index) // TODO: what are the start and end variables actually supposed to be
                                 Intrinsics.checkExpressionValueIsNotNull(someString, "(this as java.lang.Strin…ing(startIndex, endIndex)")
                                 break@label196
                             }
-                            if (localEndIndex == localEndIndex) {
+                            if (index == endIndex) {
                                 break
                             }
-                            ++localEndIndex
+                            ++index
                         }
                     }
                     someString = line
@@ -84,20 +85,20 @@ class Formatting(val tabulation: Tabulation, val lineWidth: Int) {
 
                 label197@ run {
                     val line = linesIterable2.next()
-                    var startIndex = 0
+                    var index = 0
                     val lineEndIndex = line.length - 1
-                    if (startIndex <= lineEndIndex) {
+                    if (index <= lineEndIndex) {
                         while (true) {
-                            val it = line[startIndex]
+                            val it = line[index]
                             if (it != '\t') {
-                                someString = line.substring(0, startIndex)
+                                someString = line.substring(0, index)
                                 Intrinsics.checkExpressionValueIsNotNull(someString, "(this as java.lang.Strin…ing(startIndex, endIndex)")
                                 break@label197
                             }
-                            if (startIndex == lineEndIndex) {
+                            if (index == lineEndIndex) {
                                 break
                             }
-                            ++startIndex
+                            ++index
                         }
                     }
                     someString = line
