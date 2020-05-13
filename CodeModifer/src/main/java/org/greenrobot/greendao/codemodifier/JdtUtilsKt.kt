@@ -72,13 +72,13 @@ object JdtUtilsKt {
         return var10000
     }
 
-    fun resolveName(`$receiver`: Name, outerClassName: String?, imports: Iterable<*>, sourcePkg: String?, classesInPackage: List<*>): String {
-        Intrinsics.checkParameterIsNotNull(`$receiver`, "\$receiver")
+    fun resolveName(name: Name, outerClassName: String?, imports: Iterable<*>, sourcePkg: String?, classesInPackage: List<*>): String {
+        Intrinsics.checkParameterIsNotNull(name, "\$receiver")
         Intrinsics.checkParameterIsNotNull(imports, "imports")
         Intrinsics.checkParameterIsNotNull(classesInPackage, "classesInPackage")
-        val simpleName = `$receiver`.fullyQualifiedName
+        val simpleName = name.fullyQualifiedName
         var var15: String
-        if (`$receiver` is SimpleName) {
+        if (name is SimpleName) {
             val var8 = imports.iterator()
             val var10000: Any?
             while (true) {
@@ -96,29 +96,27 @@ object JdtUtilsKt {
             val var14 = var10000 as ImportDeclaration?
             if (var14 != null) {
                 val var6: ImportDeclaration = var14
-                var15 = var6.name.fullyQualifiedName as String
-                if (var15 != null) {
-                    return var15
-                }
+                return var6.name.fullyQualifiedName as String
             }
-            val `$receiver` = `$receiver` as Name
+
             var15 = if (classesInPackage.contains(simpleName)) {
                 if (sourcePkg != null) "$sourcePkg.$simpleName" else simpleName
             } else if (isStrict(imports) && !JavaLangTypes.contains(simpleName)) {
                 if (outerClassName != null) if (sourcePkg != null) "$sourcePkg.$outerClassName.$simpleName" else "$outerClassName.$simpleName" else simpleName
             } else {
                 if (!JavaLangTypes.contains(simpleName)) {
-                    throw (IllegalArgumentException("Can't resolve qualified name for " + simpleName + ". " + "Try to not use on-demand imports or specify qualified name explicitly (line " + getLineNumber(`$receiver` as ASTNode) + ")") as Throwable)
+                    throw IllegalArgumentException("Can't resolve qualified name for $simpleName. Try to not use on-demand imports or specify qualified name explicitly (line ${getLineNumber(name as ASTNode)})")
                 }
                 simpleName
             }
-            Intrinsics.checkExpressionValueIsNotNull(var15, "run {\n                //…          }\n            }")
-            var15 = var15
+            Intrinsics.checkExpressionValueIsNotNull(var15, """run {
+                //…          }
+            }""")
         } else {
-            if (`$receiver` is QualifiedName) {
-                val var12 = `$receiver`.fullyQualifiedName[0]
+            if (name is QualifiedName) {
+                val var12 = name.fullyQualifiedName[0]
                 if (Character.isUpperCase(var12)) {
-                    var15 = resolveName(`$receiver`.qualifier, outerClassName, imports, sourcePkg, classesInPackage) + "." + `$receiver`.name.identifier
+                    var15 = resolveName(name.qualifier, outerClassName, imports, sourcePkg, classesInPackage) + "." + name.name.identifier
                     return var15
                 }
             }

@@ -3,7 +3,6 @@ package org.greenrobot.greendao.codemodifier
 import org.greenrobot.greendao.generator.*
 import kotlin.jvm.internal.Intrinsics
 
-//@Metadata(mv = [1, 1, 5], bv = [1, 0, 1], k = 1, d1 = ["\u0000X\n\u0002\u0018\u0002\n\u0002\u0010\u0000\n\u0002\b\u0002\n\u0002\u0010 \n\u0002\u0010\u000e\n\u0002\b\u0005\n\u0002\u0010\u0002\n\u0002\b\u0002\n\u0002\u0018\u0002\n\u0000\n\u0002\u0018\u0002\n\u0002\b\u0005\n\u0002\u0018\u0002\n\u0000\n\u0002\u0018\u0002\n\u0002\b\u0002\n\u0002\u0010$\n\u0000\n\u0002\u0010\u001c\n\u0000\n\u0002\u0018\u0002\n\u0002\b\u0005\n\u0002\u0018\u0002\n\u0002\b\u0002\bÆ\u0002\u0018\u00002\u00020\u0001B\u0007\b\u0002¢\u0006\u0002\u0010\u0002J\"\u0010\n\u001a\u00020\u000b2\b\u0010\f\u001a\u0004\u0018\u00010\u00052\u0006\u0010\r\u001a\u00020\u000e2\u0006\u0010\u000f\u001a\u00020\u0010H\u0002J\u0018\u0010\u0011\u001a\u00020\u000b2\u0006\u0010\r\u001a\u00020\u000e2\u0006\u0010\u000f\u001a\u00020\u0010H\u0002J\u0018\u0010\u0012\u001a\u00020\u000b2\u0006\u0010\u0013\u001a\u00020\u000e2\u0006\u0010\u000f\u001a\u00020\u0010H\u0002J\u0018\u0010\u0014\u001a\u00020\u000b2\u0006\u0010\u000f\u001a\u00020\u00102\u0006\u0010\u0015\u001a\u00020\u0016H\u0002J\u0010\u0010\u0017\u001a\u00020\u00182\u0006\u0010\u0019\u001a\u00020\u0005H\u0002J4\u0010\u001a\u001a\u000e\u0012\u0004\u0012\u00020\u000e\u0012\u0004\u0012\u00020\u00100\u001b2\f\u0010\u001c\u001a\b\u0012\u0004\u0012\u00020\u000e0\u001d2\u0006\u0010\u001e\u001a\u00020\u001f2\b\u0010\f\u001a\u0004\u0018\u00010\u0005H\u0002J2\u0010 \u001a\u00020\u000b2\u0012\u0010!\u001a\u000e\u0012\u0004\u0012\u00020\u000e\u0012\u0004\u0012\u00020\u00100\u001b2\f\u0010\u001c\u001a\b\u0012\u0004\u0012\u00020\u000e0\u001d2\u0006\u0010\u001e\u001a\u00020\u001fH\u0002J2\u0010\"\u001a\u00020\u000b2\u0012\u0010!\u001a\u000e\u0012\u0004\u0012\u00020\u000e\u0012\u0004\u0012\u00020\u00100\u001b2\f\u0010\u001c\u001a\b\u0012\u0004\u0012\u00020\u000e0\u001d2\u0006\u0010\u001e\u001a\u00020\u001fH\u0002J2\u0010#\u001a\u000e\u0012\u0004\u0012\u00020\u000e\u0012\u0004\u0012\u00020\u00100\u001b2\f\u0010\u001c\u001a\b\u0012\u0004\u0012\u00020\u000e0\u001d2\u0006\u0010\u001e\u001a\u00020\u001f2\b\u0010\f\u001a\u0004\u0018\u00010\u0005J\u0014\u0010$\u001a\u00020%*\u00020\u00102\u0006\u0010&\u001a\u00020\u0005H\u0002R \u0010\u0003\u001a\b\u0012\u0004\u0012\u00020\u00050\u0004X\u0086\u000e¢\u0006\u000e\n\u0000\u001a\u0004\b\u0006\u0010\u0007\"\u0004\b\b\u0010\t¨\u0006'"], d2 = ["Lorg/greenrobot/greendao/codemodifier/GreendaoModelTranslator;", "", "()V", "WRAPPER_TYPES", "", "", "getWRAPPER_TYPES", "()Ljava/util/List;", "setWRAPPER_TYPES", "(Ljava/util/List;)V", "addBasicProperties", "", "daoPackage", "it", "Lorg/greenrobot/greendao/codemodifier/ParsedEntity;", "entity", "Lorg/greenrobot/greendao/generator/Entity;", "addIndexes", "convertProperties", "parsedEntity", "convertProperty", "property", "Lorg/greenrobot/greendao/codemodifier/ParsedProperty;", "convertPropertyType", "Lorg/greenrobot/greendao/generator/PropertyType;", "javaTypeName", "mapEntityClassesToEntities", "", "entities", "", "schema", "Lorg/greenrobot/greendao/generator/Schema;", "resolveToManyRelations", "mapping", "resolveToOneRelations", "translate", "findProperty", "Lorg/greenrobot/greendao/generator/Property;", "name", "greendao-code-modifier_main"])
 class GreendaoModelTranslator private constructor() {
 
     fun translate(entities: Iterable<ParsedEntity>, schema: Schema, daoPackage: String?): Map<ParsedEntity, Entity> {
@@ -86,8 +85,8 @@ class GreendaoModelTranslator private constructor() {
     }
 
     // TODO: What to do?
-//    private fun addIndexes(it: ParsedEntity, entity: Entity) { // $FF: Couldn't be decompiled
-//    }
+    private fun addIndexes(it: ParsedEntity, entity: Entity) { // $FF: Couldn't be decompiled
+    }
 
     private fun resolveToOneRelations(mapping: Map<ParsedEntity, Entity>, entities: Iterable<ParsedEntity>, schema: Schema) {
         val parsedEntityList = mutableListOf<ParsedEntity>()
@@ -162,8 +161,8 @@ class GreendaoModelTranslator private constructor() {
     }
 
     // TODO: What to do?
-//    private fun resolveToManyRelations(mapping: Map<*, *>, entities: Iterable<ParsedEntity>, schema: Schema) { // $FF: Couldn't be decompiled
-//    }
+    private fun resolveToManyRelations(mapping: Map<*, *>, entities: Iterable<ParsedEntity>, schema: Schema) { // $FF: Couldn't be decompiled
+    }
 
     private fun convertProperty(entity: Entity, property: ParsedProperty) {
         val variableType: VariableType = property.customType?.columnJavaType
@@ -315,6 +314,7 @@ class GreendaoModelTranslator private constructor() {
         }
     }
 
+    // TODO: What's happening with this?
     object WhenMappings {
         // $FF: synthetic field
         private val enumSwitchMapping0 = IntArray(Order.values().size)
@@ -330,7 +330,7 @@ class GreendaoModelTranslator private constructor() {
         }
     }
 
-
+    // TODO Never used? Called by code that wasn't decompiled?
     private fun findProperty(`$receiver`: Entity, name: String): Property {
         val var3 = `$receiver`.properties as Iterable<*>
         val var5 = var3.iterator()
@@ -355,7 +355,6 @@ class GreendaoModelTranslator private constructor() {
 
     companion object {
         var INSTANCE: GreendaoModelTranslator = GreendaoModelTranslator()
-
         private var WRAPPER_TYPES = listOf("Boolean", "Byte", "Character", "Short", "Integer", "Long", "Float", "Double", "java.lang.Boolean", "java.lang.Byte", "java.lang.Character", "java.lang.Short", "java.lang.Integer", "java.lang.Long", "java.lang.Float", "java.lang.Double")
     }
 }

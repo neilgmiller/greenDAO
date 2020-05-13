@@ -11,9 +11,8 @@ import java.util.*
 import kotlin.jvm.internal.Intrinsics
 import kotlin.text.Charsets.UTF_8
 
-//@Metadata(mv = [1, 1, 5], bv = [1, 0, 1], k = 1, d1 = ["\u0000~\n\u0002\u0018\u0002\n\u0002\u0010\u0000\n\u0000\n\u0002\u0018\u0002\n\u0000\n\u0002\u0018\u0002\n\u0002\u0010\u000e\n\u0000\n\u0002\u0018\u0002\n\u0000\n\u0002\u0018\u0002\n\u0002\b\u0002\n\u0002\u0010#\n\u0000\n\u0002\u0018\u0002\n\u0002\b\u0002\n\u0002\u0018\u0002\n\u0002\b\u0003\n\u0002\u0018\u0002\n\u0000\n\u0002\u0018\u0002\n\u0000\n\u0002\u0018\u0002\n\u0002\b\n\n\u0002\u0010\u0002\n\u0002\b\u0002\n\u0002\u0010 \n\u0000\n\u0002\u0018\u0002\n\u0002\b\u0003\n\u0002\u0018\u0002\n\u0002\b\u0002\n\u0002\u0010\u0011\n\u0002\b\u0013\n\u0002\u0018\u0002\n\u0000\u0018\u00002\u00020\u0001B5\u0012\u0006\u0010\u0002\u001a\u00020\u0003\u0012\u0012\u0010\u0004\u001a\u000e\u0012\u0004\u0012\u00020\u0006\u0012\u0004\u0012\u00020\u00060\u0005\u0012\b\u0010\u0007\u001a\u0004\u0018\u00010\b\u0012\b\b\u0002\u0010\t\u001a\u00020\n¢\u0006\u0002\u0010\u000bJ\u0006\u0010$\u001a\u00020%J\"\u0010&\u001a\u00020%2\f\u0010'\u001a\b\u0012\u0004\u0012\u00020\u00060(2\f\u0010)\u001a\b\u0012\u0004\u0012\u00020\u00060*J\"\u0010+\u001a\u00020%2\u0006\u0010,\u001a\u00020\u00062\u0006\u0010-\u001a\u00020.2\n\b\u0002\u0010/\u001a\u0004\u0018\u00010\u0006J5\u00100\u001a\u00020%2\u0006\u0010,\u001a\u00020\u00062\u0012\u0010'\u001a\n\u0012\u0006\b\u0001\u0012\u00020\u000601\"\u00020\u00062\f\u0010)\u001a\b\u0012\u0004\u0012\u00020\u00060*¢\u0006\u0002\u00102J5\u00103\u001a\u00020%2\u0006\u0010,\u001a\u00020\u00062\u0012\u0010'\u001a\n\u0012\u0006\b\u0001\u0012\u00020\u000601\"\u00020\u00062\f\u0010)\u001a\b\u0012\u0004\u0012\u00020\u00060*¢\u0006\u0002\u00102J\u0006\u00104\u001a\u00020%J\u000e\u00105\u001a\u00020%2\u0006\u0010,\u001a\u00020\u0006J\u001c\u00106\u001a\u00020%2\u0006\u0010)\u001a\u00020\u00062\n\b\u0002\u00107\u001a\u0004\u0018\u00010\u0016H\u0002J$\u00108\u001a\u00020%2\u0006\u0010)\u001a\u00020\u00062\b\u00107\u001a\u0004\u0018\u00010\u00162\b\u00109\u001a\u0004\u0018\u00010\u0016H\u0002J\u000e\u0010:\u001a\u00020%2\u0006\u0010;\u001a\u00020\u0016J\u0010\u0010<\u001a\u00020\u00062\u0006\u0010=\u001a\u00020\u0006H\u0002J$\u0010>\u001a\u00020%2\u0006\u0010?\u001a\u00020\u00162\b\u0010@\u001a\u0004\u0018\u00010\u00162\b\u0010A\u001a\u0004\u0018\u00010\u0016H\u0002J\u0006\u0010B\u001a\u00020%J\b\u0010C\u001a\u0004\u0018\u00010\u0006J\u0010\u0010D\u001a\u00020%*\u0006\u0012\u0002\b\u00030EH\u0002R\u0014\u0010\f\u001a\b\u0012\u0004\u0012\u00020\u00060\rX\u0082\u0004¢\u0006\u0002\n\u0000R\u0016\u0010\u000e\u001a\n \u0010*\u0004\u0018\u00010\u000f0\u000fX\u0082\u0004¢\u0006\u0002\n\u0000R\u0016\u0010\u0011\u001a\n \u0010*\u0004\u0018\u00010\u00120\u0012X\u0082\u0004¢\u0006\u0002\n\u0000R\u0011\u0010\t\u001a\u00020\n¢\u0006\b\n\u0000\u001a\u0004\b\u0013\u0010\u0014R\u0016\u0010\u0015\u001a\n \u0010*\u0004\u0018\u00010\u00160\u0016X\u0082\u0004¢\u0006\u0002\n\u0000R\u000e\u0010\u0017\u001a\u00020\u0018X\u0082\u0004¢\u0006\u0002\n\u0000R\u000e\u0010\u0019\u001a\u00020\u001aX\u0082\u0004¢\u0006\u0002\n\u0000R\u0016\u0010\u001b\u001a\n \u0010*\u0004\u0018\u00010\u00120\u0012X\u0082\u0004¢\u0006\u0002\n\u0000R\u001d\u0010\u0004\u001a\u000e\u0012\u0004\u0012\u00020\u0006\u0012\u0004\u0012\u00020\u00060\u0005¢\u0006\b\n\u0000\u001a\u0004\b\u001c\u0010\u001dR\u0014\u0010\u001e\u001a\b\u0012\u0004\u0012\u00020\u00160\rX\u0082\u0004¢\u0006\u0002\n\u0000R\u0011\u0010\u0002\u001a\u00020\u0003¢\u0006\b\n\u0000\u001a\u0004\b\u001f\u0010 R\u0018\u0010!\u001a\u00020\u0006*\u00020\u00168BX\u0082\u0004¢\u0006\u0006\u001a\u0004\b\"\u0010#¨\u0006F"], d2 = ["Lorg/greenrobot/greendao/codemodifier/EntityClassTransformer;", "", "parsedEntity", "Lorg/greenrobot/greendao/codemodifier/ParsedEntity;", "jdtOptions", "Ljava/util/Hashtable;", "", "formattingOptions", "Lorg/greenrobot/greendao/codemodifier/FormattingOptions;", "charset", "Ljava/nio/charset/Charset;", "(Lorg/greenrobot/greendao/codemodifier/ParsedEntity;Ljava/util/Hashtable;Lorg/greenrobot/greendao/codemodifier/FormattingOptions;Ljava/nio/charset/Charset;)V", "addedImports", "", "astRewrite", "Lorg/greenrobot/eclipse/jdt/core/dom/rewrite/ASTRewrite;", "kotlin.jvm.PlatformType", "bodyRewrite", "Lorg/greenrobot/eclipse/jdt/core/dom/rewrite/ListRewrite;", "getCharset", "()Ljava/nio/charset/Charset;", "cu", "Lorg/greenrobot/eclipse/jdt/core/dom/ASTNode;", "formatter", "Lorg/greenrobot/greendao/codemodifier/Formatter;", "formatting", "Lorg/greenrobot/greendao/codemodifier/Formatting;", "importsRewrite", "getJdtOptions", "()Ljava/util/Hashtable;", "keepNodes", "getParsedEntity", "()Lorg/greenrobot/greendao/codemodifier/ParsedEntity;", "sourceLine", "getSourceLine", "(Lorg/greenrobot/eclipse/jdt/core/dom/ASTNode;)Ljava/lang/String;", "annotateLegacyKeepFields", "", "defConstructor", "paramTypes", "", "code", "Lkotlin/Function0;", "defField", "name", "type", "Lorg/greenrobot/greendao/codemodifier/VariableType;", "comment", "defMethod", "", "(Ljava/lang/String;[Ljava/lang/String;Lkotlin/jvm/functions/Function0;)V", "defMethodIfMissing", "ensureDefaultConstructor", "ensureImport", "insertField", "replaceOld", "insertMethod", "insertAfter", "remove", "node", "replaceHashStub", "source", "replaceNode", "newNode", "oldNode", "orInsertAfter", "writeToFile", "writeToString", "checkKeepPresent", "Lorg/greenrobot/greendao/codemodifier/Generatable;", "greendao-code-modifier_main"])
 class EntityClassTransformer(private val parsedEntity: ParsedEntity, private val jdtOptions: Hashtable<String, String>,
-                             private val formattingOptions: FormattingOptions?, val inputCharSet: Charset, val bits: Int = 0) {
+                             formattingOptions: FormattingOptions?, val inputCharSet: Charset, val bits: Int = 0) {
 
     private val charset: Charset by lazy {
         if (bits and 8 != 0) {
@@ -57,25 +56,25 @@ class EntityClassTransformer(private val parsedEntity: ParsedEntity, private val
         }
     }
 
-    fun remove(node: ASTNode) = bodyRewrite.remove(node, null as TextEditGroup?)
+    private fun remove(node: ASTNode) = bodyRewrite.remove(node, null as TextEditGroup?)
 
-    private fun insertMethod(code: String, replaceOld: ASTNode?, insertAfter: ASTNode?) {
-        if (replaceOld != null && CodeCompare.INSTANCE.isSameCode(replaceOld, code)) {
+    private fun insertMethod(codeString: String, replaceOldNode: ASTNode?, insertAfterNode: ASTNode?) {
+        if (replaceOldNode != null && CodeCompare.INSTANCE.isSameCode(replaceOldNode, codeString)) {
             val var6 = keepNodes as MutableCollection<ASTNode>
-            var6.add(replaceOld)
+            var6.add(replaceOldNode)
         } else {
-            val newMethod = astRewrite.createStringPlaceholder(formatter.format(code), TypeDeclaration.METHOD_DECLARATION)
-            replaceNode(newMethod, replaceOld, insertAfter)
+            val newMethod = astRewrite.createStringPlaceholder(formatter.format(codeString), TypeDeclaration.METHOD_DECLARATION)
+            replaceNode(newMethod, replaceOldNode, insertAfterNode)
         }
     }
 
-    private fun insertField(code: String, replaceOld: ASTNode?) {
-        if (replaceOld != null && CodeCompare.INSTANCE.isSameCode(replaceOld, code)) {
+    private fun insertField(codeString: String, replaceOldNode: ASTNode?) {
+        if (replaceOldNode != null && CodeCompare.INSTANCE.isSameCode(replaceOldNode, codeString)) {
             val var5 = keepNodes as MutableCollection<ASTNode>
-            var5.add(replaceOld)
+            var5.add(replaceOldNode)
         } else {
-            val newField = astRewrite.createStringPlaceholder(formatter.format(code), TypeDeclaration.FIELD_DECLARATION)
-            replaceNode(newField, replaceOld, parsedEntity.lastFieldDeclaration as ASTNode?)
+            val newField = astRewrite.createStringPlaceholder(formatter.format(codeString), TypeDeclaration.FIELD_DECLARATION)
+            replaceNode(newField, replaceOldNode, parsedEntity.lastFieldDeclaration as ASTNode?)
         }
     }
 
@@ -149,8 +148,7 @@ class EntityClassTransformer(private val parsedEntity: ParsedEntity, private val
 
             val generatedConstructor = var10000 as Method?
             if (generatedConstructor != null) {
-                val nodeToReplace: MethodDeclaration?
-                nodeToReplace = if (generatedConstructor.parameters.isNotEmpty() && paramTypes.isNotEmpty()) {
+                val nodeToReplace: MethodDeclaration? = if (generatedConstructor.parameters.isNotEmpty() && paramTypes.isNotEmpty()) {
                     generatedConstructor.node
                 } else {
                     (keepNodes as MutableCollection<ASTNode>).add(generatedConstructor.node)
@@ -196,48 +194,44 @@ class EntityClassTransformer(private val parsedEntity: ParsedEntity, private val
         }
     }
 
-    fun defMethod(name: String, paramTypes: Array<String>, code: Function0<*>) {
+    fun defMethod(name: String, paramTypes: Array<String>, codeFunction: Function0<*>) {
         val methodIterator = parsedEntity.methods.iterator()
-        val var10000: Any?
+        val method: Method?
         while (true) {
             if (methodIterator.hasNext()) {
-                val var8 = methodIterator.next()
-                val it = var8 as Method
-                if (!it.hasSignature(name, paramTypes.toMutableList())) {
+                val newMethod = methodIterator.next()
+                if (newMethod.hasSignature(name, paramTypes.toMutableList())) {
+                    method = newMethod
+                    break
+                } else {
                     continue
                 }
-                var10000 = var8
-                break
             }
-            var10000 = null
+            method = null
             break
         }
-        val method = var10000 as Method?
         if (method != null && !method.generated) {
             checkKeepPresent(method as Generatable)
         } else {
-            var receiver = paramTypes
-            val destination = mutableListOf<String>()
-            for (var18 in receiver.indices) {
-                val element: String = receiver[var18]
+            val paramTypesWithDot = mutableListOf<String>()
+            for (index in paramTypes.indices) {
+                val paramType: String = paramTypes[index]
 
-                if (element.contains('.', false)) {
-                    destination.add(element)
+                if (paramType.contains('.', false)) {
+                    paramTypesWithDot.add(paramType)
                 }
             }
-            receiver = destination.toTypedArray()
-            val receiverIterator = receiver.iterator()
-            while (receiverIterator.hasNext()) {
-                ensureImport(receiverIterator.next())
+
+            val paramTypeIterator = paramTypesWithDot.toTypedArray().iterator()
+            while (paramTypeIterator.hasNext()) {
+                ensureImport(paramTypeIterator.next())
             }
-            val code2 = replaceHashStub(code.invoke() as String)
-            val replaceOld2 = method?.node as ASTNode?
-            var insertAfter2: BodyDeclaration? = parsedEntity.lastMethodDeclaration
+            val codeString = replaceHashStub(codeFunction.invoke() as String)
+            val replaceOldNode = method?.node as ASTNode?
+            val insertAfterNode: BodyDeclaration? = parsedEntity.lastMethodDeclaration
                     ?: parsedEntity.lastConstructorDeclaration
-            if (insertAfter2 == null) {
-                insertAfter2 = parsedEntity.lastFieldDeclaration
-            }
-            insertMethod(code2, replaceOld2, insertAfter2)
+                    ?: parsedEntity.lastFieldDeclaration
+            insertMethod(codeString, replaceOldNode, insertAfterNode)
         }
     }
 
@@ -289,7 +283,7 @@ class EntityClassTransformer(private val parsedEntity: ParsedEntity, private val
         val var10000: Any?
         while (true) {
             if (fieldIterator.hasNext()) {
-                val var8 = fieldIterator.next()!!
+                val var8 = fieldIterator.next()
                 val it = var8 as TransientField
                 if (!Intrinsics.areEqual(it.variable.name, name)) {
                     continue
@@ -337,7 +331,7 @@ class EntityClassTransformer(private val parsedEntity: ParsedEntity, private val
         }
     }
 
-    fun removeUnneeded(iterable: Iterable<*>) {
+    private fun removeUnneeded(iterable: Iterable<*>) {
         val sequence: Sequence<*> = iterable.asSequence()
                 .filter {
                     val item = it as Generatable
@@ -349,7 +343,7 @@ class EntityClassTransformer(private val parsedEntity: ParsedEntity, private val
         }
     }
 
-    fun writeToString(): String? {
+    private fun writeToString(): String? {
         removeUnneeded(parsedEntity.constructors)
         removeUnneeded(parsedEntity.methods)
         removeUnneeded(parsedEntity.transientFields)

@@ -114,6 +114,7 @@ object FunsKt {
         }
     }
 
+    // TODO: is never used
     fun logTime(action: String, block: Function0<*>): Any {
         val start = System.currentTimeMillis()
         val result = block.invoke()!!

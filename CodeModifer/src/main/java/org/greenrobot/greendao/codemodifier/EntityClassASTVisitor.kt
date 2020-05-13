@@ -7,7 +7,6 @@ import kotlin.jvm.internal.Intrinsics
 import kotlin.jvm.internal.Reflection
 import kotlin.reflect.KClass
 
-//@Metadata(mv = [1, 1, 5], bv = [1, 0, 1], k = 1, d1 = ["\u0000ø\u0001\n\u0002\u0018\u0002\n\u0002\u0018\u0002\n\u0000\n\u0002\u0010\u000e\n\u0000\n\u0002\u0010 \n\u0000\n\u0002\u0010\b\n\u0002\b\u0003\n\u0002\u0010\u000b\n\u0002\b\u0007\n\u0002\u0010!\n\u0002\u0018\u0002\n\u0002\b\n\n\u0002\u0018\u0002\n\u0002\b\u0007\n\u0002\u0018\u0002\n\u0002\b\n\n\u0002\u0018\u0002\n\u0002\b\u0005\n\u0002\u0018\u0002\n\u0002\b\u0002\n\u0002\u0018\u0002\n\u0002\b\u0005\n\u0002\u0018\u0002\n\u0002\b\u0005\n\u0002\u0018\u0002\n\u0002\b\u000b\n\u0002\u0018\u0002\n\u0002\b\u0006\n\u0002\u0018\u0002\n\u0002\b\b\n\u0002\u0018\u0002\n\u0002\b\u0003\n\u0002\u0018\u0002\n\u0002\b\b\n\u0002\u0018\u0002\n\u0002\b\u0003\n\u0002\u0010\u0002\n\u0002\b\u0004\n\u0002\u0018\u0002\n\u0000\n\u0002\u0018\u0002\n\u0002\b\u0002\n\u0002\u0018\u0002\n\u0000\n\u0002\u0018\u0002\n\u0000\n\u0002\u0018\u0002\n\u0002\b\u0003\n\u0002\u0018\u0002\n\u0002\b\u0003\n\u0002\u0018\u0002\n\u0002\u0018\u0002\n\u0002\u0018\u0002\n\u0002\u0018\u0002\n\u0002\u0018\u0002\n\u0002\u0018\u0002\n\u0002\b\u0003\n\u0002\u0018\u0002\n\u0002\b\u0004\n\u0002\u0018\u0002\n\u0002\b\u0002\n\u0002\u0010\u001b\n\u0002\b\u0003\u0018\u00002\u00020\u0001B-\u0012\u0006\u0010\u0002\u001a\u00020\u0003\u0012\u000e\b\u0002\u0010\u0004\u001a\b\u0012\u0004\u0012\u00020\u00030\u0005\u0012\u0006\u0010\u0006\u001a\u00020\u0007\u0012\u0006\u0010\b\u001a\u00020\u0007¢\u0006\u0002\u0010\tJ\u0018\u0010s\u001a\u00020t2\u0006\u0010u\u001a\u00020\u00032\u0006\u0010v\u001a\u00020\u0003H\u0002J\b\u0010w\u001a\u00020tH\u0002J\u0018\u0010x\u001a\u0004\u0018\u00010y2\u0006\u0010z\u001a\u00020{2\u0006\u0010\u0002\u001a\u00020\u0003J\u0010\u0010|\u001a\u00020t2\u0006\u0010}\u001a\u000202H\u0016J\u0010\u0010|\u001a\u00020t2\u0006\u0010}\u001a\u00020~H\u0016J$\u0010\u007f\u001a\u0005\u0018\u00010\u0080\u00012\b\u0010\u0081\u0001\u001a\u00030\u0082\u00012\r\u0010\u0083\u0001\u001a\b\u0012\u0004\u0012\u00020\u001f0\u0013H\u0002J,\u0010\u0084\u0001\u001a\u00020;2\r\u0010\u0083\u0001\u001a\b\u0012\u0004\u0012\u00020\u001f0\u00132\b\u0010\u0081\u0001\u001a\u00030\u0082\u00012\b\u0010\u0085\u0001\u001a\u00030\u0086\u0001H\u0002J,\u0010\u0087\u0001\u001a\u00020A2\r\u0010\u0083\u0001\u001a\b\u0012\u0004\u0012\u00020\u001f0\u00132\b\u0010\u0081\u0001\u001a\u00030\u0082\u00012\b\u0010\u0085\u0001\u001a\u00030\u0086\u0001H\u0002J4\u0010\u0088\u0001\u001a\u00020G2\r\u0010\u0083\u0001\u001a\b\u0012\u0004\u0012\u00020\u001f0\u00132\b\u0010\u0081\u0001\u001a\u00030\u0082\u00012\u0006\u0010}\u001a\u0002022\b\u0010\u0085\u0001\u001a\u00030\u0086\u0001H\u0002J\u0012\u0010\u0089\u0001\u001a\u00020\u000b2\u0007\u0010}\u001a\u00030\u008a\u0001H\u0016J\u0012\u0010\u0089\u0001\u001a\u00020\u000b2\u0007\u0010}\u001a\u00030\u008b\u0001H\u0016J\u0011\u0010\u0089\u0001\u001a\u00020\u000b2\u0006\u0010}\u001a\u000202H\u0016J\u0011\u0010\u0089\u0001\u001a\u00020\u000b2\u0006\u0010}\u001a\u00020'H\u0016J\u0012\u0010\u0089\u0001\u001a\u00020\u000b2\u0007\u0010}\u001a\u00030\u008c\u0001H\u0016J\u0011\u0010\u0089\u0001\u001a\u00020\u000b2\u0006\u0010}\u001a\u00020~H\u0016J\u0012\u0010\u0089\u0001\u001a\u00020\u000b2\u0007\u0010}\u001a\u00030\u008d\u0001H\u0016J\u0012\u0010\u0089\u0001\u001a\u00020\u000b2\u0007\u0010}\u001a\u00030\u008e\u0001H\u0016J\u0012\u0010\u0089\u0001\u001a\u00020\u000b2\u0007\u0010}\u001a\u00030\u008f\u0001H\u0016J\u0011\u0010\u0089\u0001\u001a\u00020\u000b2\u0006\u0010}\u001a\u00020ZH\u0016J\u000f\u0010\u0090\u0001\u001a\u00020\u000b2\u0006\u0010}\u001a\u00020\u001fJ\u0017\u0010\u0091\u0001\u001a\u00020t*\u00020c2\b\u0010\u0092\u0001\u001a\u00030\u0093\u0001H\u0002J\u001d\u0010\u0094\u0001\u001a\u00020\u000b\"\u0007\b\u0000\u0010\u0095\u0001\u0018\u0001*\b\u0012\u0004\u0012\u00020\u001f0\u0005H\u0082\bJ\u001b\u0010\u0096\u0001\u001a\u00020\u000b*\u00020\u001f2\f\u0010\u0097\u0001\u001a\u0007\u0012\u0002\b\u00030\u0098\u0001H\u0002J+\u0010\u0099\u0001\u001a\u0005\u0018\u0001H\u009a\u0001\"\f\b\u0000\u0010\u009a\u0001\u0018\u0001*\u00030\u009b\u0001*\b\u0012\u0004\u0012\u00020\u001f0\u0005H\u0082\b¢\u0006\u0003\u0010\u009c\u0001J\u000e\u0010\u009d\u0001\u001a\u00030\u0086\u0001*\u00020pH\u0002R\u001a\u0010\n\u001a\u00020\u000bX\u0086\u000e¢\u0006\u000e\n\u0000\u001a\u0004\b\f\u0010\r\"\u0004\b\u000e\u0010\u000fR\u0017\u0010\u0004\u001a\b\u0012\u0004\u0012\u00020\u00030\u0005¢\u0006\b\n\u0000\u001a\u0004\b\u0010\u0010\u0011R\u0017\u0010\u0012\u001a\b\u0012\u0004\u0012\u00020\u00140\u0013¢\u0006\b\n\u0000\u001a\u0004\b\u0015\u0010\u0011R\u001a\u0010\u0016\u001a\u00020\u000bX\u0086\u000e¢\u0006\u000e\n\u0000\u001a\u0004\b\u0017\u0010\r\"\u0004\b\u0018\u0010\u000fR\u001c\u0010\u0019\u001a\u0004\u0018\u00010\u0003X\u0086\u000e¢\u0006\u000e\n\u0000\u001a\u0004\b\u001a\u0010\u001b\"\u0004\b\u001c\u0010\u001dR\u0014\u0010\u001e\u001a\b\u0012\u0004\u0012\u00020\u001f0\u0013X\u0082\u0004¢\u0006\u0002\n\u0000R\u001a\u0010 \u001a\u00020\u000bX\u0086\u000e¢\u0006\u000e\n\u0000\u001a\u0004\b!\u0010\r\"\u0004\b\"\u0010\u000fR\u001a\u0010#\u001a\u00020\u000bX\u0086\u000e¢\u0006\u000e\n\u0000\u001a\u0004\b$\u0010\r\"\u0004\b%\u0010\u000fR\u0017\u0010&\u001a\b\u0012\u0004\u0012\u00020'0\u0013¢\u0006\b\n\u0000\u001a\u0004\b(\u0010\u0011R\u001a\u0010)\u001a\u00020\u000bX\u0086\u000e¢\u0006\u000e\n\u0000\u001a\u0004\b)\u0010\r\"\u0004\b*\u0010\u000fR\u0011\u0010\b\u001a\u00020\u0007¢\u0006\b\n\u0000\u001a\u0004\b+\u0010,R\u0011\u0010\u0006\u001a\u00020\u0007¢\u0006\b\n\u0000\u001a\u0004\b-\u0010,R\u001a\u0010.\u001a\u00020\u000bX\u0086\u000e¢\u0006\u000e\n\u0000\u001a\u0004\b/\u0010\r\"\u0004\b0\u0010\u000fR\u001c\u00101\u001a\u0004\u0018\u000102X\u0086\u000e¢\u0006\u000e\n\u0000\u001a\u0004\b3\u00104\"\u0004\b5\u00106R\u0017\u00107\u001a\b\u0012\u0004\u0012\u0002080\u0013¢\u0006\b\n\u0000\u001a\u0004\b9\u0010\u0011R\u0017\u0010:\u001a\b\u0012\u0004\u0012\u00020;0\u0013¢\u0006\b\n\u0000\u001a\u0004\b<\u0010\u0011R\u0014\u0010=\u001a\b\u0012\u0004\u0012\u00020\u001f0\u0013X\u0082\u0004¢\u0006\u0002\n\u0000R\u0017\u0010>\u001a\b\u0012\u0004\u0012\u00020\u00140\u0013¢\u0006\b\n\u0000\u001a\u0004\b?\u0010\u0011R\u0017\u0010@\u001a\b\u0012\u0004\u0012\u00020A0\u0013¢\u0006\b\n\u0000\u001a\u0004\bB\u0010\u0011R\u001c\u0010C\u001a\u0004\u0018\u00010\u0003X\u0086\u000e¢\u0006\u000e\n\u0000\u001a\u0004\bD\u0010\u001b\"\u0004\bE\u0010\u001dR\u0017\u0010F\u001a\b\u0012\u0004\u0012\u00020G0\u0013¢\u0006\b\n\u0000\u001a\u0004\bH\u0010\u0011R\u001c\u0010I\u001a\u0004\u0018\u00010\u0003X\u0086\u000e¢\u0006\u000e\n\u0000\u001a\u0004\bJ\u0010\u001b\"\u0004\bK\u0010\u001dR\u001a\u0010L\u001a\u00020\u0003X\u0086\u000e¢\u0006\u000e\n\u0000\u001a\u0004\bM\u0010\u001b\"\u0004\bN\u0010\u001dR\u0011\u0010\u0002\u001a\u00020\u0003¢\u0006\b\n\u0000\u001a\u0004\bO\u0010\u001bR\u0017\u0010P\u001a\b\u0012\u0004\u0012\u00020\u00030\u0013¢\u0006\b\n\u0000\u001a\u0004\bQ\u0010\u0011R \u0010R\u001a\b\u0012\u0004\u0012\u00020S0\u0005X\u0086\u000e¢\u0006\u000e\n\u0000\u001a\u0004\bT\u0010\u0011\"\u0004\bU\u0010VR\u0017\u0010W\u001a\b\u0012\u0004\u0012\u0002080\u0013¢\u0006\b\n\u0000\u001a\u0004\bX\u0010\u0011R\u001c\u0010Y\u001a\u0004\u0018\u00010ZX\u0086\u000e¢\u0006\u000e\n\u0000\u001a\u0004\b[\u0010\\\"\u0004\b]\u0010^R\u001c\u0010_\u001a\u0004\u0018\u00010\u0003X\u0086\u000e¢\u0006\u000e\n\u0000\u001a\u0004\b`\u0010\u001b\"\u0004\ba\u0010\u001dR\u001a\u0010b\u001a\u0004\u0018\u00010\u0003*\u00020c8BX\u0082\u0004¢\u0006\u0006\u001a\u0004\bd\u0010eR \u0010f\u001a\u0004\u0018\u00010g*\b\u0012\u0004\u0012\u00020\u001f0\u00058BX\u0082\u0004¢\u0006\u0006\u001a\u0004\bh\u0010iR\u001e\u0010j\u001a\u00020\u000b*\b\u0012\u0004\u0012\u00020\u001f0\u00058BX\u0082\u0004¢\u0006\u0006\u001a\u0004\bk\u0010lR\u0018\u0010m\u001a\u00020\u0003*\u00020c8BX\u0082\u0004¢\u0006\u0006\u001a\u0004\bn\u0010eR\u0018\u0010o\u001a\u00020\u0003*\u00020p8BX\u0082\u0004¢\u0006\u0006\u001a\u0004\bq\u0010r¨\u0006\u009e\u0001"], d2 = ["Lorg/greenrobot/greendao/codemodifier/EntityClassASTVisitor;", "Lorg/greenrobot/greendao/codemodifier/LazyVisitor;", "source", "", "classesInPackage", "", "keepFieldsStartLineNumber", "", "keepFieldsEndLineNumber", "(Ljava/lang/String;Ljava/util/List;II)V", "active", "", "getActive", "()Z", "setActive", "(Z)V", "getClassesInPackage", "()Ljava/util/List;", "constructors", "", "Lorg/greenrobot/greendao/codemodifier/Method;", "getConstructors", "createTable", "getCreateTable", "setCreateTable", "entityTableName", "getEntityTableName", "()Ljava/lang/String;", "setEntityTableName", "(Ljava/lang/String;)V", "fieldAnnotations", "Lorg/greenrobot/eclipse/jdt/core/dom/Annotation;", "generateConstructors", "getGenerateConstructors", "setGenerateConstructors", "generateGettersSetters", "getGenerateGettersSetters", "setGenerateGettersSetters", "imports", "Lorg/greenrobot/eclipse/jdt/core/dom/ImportDeclaration;", "getImports", "isEntity", "setEntity", "getKeepFieldsEndLineNumber", "()I", "getKeepFieldsStartLineNumber", "keepSource", "getKeepSource", "setKeepSource", "lastField", "Lorg/greenrobot/eclipse/jdt/core/dom/FieldDeclaration;", "getLastField", "()Lorg/greenrobot/eclipse/jdt/core/dom/FieldDeclaration;", "setLastField", "(Lorg/greenrobot/eclipse/jdt/core/dom/FieldDeclaration;)V", "legacyTransientFields", "Lorg/greenrobot/greendao/codemodifier/TransientField;", "getLegacyTransientFields", "manyRelations", "Lorg/greenrobot/greendao/codemodifier/ManyRelation;", "getManyRelations", "methodAnnotations", "methods", "getMethods", "oneRelations", "Lorg/greenrobot/greendao/codemodifier/OneRelation;", "getOneRelations", "packageName", "getPackageName", "setPackageName", "properties", "Lorg/greenrobot/greendao/codemodifier/ParsedProperty;", "getProperties", "protobufClassName", "getProtobufClassName", "setProtobufClassName", "schemaName", "getSchemaName", "setSchemaName", "getSource", "staticInnerClasses", "getStaticInnerClasses", "tableIndexes", "Lorg/greenrobot/greendao/codemodifier/TableIndex;", "getTableIndexes", "setTableIndexes", "(Ljava/util/List;)V", "transientFields", "getTransientFields", "typeDeclaration", "Lorg/greenrobot/eclipse/jdt/core/dom/TypeDeclaration;", "getTypeDeclaration", "()Lorg/greenrobot/eclipse/jdt/core/dom/TypeDeclaration;", "setTypeDeclaration", "(Lorg/greenrobot/eclipse/jdt/core/dom/TypeDeclaration;)V", "usedNotNullAnnotation", "getUsedNotNullAnnotation", "setUsedNotNullAnnotation", "codePlace", "Lorg/greenrobot/eclipse/jdt/core/dom/ASTNode;", "getCodePlace", "(Lorg/greenrobot/eclipse/jdt/core/dom/ASTNode;)Ljava/lang/String;", "generatorHint", "Lorg/greenrobot/greendao/codemodifier/GeneratorHint;", "getGeneratorHint", "(Ljava/util/List;)Lorg/greenrobot/greendao/codemodifier/GeneratorHint;", "hasNotNull", "getHasNotNull", "(Ljava/util/List;)Z", "originalCode", "getOriginalCode", "typeName", "Lorg/greenrobot/eclipse/jdt/core/dom/Type;", "getTypeName", "(Lorg/greenrobot/eclipse/jdt/core/dom/Type;)Ljava/lang/String;", "checkIfInnerTypeThenStatic", "", "typeClassName", "outerClassName", "checkInnerCustomTypes", "createParsedEntity", "Lorg/greenrobot/greendao/codemodifier/ParsedEntity;", "javaFile", "Ljava/io/File;", "endVisit", "node", "Lorg/greenrobot/eclipse/jdt/core/dom/MethodDeclaration;", "findConvert", "Lorg/greenrobot/greendao/codemodifier/CustomType;", "fieldName", "Lorg/greenrobot/eclipse/jdt/core/dom/SimpleName;", "fa", "manyRelation", "variableType", "Lorg/greenrobot/greendao/codemodifier/VariableType;", "oneRelation", "parseProperty", "visit", "Lorg/greenrobot/eclipse/jdt/core/dom/CompilationUnit;", "Lorg/greenrobot/eclipse/jdt/core/dom/EnumDeclaration;", "Lorg/greenrobot/eclipse/jdt/core/dom/MarkerAnnotation;", "Lorg/greenrobot/eclipse/jdt/core/dom/NormalAnnotation;", "Lorg/greenrobot/eclipse/jdt/core/dom/PackageDeclaration;", "Lorg/greenrobot/eclipse/jdt/core/dom/SingleMemberAnnotation;", "visitAnnotation", "checkUntouched", "hint", "Lorg/greenrobot/greendao/codemodifier/GeneratorHint\$Generated;", "has", "A", "hasType", "klass", "Lkotlin/reflect/KClass;", "proxy", "T", "", "(Ljava/util/List;)Ljava/lang/annotation/Annotation;", "toVariableType", "greendao-code-modifier_main"])
 class EntityClassASTVisitor(private val source: String,
                             private val classesInPackage: List<*>,
                             private val keepFieldsStartLineNumber: Int,
@@ -863,12 +862,10 @@ class EntityClassASTVisitor(private val source: String,
         if (generatorHint is GeneratorHint.Generated) {
             checkUntouched(methodDeclaration as ASTNode, generatorHint)
         }
-//        var var10000: Method
+
         val name = methodDeclaration.name.fullyQualifiedName
         Intrinsics.checkExpressionValueIsNotNull(name, "node.name.fullyQualifiedName")
         var `$receiver$iv` = methodDeclaration.parameters()
-//        var var14 = var10000
-//        val var13 :Method
         var `destination$iv$iv` = mutableListOf<Any?>()
         var var7 = `$receiver$iv`.iterator()
         var `item$iv$iv`: Any?
@@ -904,17 +901,17 @@ class EntityClassASTVisitor(private val source: String,
             `destination$iv$iv`.add(var19)
         }
         parameters = `destination$iv$iv`
-        val var14 = Method(name, parameters, methodDeclaration, generatorHint) // TODO: Looks like this should be added to the lists, but wrong type (Method vs MethodDeclaration)
+        val method = Method(name, parameters, methodDeclaration, generatorHint) // TODO: Looks like this should be added to the lists
         if (methodDeclaration.isConstructor) {
-            constructors.add(var14)
+            constructors.add(method)
         } else {
-            methods.add(var14)
+            methods.add(method)
         }
         methodAnnotations.clear()
     }
 
-    override fun visit(enumDeclaration: EnumDeclaration): Boolean {
-        staticInnerClasses.add(enumDeclaration.name.identifier)
+    override fun visit(declaration: EnumDeclaration): Boolean {
+        staticInnerClasses.add(declaration.name.identifier)
         return false
     }
 
@@ -966,73 +963,4 @@ class EntityClassASTVisitor(private val source: String,
             require(!(outerClassName == qualifiedNames[0] && !staticInnerClasses.contains(qualifiedNames[1]))) { "Inner class $typeClassName in $outerClassName has to be static. Only static classes are supported if converters or custom types (@Convert) are defined as inner classes." }
         }
     }
-
-//    fun getSchemaName(): String {
-//        return schemaName
-//    }
-//
-//    fun setSchemaName(var1: String) {
-//        Intrinsics.checkParameterIsNotNull(var1, "<set-?>")
-//        schemaName = var1
-//    }
-//
-//    fun getProperties(): List<*> {
-//        return properties
-//    }
-//
-//    fun getTransientFields(): List<*> {
-//        return transientFields
-//    }
-//
-//    fun getLegacyTransientFields(): List<*> {
-//        return legacyTransientFields
-//    }
-//
-//    fun getConstructors(): List<*> {
-//        return constructors
-//    }
-//
-//    fun getMethods(): List<*> {
-//        return methods
-//    }
-//
-//    fun getImports(): List<*> {
-//        return imports
-//    }
-//
-//    fun getStaticInnerClasses(): List<*> {
-//        return staticInnerClasses
-//    }
-//
-//    fun getOneRelations(): List<*> {
-//        return oneRelations
-//    }
-//
-//    fun getManyRelations(): List<*> {
-//        return manyRelations
-//    }
-//
-//    fun getTableIndexes(): List<*> {
-//        return tableIndexes
-//    }
-//
-//    fun setTableIndexes(var1: List<*>) {
-//        Intrinsics.checkParameterIsNotNull(var1, "<set-?>")
-//        tableIndexes = var1
-//    }
-//
-//    fun getUsedNotNullAnnotation(): String? {
-//        return usedNotNullAnnotation
-//    }
-//
-//    fun setUsedNotNullAnnotation(var1: String?) {
-//        usedNotNullAnnotation = var1
-//    }
-
-//    companion object {
-//        // $FF: synthetic method
-//        fun `access$hasType`(`$this`: EntityClassASTVisitor, `$receiver`: org.greenrobot.eclipse.jdt.core.dom.Annotation, klass: KClass<*>): Boolean {
-//            return `$this`.hasType(`$receiver`, klass)
-//        }
-//    }
 }

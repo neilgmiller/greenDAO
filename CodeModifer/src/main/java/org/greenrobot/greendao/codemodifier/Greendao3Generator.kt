@@ -4,12 +4,13 @@ import org.greenrobot.greendao.codemodifier.FunsKt.getJavaClassNames
 import org.greenrobot.greendao.codemodifier.Templates.Entity
 import org.greenrobot.greendao.generator.*
 import java.io.File
+import java.util.function.BiFunction
 import kotlin.jvm.internal.Intrinsics
 
-//@Metadata(mv = [1, 1, 5], bv = [1, 0, 1], k = 1, d1 = ["\u0000\\\n\u0002\u0018\u0002\n\u0002\u0010\u0000\n\u0000\n\u0002\u0018\u0002\n\u0000\n\u0002\u0010 \n\u0002\u0010\u000e\n\u0002\b\u0003\n\u0002\u0018\u0002\n\u0002\b\u0005\n\u0002\u0010\u0002\n\u0000\n\u0002\u0018\u0002\n\u0002\b\u0002\n\u0002\u0018\u0002\n\u0002\b\u0005\n\u0002\u0018\u0002\n\u0002\b\u0002\n\u0002\u0018\u0002\n\u0002\b\u0003\n\u0002\u0010\u001c\n\u0002\u0018\u0002\n\u0000\n\u0002\u0010$\n\u0002\b\u0003\u0018\u00002\u00020\u0001B+\u0012\n\b\u0002\u0010\u0002\u001a\u0004\u0018\u00010\u0003\u0012\u000e\b\u0002\u0010\u0004\u001a\b\u0012\u0004\u0012\u00020\u00060\u0005\u0012\b\b\u0002\u0010\u0007\u001a\u00020\u0006¢\u0006\u0002\u0010\bJ\u0010\u0010\u000f\u001a\u00020\u00102\u0006\u0010\u0011\u001a\u00020\u0012H\u0002J\u0010\u0010\u0013\u001a\u00020\u00102\u0006\u0010\u0014\u001a\u00020\u0015H\u0002J\u0018\u0010\u0016\u001a\u00020\u00102\u0006\u0010\u0011\u001a\u00020\u00122\u0006\u0010\u0014\u001a\u00020\u0015H\u0002J\u0018\u0010\u0017\u001a\u00020\u00102\u0006\u0010\u0011\u001a\u00020\u00122\u0006\u0010\u0014\u001a\u00020\u0015H\u0002J\u001c\u0010\u0018\u001a\u00020\u00102\f\u0010\u0019\u001a\b\u0012\u0004\u0012\u00020\u00120\u00052\u0006\u0010\u001a\u001a\u00020\u001bJ\u0018\u0010\u001c\u001a\u00020\u00102\u0006\u0010\u001d\u001a\u00020\u001e2\u0006\u0010\u0014\u001a\u00020\u0015H\u0002J \u0010\u001f\u001a\u00020\u00102\u0006\u0010\u001d\u001a\u00020\u001e2\u0006\u0010\u0011\u001a\u00020\u00122\u0006\u0010\u0014\u001a\u00020\u0015H\u0002J(\u0010 \u001a\u00020\u00102\f\u0010!\u001a\b\u0012\u0004\u0012\u00020#0\"2\u0012\u0010$\u001a\u000e\u0012\u0004\u0012\u00020\u0006\u0012\u0004\u0012\u00020\u001b0%J$\u0010&\u001a\u00020\u00102\u0006\u0010\u0011\u001a\u00020\u00122\u0012\u0010'\u001a\u000e\u0012\u0004\u0012\u00020\u0012\u0012\u0004\u0012\u00020\u001e0%H\u0002R\u0011\u0010\t\u001a\u00020\n¢\u0006\b\n\u0000\u001a\u0004\b\u000b\u0010\fR\u0017\u0010\u0004\u001a\b\u0012\u0004\u0012\u00020\u00060\u0005¢\u0006\b\n\u0000\u001a\u0004\b\r\u0010\u000e¨\u0006("], d2 = ["Lorg/greenrobot/greendao/codemodifier/Greendao3Generator;", "", "formattingOptions", "Lorg/greenrobot/greendao/codemodifier/FormattingOptions;", "skipTestGeneration", "", "", "encoding", "(Lorg/greenrobot/greendao/codemodifier/FormattingOptions;Ljava/util/List;Ljava/lang/String;)V", "context", "Lorg/greenrobot/greendao/codemodifier/JdtCodeContext;", "getContext", "()Lorg/greenrobot/greendao/codemodifier/JdtCodeContext;", "getSkipTestGeneration", "()Ljava/util/List;", "checkClass", "", "parsedEntity", "Lorg/greenrobot/greendao/codemodifier/ParsedEntity;", "generateActiveMethodsAndFields", "transformer", "Lorg/greenrobot/greendao/codemodifier/EntityClassTransformer;", "generateConstructors", "generateGettersAndSetters", "generateSchema", "entities", "options", "Lorg/greenrobot/greendao/codemodifier/SchemaOptions;", "generateToManyRelations", "entity", "Lorg/greenrobot/greendao/generator/Entity;", "generateToOneRelations", "run", "sourceFiles", "", "Ljava/io/File;", "schemaOptions", "", "transformClass", "mapping", "greendao-code-modifier_main"])
 class Greendao3Generator(val formattingOptions: FormattingOptions?, private val skipTestGeneration: List<String>, encoding: String) {
     private val context: JdtCodeContext = JdtCodeContext(formattingOptions, encoding)
 
+    // TODO: Is never ran
     fun run(sourceFiles: Iterable<File>, schemaOptions: Map<String, SchemaOptions>) {
         if (schemaOptions.isEmpty()) {
             throw IllegalArgumentException("There should be options for at least one schema")
@@ -21,15 +22,15 @@ class Greendao3Generator(val formattingOptions: FormattingOptions?, private val 
             }
 
             val iterable2: Iterable<File> = destinationFileList.distinct()
-            val destinationPairList = mutableListOf<Pair<File, List<ParsedEntity>>>()
+            val destinationPairList = mutableListOf<Pair<File, List<String>>>()
             iterator = iterable2.iterator()
             while (iterator.hasNext()) {
                 val file: File = iterator.next()
-                val fileAndNamePair: Pair<File, List<ParsedEntity>> = file to getJavaClassNames(file)
+                val fileAndNamePair: Pair<File, List<String>> = file to getJavaClassNames(file)
                 destinationPairList.add(fileAndNamePair)
             }
 
-            val classesByDir: Map<File, List<ParsedEntity>> = destinationPairList.toMap()
+            val classesByDir: Map<File, List<String>> = destinationPairList.toMap()
             val start = System.currentTimeMillis()
             val parsedEntities: List<ParsedEntity> = sourceFiles.asSequence()
                     .map { file: File ->
@@ -369,34 +370,11 @@ class Greendao3Generator(val formattingOptions: FormattingOptions?, private val 
         }
     }
 
-    // TODO:
+    // TODO: The code is all just null, is that missing decompiled code?
     private fun generateActiveMethodsAndFields(transformer: EntityClassTransformer) {
         val paramTypes = emptyArray<String>()
-        var code = function
-        transformer.defMethod("update", paramTypes, code)
-
-        code = function
-        transformer.defMethod("refresh", paramTypes, code)
-
-        code = function
-        transformer.defMethod("delete", paramTypes, code)
+        transformer.defMethod("update", paramTypes) { null }
+        transformer.defMethod("refresh", paramTypes) { null }
+        transformer.defMethod("delete", paramTypes) { null }
     }
-
-//    // $FF: synthetic method
-//    @JvmOverloads
-//    constructor(var1: FormattingOptions? = null as FormattingOptions?, var2: List<*>? = null as List<*>?, var3: String? = null as String?, var4: Int = 7, var5: DefaultConstructorMarker? = null as DefaultConstructorMarker?) {
-//        var var1 = var1
-//        var var2 = var2
-//        var var3 = var3
-//        if (var4 and 1 != 0) {
-//            var1 = null as FormattingOptions?
-//        }
-//        if (var4 and 2 != 0) {
-//            var2 = emptyList<Any>()
-//        }
-//        if (var4 and 4 != 0) {
-//            var3 = "UTF-8"
-//        }
-//        this(var1, var2, var3)
-//    }
 }
