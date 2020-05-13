@@ -114,55 +114,45 @@ class Formatting(val tabulation: Tabulation, val lineWidth: Int) {
                 }
             }
 
-            val tabs = somethingAboutTabs
-            val spaces = somethingAboutSpaces
-
-            var counter0 = 0
-            val spacesIterator = spaces.iterator()
+            var spaceCount = 0
+            val spacesIterator = somethingAboutSpaces.iterator()
             while (spacesIterator.hasNext()) {
-                val element1 = spacesIterator.next()
-                val it = (element1 as Number).intValue()
-                if (it > 0) {
-                    ++counter0
+                if (spacesIterator.next() > 0) {
+                    ++spaceCount
                 }
             }
 
-            var counter1 = 0
-            val tabIterator = tabs.iterator()
+            var tabCount = 0
+            val tabIterator = somethingAboutTabs.iterator()
             while (tabIterator.hasNext()) {
-                val element1 = tabIterator.next()
-                val it = (element1 as Number).intValue()
-                if (it > 0) {
-                    ++counter1
+                if (tabIterator.next() > 0) {
+                    ++tabCount
                 }
             }
 
             var tabulation: Tabulation? = options?.tabulation
             if (tabulation == null) {
                 val tabSize: Int
-                if (counter1 > counter0) {
-                    tabSize = detectTabLength(spaces, 4, 2)
+                if (tabCount > spaceCount) {
+                    tabSize = detectTabLength(somethingAboutSpaces, 4, 2)
                     tabulation = Tabulation(' ', tabSize)
                 } else {
-                    tabSize = detectTabLength(tabs, 1, 1)
+                    tabSize = detectTabLength(somethingAboutTabs, 1, 1)
                     tabulation = Tabulation('\t', tabSize)
                 }
-                tabulation = tabulation as Tabulation
             }
             return Formatting(tabulation, maxLineLength)
         }
 
-        private fun detectTabLength(tabLengths: List<*>, defaultLength: Int, min: Int): Int {
-            val var10000 = mostPopular(tabLengths
-                    .mapIndexed({ index: Int, tab: Int ->
-                        if (index == 0) tab else tab - (tabLengths[index - 1] as Number).intValue()
+        private fun detectTabLength(tabLengths: List<Int>, defaultLength: Int, min: Int): Int {
+            val tabLength = mostPopular(tabLengths.asSequence()
+                    .mapIndexed { index: Int, tab: Int ->
+                        if (index == 0) tab
+                        else tab - (tabLengths[index - 1])
                     }
-                            as Function2<*, *, *>)
-                    .filter { it: Int -> it >= min })
+                    .filter { it >= min })
 
-
-            val var10000 = mostPopular(tabLengths as Iterable<*>?. asSequence < kotlin . Any ? > ().mapIndexed({ index: Int, tab: Int -> if (index == 0) tab else tab - (tabLengths[index - 1] as Number).intValue() } as Function2<*, *, *>).filter({ it: Int -> it >= min })) as Int?
-            return var10000 ?: defaultLength
+            return tabLength ?: defaultLength
         }
     }
 }

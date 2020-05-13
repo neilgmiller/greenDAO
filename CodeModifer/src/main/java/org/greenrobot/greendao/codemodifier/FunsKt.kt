@@ -42,12 +42,12 @@ object FunsKt {
         return if (!string.isBlank()) string else null
     }
 
-    fun mostPopular(sequence: Sequence<*>): Any? {
-        val countMap = mutableMapOf<Any, Int>()
+    fun mostPopular(sequence: Sequence<Int>): Int? {
+        val countMap = mutableMapOf<Int, Int>()
         val itemIterator = sequence.iterator()
         var countOfItem: Int?
         while (itemIterator.hasNext()) {
-            val sequenceItem = itemIterator.next()!!
+            val sequenceItem = itemIterator.next()
             countOfItem = countMap[sequenceItem]
             if (countOfItem == null) {
                 countOfItem = 0
@@ -56,7 +56,7 @@ object FunsKt {
         }
 
         val countMapIterator = countMap.asSequence().iterator()
-        val foundMapEntry : Map.Entry<Any, Int>?
+        val foundMapEntry : Map.Entry<Int, Int>?
         if (!countMapIterator.hasNext()) {
             foundMapEntry = null
         } else {
