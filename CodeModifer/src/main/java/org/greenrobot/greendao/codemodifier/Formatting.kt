@@ -43,31 +43,30 @@ class Formatting(val tabulation: Tabulation, val lineWidth: Int) {
 
 //            val lineWidth: Int = maxLineLength
 
-            val `$receiver` = this
-            val `$receiver$iv` = lines as Iterable<*>
-            var `destination$iv$iv` = ArrayList<Any?>(`$receiver$iv`.collectionSizeOrDefault<Any>(10)) as MutableCollection<*>
-            var var11 = `$receiver$iv`.iterator()
-            var `element$iv`: Any
-            var `$receiver$iv`: String
+            val receiver0 = lines as Iterable<*>
+            var destination0 = ArrayList<Any?>(receiver0.collectionSizeOrDefault<Any>(10)) as MutableCollection<*>
+            var var11 = receiver0.iterator()
+            var element1: Any
+            var receiver1: String
             var `index$iv`: Int
             var var20: Int
             var var39: String
             while (var11.hasNext()) {
                 label196@ run {
-                    `element$iv` = var11.next()!!
-                    val line = `element$iv` as String
-                    `$receiver$iv` = line
+                    element1 = var11.next()!!
+                    val line = element1 as String
+                    receiver1 = line
                     var `index$iv` = 0
                     `index$iv` = line.length - 1
                     if (`index$iv` <= `index$iv`) {
                         while (true) {
-                            val it = `$receiver$iv`[`index$iv`]
+                            val it = receiver1[`index$iv`]
                             if (it != ' ') {
                                 val var19: Byte = 0
-                                if (`$receiver$iv` == null) {
+                                if (receiver1 == null) {
                                     throw TypeCastException("null cannot be cast to non-null type java.lang.String")
                                 }
-                                var39 = `$receiver$iv`.substring(var19.toInt(), `index$iv`)
+                                var39 = receiver1.substring(var19.toInt(), `index$iv`)
                                 Intrinsics.checkExpressionValueIsNotNull(var39, "(this as java.lang.Strin…ing(startIndex, endIndex)")
                                 break@label196
                             }
@@ -77,32 +76,32 @@ class Formatting(val tabulation: Tabulation, val lineWidth: Int) {
                             ++`index$iv`
                         }
                     }
-                    var39 = `$receiver$iv`
+                    var39 = receiver1
                 }
                 var20 = var39.length
-                `destination$iv$iv`.add(var20)
+                destination0.add(var20)
             }
-            `$receiver$iv` = `destination$iv$iv` as List<*>
-            `destination$iv$iv` = ArrayList<Any?>()
-            var11 = `$receiver$iv`.iterator()
+            receiver1 = destination0 as List<*>
+            destination0 = ArrayList<Any?>()
+            var11 = receiver1.iterator()
             var it: Int
             while (var11.hasNext()) {
-                `element$iv` = var11.next()
-                it = (`element$iv` as Number).intValue()
+                element1 = var11.next()
+                it = (element1 as Number).intValue()
                 if (it > 1) {
-                    `destination$iv$iv`.add(`element$iv`)
+                    destination0.add(element1)
                 }
             }
-            val spaces = `destination$iv$iv` as List<*>
-            var `$receiver$iv` = lines as Iterable<*>
-            var `destination$iv$iv` = ArrayList<Any?>(`$receiver$iv`.collectionSizeOrDefault<Any>(10)) as MutableCollection<*>
-            var var32 = `$receiver$iv`.iterator()
-            var `element$iv$iv`: Any
+            val spaces = destination0 as List<*>
+            var receiver2 = lines as Iterable<*>
+            var destination2 = ArrayList<Any?>(receiver2.collectionSizeOrDefault<Any>(10)) as MutableCollection<*>
+            var var32 = receiver2.iterator()
+            var element0: Any
             while (var32.hasNext()) {
                 label197@ run {
-                    `element$iv$iv` = var32.next()!!
-                    `$receiver$iv` = `element$iv$iv` as String
-                    val `$receiver$iv`: String? = `$receiver$iv`
+                    element0 = var32.next()!!
+                    receiver2 = element0 as String
+                    val `$receiver$iv`: String? = receiver2
                     `index$iv` = 0
                     val var40 = `$receiver$iv`!!.length - 1
                     if (`index$iv` <= var40) {
@@ -126,49 +125,49 @@ class Formatting(val tabulation: Tabulation, val lineWidth: Int) {
                     var39 = `$receiver$iv`
                 }
                 var20 = var39.length
-                `destination$iv$iv`.add(var20)
+                destination2.add(var20)
             }
-            `$receiver$iv` = `destination$iv$iv` as List<*>
-            `destination$iv$iv` = ArrayList<Any?>()
-            var32 = `$receiver$iv`.iterator()
+            receiver2 = destination2 as List<*>
+            destination2 = ArrayList<Any?>()
+            var32 = receiver2.iterator()
             while (var32.hasNext()) {
-                `element$iv$iv` = var32.next()!!
-                val it: Int = (`element$iv$iv` as Number).intValue()
+                element0 = var32.next()!!
+                val it: Int = (element0 as Number).intValue()
                 if (it > 0) {
-                    `destination$iv$iv`.add(`element$iv$iv`)
+                    destination2.add(element0)
                 }
             }
-            val tabs = `destination$iv$iv` as List<*>
-            `$receiver$iv` = spaces
-            var `count$iv` = 0
-            var11 = `$receiver$iv`.iterator()
+            val tabs = destination2 as List<*>
+            receiver2 = spaces
+            var counter0 = 0
+            var11 = receiver2.iterator()
             while (var11.hasNext()) {
-                `element$iv` = var11.next()!!
-                it = (`element$iv` as Number).intValue()
+                element1 = var11.next()!!
+                it = (element1 as Number).intValue()
                 if (it > 0) {
-                    ++`count$iv`
+                    ++counter0
                 }
             }
-            `$receiver$iv` = tabs
-            val var14 = `count$iv`
-            `count$iv` = 0
-            var11 = `$receiver$iv`.iterator()
+            receiver2 = tabs
+            val var14 = counter0
+            counter0 = 0
+            var11 = receiver2.iterator()
             while (var11.hasNext()) {
-                `element$iv` = var11.next()!!
-                it = (`element$iv` as Number).intValue()
+                element1 = var11.next()!!
+                it = (element1 as Number).intValue()
                 if (it > 0) {
-                    ++`count$iv`
+                    ++counter0
                 }
             }
 
             var tabulation: Tabulation? = options?.tabulation
             if (tabulation == null) {
                 val tabSize: Int
-                if (var14 > `count$iv`) {
-                    tabSize = `$receiver`.detectTabLength(spaces, 4, 2)
+                if (var14 > counter0) {
+                    tabSize = detectTabLength(spaces, 4, 2)
                     tabulation = Tabulation(' ', tabSize)
                 } else {
-                    tabSize = `$receiver`.detectTabLength(tabs, 1, 1)
+                    tabSize = detectTabLength(tabs, 1, 1)
                     tabulation = Tabulation('\t', tabSize)
                 }
                 tabulation = tabulation as Tabulation
