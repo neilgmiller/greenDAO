@@ -1,7 +1,6 @@
 package org.greenrobot.greendao.codemodifier
 
 import org.greenrobot.greendao.codemodifier.FunsKt.mostPopular
-import java.util.*
 import java.util.Collections.max
 import kotlin.jvm.internal.Intrinsics
 
@@ -41,12 +40,11 @@ class Formatting(val tabulation: Tabulation, val lineWidth: Int) {
             val maxLineLength: Int = options?.lineWidth
                     ?: Math.max(80, Math.round(max(lines).length.toFloat() / 10.0f) * 10)
 
-            var destination0 = mutableListOf<Int>()
-//            var someInt: Int
-            var someString: String
-
+            val somethingAboutSpaces = mutableListOf<Int>()
             val lineIterator = lines.iterator()
             while (lineIterator.hasNext()) {
+                var someString: String
+
                 label196@ run {
                     val line = lineIterator.next() as String
                     var localEndIndex = line.length - 1
@@ -66,86 +64,83 @@ class Formatting(val tabulation: Tabulation, val lineWidth: Int) {
                     }
                     someString = line
                 }
-                destination0.add(someString.length)
+                somethingAboutSpaces.add(someString.length)
             }
 
 
-
-            val receiver1 = destination0 as List<*>
-            destination0 = ArrayList<Any?>()
-            val iterator1 = receiver1.iterator()
+            val spacesMoreThanOne = mutableListOf<Int>() // Maybe duplicated spaces in a row?
+            val somethingAboutSpacesIterator = somethingAboutSpaces.iterator()
             while (lineIterator.hasNext()) {
-                val element1 = iterator1.next()
-                val it = (element1 as Number).intValue()
-                if (it > 1) {
-                    destination0.add(element1)
+                val spacesElement = somethingAboutSpacesIterator.next()
+                if (spacesElement > 1) {
+                    spacesMoreThanOne.add(spacesElement)
                 }
             }
 
-            var destination2 = mutableListOf<Int>()
+            val somethingAboutTabs = mutableListOf<Int>()
             val linesIterable2 = lines.iterator()
-            var line: String
             while (linesIterable2.hasNext()) {
+                var someString: String
+
                 label197@ run {
-                    line = linesIterable2.next()
-                    var globalEndIndex = 0
+                    val line = linesIterable2.next()
+                    var startIndex = 0
                     val lineEndIndex = line.length - 1
-                    if (globalEndIndex <= lineEndIndex) {
+                    if (startIndex <= lineEndIndex) {
                         while (true) {
-                            val it = line[globalEndIndex]
+                            val it = line[startIndex]
                             if (it != '\t') {
-                                someString = line.substring(0, globalEndIndex)
+                                someString = line.substring(0, startIndex)
                                 Intrinsics.checkExpressionValueIsNotNull(someString, "(this as java.lang.Strin…ing(startIndex, endIndex)")
                                 break@label197
                             }
-                            if (globalEndIndex == lineEndIndex) {
+                            if (startIndex == lineEndIndex) {
                                 break
                             }
-                            ++globalEndIndex
+                            ++startIndex
                         }
                     }
                     someString = line
                 }
-                destination2.add(someString.length)
+                somethingAboutTabs.add(someString.length)
             }
 
-            destination2 = mutableListOf()
-            val iterator5 = destination2.iterator() as Iterator<Int>
-            while (iterator5.hasNext()) {
-                val integer: Int = iterator5.next()
+            val tabsMoreThanZero = mutableListOf<Int>()
+            val somethingAboutTabsIterator = somethingAboutTabs.iterator()
+            while (somethingAboutTabsIterator.hasNext()) {
+                val integer: Int = somethingAboutTabsIterator.next()
                 if (integer > 0) {
-                    destination2.add(integer)
+                    tabsMoreThanZero.add(integer)
                 }
             }
 
-            val tabs = destination2 as List<*>
-            val spaces = destination0 as List<*>
+            val tabs = somethingAboutTabs
+            val spaces = somethingAboutSpaces
 
             var counter0 = 0
-            val iterator2 = spaces.iterator()
-            while (iterator2.hasNext()) {
-                val element1 = iterator2.next()!!
+            val spacesIterator = spaces.iterator()
+            while (spacesIterator.hasNext()) {
+                val element1 = spacesIterator.next()
                 val it = (element1 as Number).intValue()
                 if (it > 0) {
                     ++counter0
                 }
             }
 
-            val var14 = counter0
-            counter0 = 0
-            val iterator3 = tabs.iterator()
-            while (iterator3.hasNext()) {
-                val element1 = iterator3.next()!!
+            var counter1 = 0
+            val tabIterator = tabs.iterator()
+            while (tabIterator.hasNext()) {
+                val element1 = tabIterator.next()
                 val it = (element1 as Number).intValue()
                 if (it > 0) {
-                    ++counter0
+                    ++counter1
                 }
             }
 
             var tabulation: Tabulation? = options?.tabulation
             if (tabulation == null) {
                 val tabSize: Int
-                if (var14 > counter0) {
+                if (counter1 > counter0) {
                     tabSize = detectTabLength(spaces, 4, 2)
                     tabulation = Tabulation(' ', tabSize)
                 } else {
